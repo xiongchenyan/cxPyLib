@@ -145,7 +145,7 @@ def AdhocEvaUnitTest(ConfIn = ""):
         line = line.strip()
         vCol = line.split()
         ThisQid = vCol[0]
-        DocNo = vCol[1]
+        DocNo = vCol[2]
         if CurrentQid == "":
             CurrentQid = ThisQid
         if CurrentQid != ThisQid:
