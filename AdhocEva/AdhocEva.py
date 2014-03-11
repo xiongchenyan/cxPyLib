@@ -10,7 +10,7 @@ site.addsitedir('/bos/usr0/cx/local/lib/python2.7/site-packages')
 site.addsitedir('/bos/usr0/cx/cxPylib')
 from cxBase.base import *
 from operator import itemgetter
-import math
+import math,json
 class AdhocEvaC:
     
     def Init(self):
@@ -110,9 +110,11 @@ class AdhocEvaC:
     def EvaluatePerQ(self,Qid,lDocNo):
         lMeasure = []
         print "start eva query [%s], doc num [%d]" %(Qid,len(lDocNo)) 
+        print json.dumps(lDocNo)
         lMeasure.append(["map",self.MAP(Qid, lDocNo)])
         lMeasure.append(['ndcg',self.NDCG(Qid,lDocNo)])
         lMeasure.append(['err',self.ERR(Qid,lDocNo)])
+        print "evares:\n%s" %(json.dumps(lMeasure))
         return lMeasure
 
 
