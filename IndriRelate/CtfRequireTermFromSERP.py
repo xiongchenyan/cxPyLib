@@ -45,6 +45,7 @@ for line in open(InName):
     lDoc = ReadPackedIndriRes(CashDir + "/" + query)
     hTerm = GetTermFromSERP(lDoc)
     hAllTerm = dict(hAllTerm.items() + hTerm.items())
+    print "after query [%s] term number [%d]" %(query,len(hAllTerm))
     
 for item in hAllTerm:
     print >>out,item
