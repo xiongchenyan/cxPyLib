@@ -25,7 +25,9 @@ class AdhocQRelC:
             if 0 == value:
                 continue
             self.hQRel[qid + "\t"+ DocId] = value
-            self.hQToDoc[qid] = [DocId,value]
+            if not qid in self.hQToDoc:
+                self.hQToDoc[qid] = []
+            self.hQToDoc[qid].append([DocId,value])
         return True
     
     def GetScore(self,qid,docid):
@@ -35,6 +37,6 @@ class AdhocQRelC:
         return self.hQRel[key]
     
     def GetAllRelDoc(self,qid):
-        if not qid in self.hQRel:
+        if not qid in self.hQToDoc:
             return []
         return self.hQToDoc[qid]
