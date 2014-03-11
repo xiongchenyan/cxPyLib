@@ -89,7 +89,7 @@ class AdhocEvaC:
     
     
     
-    def PofRel(self,g,gmax):
+    def PofRel(self,g):
         return (math.pow(2.0,g) - 1)/math.pow(2.0,self.AdhocQRel.MaxScore)
     
     def ERR(self,qid,lDocNo):      
