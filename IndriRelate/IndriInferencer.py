@@ -98,17 +98,17 @@ def MakeLmForDocs(lDoc):
 class LmInferencerC: 
     
     def Init(self):
-        self.DirSudoCnt = 2500
+#         self.DirSudoCnt = 2500
         self.DirPrior = 0.01
-        self.JmStrength = 0.4
+#         self.JmStrength = 0.4
         self.JmPrior = 0.001    
         self.SmoothType = "dir"
         self.SetSmoothType('dir')
         return True
     
-    def __init__(self):
+    def __init__(self,SmoothType = 'dir'):
         self.Init()    
-        self.SetSmoothType("dir")    
+        self.SetSmoothType(SmoothType)    
 
     
     #will modify parameters based on targe smooth type:
@@ -116,6 +116,8 @@ class LmInferencerC:
         #Jm: DirSudoCnt = 0
     def SetSmoothType(self,TargetSmooth):
         self.SmoothType = TargetSmooth
+        self.JmStrength = 0.4
+        self.DirSudoCnt = 2500
         if "twostage" == TargetSmooth:
             return True
         if "dir" == TargetSmooth:
