@@ -11,6 +11,7 @@ class AdhocQRelC:
     def Init(self):
         self.hQRel = {}
         self.hQToDoc={} #query to documents
+        self.MaxScore = 0
         return
     def __init__(self):
         self.Init()
@@ -25,6 +26,7 @@ class AdhocQRelC:
             if 0 == value:
                 continue
             self.hQRel[qid + "\t"+ DocId] = value
+            self.MaxScore = max(self.MaxScore,value)
             if not qid in self.hQToDoc:
                 self.hQToDoc[qid] = []
             self.hQToDoc[qid].append([DocId,value])

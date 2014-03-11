@@ -90,20 +90,15 @@ class AdhocEvaC:
     
     
     def PofRel(self,g,gmax):
-        return (math.pow(2.0,g) - 1)/math.pow(2.0,gmax)
+        return (math.pow(2.0,g) - 1)/math.pow(2.0,self.AdhocQRel.MaxScore)
     
-    def ERR(self,qid,lDocNo):
-        lRelDoc = self.AdhocQRel.GetAllRelDoc(qid)
-        gmax = 0
-        for rel in lRelDoc:
-            gmax = max(rel[1],gmax)
-        
+    def ERR(self,qid,lDocNo):      
         err = 0
         p = 1
         for i in range(min(len(lDocNo),self.Depth)):
             r = i + 1
             g = self.AdhocQRel.GetScore(qid, lDocNo[i]) 
-            R = self.PofRel(g,gmax)
+            R = self.PofRel(g)
             err += p * R / r
             p = p * (1 - R)
         return err
