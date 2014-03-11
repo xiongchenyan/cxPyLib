@@ -110,7 +110,7 @@ class AdhocEvaC:
     def EvaluatePerQ(self,Qid,lDocNo):
         lMeasure = []
         lMeasure.append(["map",self.MAP(Qid, lDocNo)])
-        lMeasure.append(['ndcg',self.NDCG(Qid.lDocNo)])
+        lMeasure.append(['ndcg',self.NDCG(Qid,lDocNo)])
         lMeasure.append(['err',self.ERR(Qid,lDocNo)])
         return lMeasure
 
