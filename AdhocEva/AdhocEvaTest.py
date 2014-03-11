@@ -16,7 +16,7 @@ from cxBase.base import cxConf
 
 
 if 2 != len(sys.argv):
-    print "1 para conf:\nin\nqrel\evadepth\nout"
+    print "1 para conf:\nin\nqrel\nevadepth\nout"
     sys.exit()
     
 AdhocEvaUnitTest(sys.argv[1])

@@ -157,7 +157,7 @@ def AdhocEvaUnitTest(ConfIn):
             print >> out, OutStr
             CurrentQid = ThisQid
             lDocNo = []
-        lDocNo.apend(DocNo)
+        lDocNo.append(DocNo)
     lMeasure = AdhocEva.EvaluatePerQ(CurrentQid, lDocNo)
     OutStr = CurrentQid
     for measure in lMeasure:
