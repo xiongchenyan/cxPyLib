@@ -34,8 +34,8 @@ class LmBaseC:
     def SetFromPackedDoc(self,PackedDoc):
         for pos in PackedDoc.lPosition:
             term = PackedDoc.lTerm[pos]
-            if term != "[OOV]":
-                self.Insert(term)
+#             if term != "[OOV]":
+            self.Insert(term)
         return True
     
     def Insert(self,term,tf = 1):
