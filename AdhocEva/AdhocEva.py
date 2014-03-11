@@ -109,6 +109,7 @@ class AdhocEvaC:
     
     def EvaluatePerQ(self,Qid,lDocNo):
         lMeasure = []
+        print "start eva query [%s], doc num [%d]" %(Qid,len(lDocNo)) 
         lMeasure.append(["map",self.MAP(Qid, lDocNo)])
         lMeasure.append(['ndcg',self.NDCG(Qid,lDocNo)])
         lMeasure.append(['err',self.ERR(Qid,lDocNo)])
@@ -117,12 +118,13 @@ class AdhocEvaC:
 
 
 
-def AdhocEvaUnitTest(ConfIn):
+def AdhocEvaUnitTest(ConfIn = ""):
     #UnitTest add hoc eva
     #input: trec type input + qrel
     #output: evaluation result
-    
-    print "conf:\nin\nqrel\evadepth\nout\n"
+    if "" == ConfIn:
+        print "conf:\nin\nqrel\nevadepth\nout\n"
+        return False
     conf = cxConf(ConfIn)
     InName = conf.GetConf('in')
     OutName = conf.GetConf('out')
