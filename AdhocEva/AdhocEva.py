@@ -61,13 +61,13 @@ class AdhocEvaC:
         #calc the best possible NDCG from qrel
         lRelDoc = self.AdhocQRel.GetAllRelDoc(qid)
         if [] == lRelDoc:
-            print "no rel doc for [%s] best dcg 0" %(qid)
+#             print "no rel doc for [%s] best dcg 0" %(qid)
             return 0
         lRelDoc.sort(key=itemgetter(1),reverse=True)
         res = 0
         for i in range(min(len(lRelDoc),self.Depth)):
             res += (math.pow(2.0,lRelDoc[i][1]) - 1) / math.log(1 + i + 1)
-        print "[%s] best dcg: [%f]" %(qid,res)
+#         print "[%s] best dcg: [%f]" %(qid,res)
         return res
     
     def DCG(self,qid,lDocNo):
@@ -78,7 +78,7 @@ class AdhocEvaC:
             if value == 0:
                 continue
             res += (math.pow(2.0,value) - 1) / math.log(1 + i + 1)
-        print "[%s] DCG [%f]" %(qid, res)
+#         print "[%s] DCG [%f]" %(qid, res)
         return res
     
     def NDCG(self,qid,lDocNo):
@@ -112,7 +112,7 @@ class AdhocEvaC:
         lMeasure.append(["map",self.MAP(Qid, lDocNo)])
         lMeasure.append(['ndcg',self.NDCG(Qid,lDocNo)])
         lMeasure.append(['err',self.ERR(Qid,lDocNo)])
-        print "evares:\n%s" %(json.dumps(lMeasure))
+#         print "evares:\n%s" %(json.dumps(lMeasure))
         return lMeasure
 
 
