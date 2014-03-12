@@ -163,3 +163,10 @@ def ReadPackedIndriRes(InName,MaxRes=50):
             cnt  = -1
         cnt += 1
     return lPackedIndriRes
+
+
+def SegDocNoFromDocs(lDoc):
+    lDocNo = []
+    for doc in lDoc:
+        lDocNo.append(doc.DocNo)
+    return lDocNo
