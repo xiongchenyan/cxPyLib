@@ -116,7 +116,7 @@ class AdhocEvaC:
         EvaRes.map = self.MAP(Qid, lDocNo)
         EvaRes.ndcg = self.NDCG(Qid,lDocNo)
         EvaRes.err = self.ERR(Qid,lDocNo)
-#         print "evares:\n%s" %(json.dumps(lMeasure))
+        print "evares:\n%s" %(EvaRes.dumps(True))
         return EvaRes
     
     def EvaluateMul(self,lQid,llDocNo):
