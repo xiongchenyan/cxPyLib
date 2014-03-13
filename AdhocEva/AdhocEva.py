@@ -142,17 +142,12 @@ def AdhocEvaUnitTest(ConfIn = ""):
         print "conf:\nin\nqrel\nevadepth\nout\n"
         return False
     
-    print 'the api of AdhocEvaC changed, this function is not updated yet'
-    return False
-    
     conf = cxConf(ConfIn)
     InName = conf.GetConf('in')
     OutName = conf.GetConf('out')
     AdhocEva = AdhocEvaC(ConfIn)
     
-    EMAP = 0
-    ENDCG = 0
-    EERR = 0
+    MeanRes = AdhocEvaC()
     cnt = 0
     
     CurrentQid = ""
@@ -167,37 +162,25 @@ def AdhocEvaUnitTest(ConfIn = ""):
         if CurrentQid == "":
             CurrentQid = ThisQid
         if CurrentQid != ThisQid:
-            lMeasure = AdhocEva.EvaluatePerQ(CurrentQid, lDocNo)
-            OutStr = CurrentQid
-            for measure in lMeasure:
-                OutStr += " %f" %(measure[1])
+            EvaRes = AdhocEva.EvaluatePerQ(CurrentQid, lDocNo)
+            OutStr = CurrentQid + " %s" %(EvaRes.dumps())
+                
             #this is bad
-            EMAP += lMeasure[0][1]
-            ENDCG += lMeasure[1][1]
-            EERR += lMeasure[2][1]
-            cnt += 1.0
+            MeanRes += EvaRes
+            cnt += 1
             print >> out, OutStr
             CurrentQid = ThisQid
             lDocNo = []
         lDocNo.append(DocNo)
-    lMeasure = AdhocEva.EvaluatePerQ(CurrentQid, lDocNo)
-    OutStr = CurrentQid
-    for measure in lMeasure:
-        OutStr += " %f" %(measure[1])
-    #this is bad
-    EMAP += lMeasure[0][1]
-    ENDCG += lMeasure[1][1]
-    EERR += lMeasure[2][1]
-    cnt += 1.0
-    print >> out, OutStr
+    EvaRes = AdhocEva.EvaluatePerQ(CurrentQid, lDocNo)
+    OutStr = CurrentQid + " %s" %(EvaRes.dumps())                
+    MeanRes = MeanRes + EvaRes
+    cnt += 1
+    print >> out, OutStr    
     
-    
-    EMAP /= cnt
-    ENDCG /= cnt
-    EERR /= cnt
-    print >> out,"mean %f %f %f\n" %(EMAP,ENDCG,EERR)
-    out.close()
-    
+    EvaRes = EvaRes / cnt
+    print >> out,"mean %s" %(EvaRes.dumps())
+    out.close()    
     return True
     
     
