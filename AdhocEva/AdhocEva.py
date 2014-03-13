@@ -166,7 +166,7 @@ def AdhocEvaUnitTest(ConfIn = ""):
             OutStr = CurrentQid + " %s" %(EvaRes.dumps())
                 
             #this is bad
-            MeanRes += EvaRes
+            MeanRes = MeanRes + EvaRes
             cnt += 1
             print >> out, OutStr
             CurrentQid = ThisQid
