@@ -147,7 +147,7 @@ def AdhocEvaUnitTest(ConfIn = ""):
     OutName = conf.GetConf('out')
     AdhocEva = AdhocEvaC(ConfIn)
     
-    MeanRes = AdhocEvaC()
+    MeanRes = AdhocMeasureC()
     cnt = 0
     
     CurrentQid = ""
