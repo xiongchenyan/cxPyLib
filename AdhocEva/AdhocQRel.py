@@ -23,7 +23,7 @@ class AdhocQRelC:
             qid = vCol[0]
             DocId = vCol[2]
             value = int(vCol[3])
-            if 0 == value:
+            if 0 >= value:
                 continue
             self.hQRel[qid + "\t"+ DocId] = value
             self.MaxScore = max(self.MaxScore,value)
