@@ -178,8 +178,8 @@ def AdhocEvaUnitTest(ConfIn = ""):
     cnt += 1
     print >> out, OutStr    
     
-    EvaRes = EvaRes / cnt
-    print >> out,"mean %s" %(EvaRes.dumps())
+    MeanRes = MeanRes / cnt
+    print >> out,"mean %s" %(MeanRes.dumps())
     out.close()    
     return True
     
