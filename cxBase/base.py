@@ -190,3 +190,61 @@ def DiscardStopWord(text):
             continue
         vRes.append(term)
     return ' '.join(vRes)
+
+
+def UW(vCol,hTerm,WindowSize, AllowOverlap=False):
+    #count the un-ordered count of terms in lTerm appear in text
+    if type(hTerm) == list:
+        hTerm = dict(zip(hTerm,0))
+    if AllowOverlap:
+        return UWOverlap(vCol,hTerm,WindowSize)
+    else:
+        return UWNonOverlap(vCol,hTerm,WindowSize)
+    
+def UWOverlap(vCol,hTerm,WindowSize):
+    #used terms marked as ""
+    #O(n) is OK..    
+    cnt = 0    
+    for st in range(len(vCol)):
+        hMid = dict(hTerm)
+        for p in range(st,min(st+WindowSize,len(vCol))):
+            if vCol[p] in hMid:
+                del hMid[vCol[p]]
+                vCol[p] = ""                             
+        if len(hMid) == 0:
+            cnt += 1                        
+    return cnt
+
+
+def UWNonOverlap(vCol,hTerm,WindowSize):
+    cnt = 0
+    st = 0
+    while st < len(vCol):
+        hMid = dict(hTerm)
+        for i in range(st,min(st+WindowSize,len(vCol))):
+            if vCol[i] in hMid:
+                del hMid[vCol[i]]
+                if len(hMid) == 0:
+                    cnt += 1
+                    st = i
+                    break
+        st += 1      
+    return cnt
+    
+
+def MinDist(vCol,TermA,TermB):
+    #find the min distance between TermA and TermB in vCol
+    lA = [i for i,j in enumerate(vCol) if j == TermA]
+    lB = [i for i,j in enumerate(vCol) if j == TermB]
+    if ([] == lA) | ([] == lB):
+        return -1
+    MinDist = len(vCol)
+    for a in lA:
+        for b in lB:
+            MinDist = min(abs(b-a),MinDist)
+    return MinDist 
+
+def ProtectedLog(value):
+    if value <= 0:
+        value = math.exp(-10.0)
+    return math.log(value)

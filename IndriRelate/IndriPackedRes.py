@@ -116,7 +116,8 @@ class PackedIndriResC:
             return ""
         return " ".join(lTerm[1:len(lTerm) - 1])
         
-    
+    def GetLen(self):
+        return len(self.lPosition)
     
 import json    
 #read packed indri res from InName.

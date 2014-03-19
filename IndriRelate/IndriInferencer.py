@@ -136,6 +136,10 @@ class LmInferencerC:
         tf = Lm.GetTF(term)
         DocLen = Lm.len
         CorpusP = CtfCenter.GetCtfProb(term)
+        
+        #set constrant CTF for OOV words
+        if (0 == tf) & (0 == CorpusP):
+            CorpusP = 0.5 #indri default
 #         print "term [%s] tf [%f] Ctf [%f]"%(term,float(tf)/DocLen,CorpusP)
         res = (tf +self.DirSudoCnt * CorpusP) / (DocLen + self.DirSudoCnt) * (1 - self.JmStrength)
         res += self.JmStrength * CorpusP
