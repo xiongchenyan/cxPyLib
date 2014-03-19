@@ -195,7 +195,7 @@ def DiscardStopWord(text):
 def UW(vCol,hTerm,WindowSize, AllowOverlap=False):
     #count the un-ordered count of terms in lTerm appear in text
     if type(hTerm) == list:
-        hTerm = dict(zip(hTerm,0))
+        hTerm = dict(zip(hTerm,[0]*len(hTerm)))
     if AllowOverlap:
         return UWOverlap(vCol,hTerm,WindowSize)
     else:
