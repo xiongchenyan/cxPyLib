@@ -232,7 +232,7 @@ def UWNonOverlap(vCol,hTerm,WindowSize):
     return cnt
     
 
-def MinDist(vCol,TermA,TermB):
+def MinDistance(vCol,TermA,TermB):
     #find the min distance between TermA and TermB in vCol
     lA = [i for i,j in enumerate(vCol) if j == TermA]
     lB = [i for i,j in enumerate(vCol) if j == TermB]
