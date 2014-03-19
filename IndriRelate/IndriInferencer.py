@@ -73,6 +73,9 @@ class LmBaseC:
         return
     
     
+    def GetLen(self):
+        return self.len
+    
     def GetTF(self,term):
         if not term in self.hTermTF:
             return 0
