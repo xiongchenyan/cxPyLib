@@ -3,6 +3,7 @@
 	<name>cxPyLib</name>
 	<comment></comment>
 	<projects>
+		<project>Geektools</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -244,7 +244,7 @@ def MinDistance(vCol,TermA,TermB):
             MinDist = min(abs(b-a),MinDist)
     return MinDist 
 
-def ProtectedLog(value):
+def ProtectedLog(value,MinValue=-10.0):
     if value <= 0:
-        value = math.exp(-10.0)
+        value = math.exp(MinValue)
     return math.log(value)
