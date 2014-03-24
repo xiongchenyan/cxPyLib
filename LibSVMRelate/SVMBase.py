@@ -9,6 +9,7 @@ import site
 site.addsitedir('/bos/usr0/cx/PyCode/GeekTools')
 from CrossValidation.ParameterSet import *
 
+
 '''
 SVM Training
     options:
@@ -88,4 +89,15 @@ class LibSVMParaC:
         if 'gamma' in ParaSet.hPara:
             self.Gamma = int(ParaSet.hPara['gamma'])
         return True
+             
+             
+def ReadSVMParaSet(ParaSetIn):
+    lParaSet = ReadParaSet(ParaSetIn)
+    lSVMPara = []
+    for ParaSet in lParaSet:
+        SVMPara = LibSVMParaC()
+        SVMPara.SetParameter(ParaSet)
+        lSVMPara.append(SVMPara)
+    return lSVMPara
+             
              
