@@ -54,3 +54,60 @@ class AdhocMeasureC:
             
             
         
+        
+
+def AdhocMeasureMatrixSum(llMeasure,Dim = 1):
+    if Dim == 1:
+        lMeasure = AdhocMeasureMatrixSumOne(llMeasure)
+    if Dim == 2:
+        lMeasure = AdhocMeasureMatrixSumTwo(llMeasure)    
+    return lMeasure
+
+
+def AdhocMeasureMatrixMean(llMeasure,Dim = 1):
+    lSum = AdhocMeasureMatrixSum(llMeasure)
+    if Dim == 1:
+        Z = float(len(llMeasure))
+    if Dim == 2:
+        Z = float(len(llMeasure[0]))
+    for i in len(lSum):
+        lSum[i] /= Z        
+    return lSum
+        
+
+
+def AdhocMeasureMatrixSumOne(llMeasure):
+    if len(llMeasure) == 0:
+        return []
+    lRes = []
+    for lMeasure in llMeasure:
+        if [] == lRes:
+            lRes = list(lMeasure)
+        else:
+            for i in range(len(lRes)):
+                lRes[i] += lMeasure[i]
+    return lRes
+
+def AdhocMeasureMatrixSumTwo(llMeasure):
+    if len(llMeasure) == 0:
+        return []
+    
+    lRes = [AdhocMeasureC()] & len(llMeasure)
+    for i in range(len(llMeasure)):
+        for j in range(len(llMeasure[i])):
+            lRes[i] += llMeasure[i][j]
+    return lRes[i]
+            
+
+def GetBestPerform(lMeasure,MeasureName='map'):
+    if [] == lMeasure:
+        return -1
+    BestP = 0
+    for i in range(len(lMeasure)):
+        if getattr(lMeasure[i],MeasureName) > getattr(lMeasure[BestP],MeasureName):
+            BestP = i
+    return BestP
+
+    
+    
+         
