@@ -6,8 +6,8 @@ Created on Jun 17, 2013
 import re, math
 import sys
 from collections import Counter
-import site
-site.addsitedir('/bos/usr4/cx/local/lib/python2.7/site-packages')
+# import site
+# site.addsitedir('/bos/usr4/cx/local/lib/python2.7/site-packages')
 #from nltk import PorterStemmer
 
 
@@ -77,11 +77,14 @@ def DiscardNonAlpha(s):
             res += " "
     return res    
     
-class cxConf:
-
+class cxConf(object):
+    
+    def Init(self):
+        self.hConf = {}
+    
     
     def __init__(self,InName):
-        self.hConf = {}
+        self.Init()
         if (InName != ""):
             self.LoadConf(InName)
         return

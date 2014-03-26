@@ -35,9 +35,9 @@ class SVMRunSingleParaC(object):
         SVMModel = svm_train(lY,lX,SVMPara.dump())
         
         lTestY,lTestX = self.LoadData(TestInName)
-        p_label,p_acc,p_val = svm_predict(lTestY,lTestX)
+        p_label,p_acc,p_val = svm_predict(lTestY,lTestX,SVMModel,'-b 1')
         
-        out = open(OutName+"_eval",'w')
+        out = open(OutName,'w')
         json.dump(p_acc,out)       
-        self.DumpPrediction(OutName, TestInName, p_label, p_val)        
+        self.DumpPrediction(OutName + "_pre", TestInName, p_label, p_val)        
         return True
