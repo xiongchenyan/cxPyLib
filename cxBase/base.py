@@ -106,6 +106,19 @@ class cxConf(object):
         if (not name in self.hConf):
             return ""
         return self.hConf[name] 
+    
+    
+    def dump(self,OutName):
+        out = open(OutName,'w')
+        for item in self.hConf:
+            value = self.hConf[item]
+            if type(value) == list:
+                print >>out,item + " %s" %('#'.join([str(mid) for mid in value]))
+            else:
+                print >> out, item + " " + value
+        out.close()
+        return True
+    
 WORD = re.compile(r'\w+')
 
 #read label from labeled data file, make qid#mid pairs if postive
