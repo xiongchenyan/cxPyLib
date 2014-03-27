@@ -53,8 +53,8 @@ class LibSVMParaC:
         self.Epsilon = 0.1
         self.CashSize = 1000
         self.Termination = 0.001
-        self.Shrink = 1
-        self.ProbEst = 0
+        self.Shrink = 0
+        self.ProbEst = 1
         self.Weight = [1,1]
         self.CV=0
         self.Quiet = False
