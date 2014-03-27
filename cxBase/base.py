@@ -6,6 +6,7 @@ Created on Jun 17, 2013
 import re, math
 import sys
 from collections import Counter
+from copy import deepcopy
 # import site
 # site.addsitedir('/bos/usr4/cx/local/lib/python2.7/site-packages')
 #from nltk import PorterStemmer
@@ -107,6 +108,9 @@ class cxConf(object):
             return ""
         return self.hConf[name] 
     
+    def SetConf(self,name,value):
+        self.hConf[name] = value
+        return True
     
     def dump(self,OutName):
         out = open(OutName,'w')
@@ -118,6 +122,12 @@ class cxConf(object):
                 print >> out, item + " " + value
         out.close()
         return True
+    
+    
+    def __deepcopy__(self,memo):
+        conf = cxConf()
+        conf.hConf = deepcopy(self.hConf)
+        return conf
     
 WORD = re.compile(r'\w+')
 
