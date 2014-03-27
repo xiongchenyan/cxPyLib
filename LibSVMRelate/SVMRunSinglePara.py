@@ -38,6 +38,12 @@ class SVMRunSingleParaC(object):
         p_label,p_acc,p_val = svm_predict(lTestY,lTestX,SVMModel,'-b 1')
         
         out = open(OutName,'w')
-        json.dump(p_acc,out)       
+        json.dump(p_acc,out)
+        out.close()  
+        
+        #add a contengency matrix output?
+        print json.dumps(p_label[:10])
+        
+        
         self.DumpPrediction(OutName + "_pre", TestInName, p_label, p_val)        
         return True
