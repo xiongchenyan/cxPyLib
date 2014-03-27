@@ -48,7 +48,7 @@ class LibSVMParaC:
         self.Degree = 3
         self.Gamma = 1 
         self.Coef = 0
-        self.Cost = 1
+        self.Cost = 1.0
         self.Nu = 0.5
         self.Epsilon = 0.1
         self.CashSize = 1000
@@ -66,13 +66,13 @@ class LibSVMParaC:
         
     def dump(self):
         #wi and -v n not implemented
-        res = "-s %d -t %d -d %d   " %(self.SVMType,self.KernelType,self.Degree)
-        res += '-g %d -r %f -c %f' %(self.Gamma,self.Coef,self.Cost)
-        res += '-n %f -p %f -m %d' %(self.Nu,self.Epsilon,self.CashSize)
-        res += '-e %f -h %d -b %d' %(self.Termination,self.Shrink,self.ProbEst)
+        res = "-s %d -t %d -d %d" %(self.SVMType,self.KernelType,self.Degree)
+        res += ' -g %d -r %f -c %f' %(self.Gamma,self.Coef,self.Cost)
+        res += ' -n %f -p %f -m %d' %(self.Nu,self.Epsilon,self.CashSize)
+        res += ' -e %f -h %d -b %d' %(self.Termination,self.Shrink,self.ProbEst)
         print "svm para setting [%s]" %(res)
         if self.Quiet:
-            res += "-q"
+            res += " -q"
         return res
     
     def SetParameter(self,ParaSet):
