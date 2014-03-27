@@ -11,7 +11,7 @@ from base import *
 def ContingencyTable(lPre,lTrue):
     lLabel = list(lPre)
     lLabel.extend(lTrue)
-    lLabel = Uniq(lLabel)
+    lLabel = list(set(lPre + lTrue))
     lLabel.sort()
     hLabel = dict(zip(lLabel,range(len(lLabel))))
     

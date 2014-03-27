@@ -60,6 +60,7 @@ def SubCont(phrase,text):
 def Uniq(text):
     vCol = text.lower().split()
     return " ".join(list(set(vCol)))
+
 def DiscardNonAlphaNonDigit(s):
     res = ""
     for c in s:
