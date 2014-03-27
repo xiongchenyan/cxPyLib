@@ -88,6 +88,8 @@ class LibSVMParaC:
             self.Degree = int(ParaSet.hPara['degree'])
         if 'gamma' in ParaSet.hPara:
             self.Gamma = int(ParaSet.hPara['gamma'])
+        if 'cost' in ParaSet.hPara:
+            self.Cost = float(ParaSet.hPara['cost'])
         return True
              
              
