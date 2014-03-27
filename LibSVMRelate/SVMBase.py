@@ -51,7 +51,7 @@ class LibSVMParaC:
         self.Cost = 1
         self.Nu = 0.5
         self.Epsilon = 0.1
-        self.CacheSize = 1000
+        self.CashSize = 1000
         self.Termination = 0.001
         self.Shrink = 1
         self.ProbEst = 0
