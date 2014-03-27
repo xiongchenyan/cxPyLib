@@ -14,6 +14,7 @@ site.addsitedir('/bos/usr0/cx/LibSVM/libsvm/python/')
 from LibSVMRelate.SVMBase import *
 from svmutil import *
 from cxBase.base import *
+from cxBase.ContingencyTable import *
 import json
 
 class SVMRunSingleParaC(object):
@@ -42,8 +43,7 @@ class SVMRunSingleParaC(object):
         out.close()  
         
         #add a contengency matrix output?
-        print json.dumps(p_label[:10])
-        
-        
+        lCTable = ContingencyTable(p_label,lTestY)
+        print json.dumps(lCTable)        
         self.DumpPrediction(OutName + "_pre", TestInName, p_label, p_val)        
         return True

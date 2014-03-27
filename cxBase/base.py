@@ -77,6 +77,14 @@ def DiscardNonAlpha(s):
         else:
             res += " "
     return res    
+ 
+def CreatTwoDimList(a,b,value = 0):
+    l = [value] * b
+    m = []
+    for i in range(a):
+        m.append(list(l))
+    return m 
+ 
     
 class cxConf(object):
     
