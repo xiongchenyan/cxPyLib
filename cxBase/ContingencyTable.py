@@ -17,7 +17,7 @@ def ContingencyTable(lPre,lTrue):
     
     lTable = CreatTwoDimList(len(hLabel),len(hLabel),0)
     
-    for i in len(lPre):
+    for i in range(len(lPre)):
         x = hLabel[lPre[i]]
         y = hLabel[lTrue[i]]
         lTable[x][y] += 1
