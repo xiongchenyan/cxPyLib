@@ -53,7 +53,7 @@ class LibSVMParaC:
         self.Epsilon = 0.1
         self.CacheSize = 1000
         self.Termination = 0.001
-        self.Shrink - 1
+        self.Shrink = 1
         self.ProbEst = 0
         self.Weight = [1,1]
         self.CV=0
