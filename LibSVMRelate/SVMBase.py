@@ -70,6 +70,7 @@ class LibSVMParaC:
         res += '-g %d -r %f -c %f' %(self.Gamma,self.Coef,self.Cost)
         res += '-n %f -p %f -m %d' %(self.Nu,self.Epsilon,self.CashSize)
         res += '-e %f -h %d -b %d' %(self.Termination,self.Shrink,self.ProbEst)
+        print "svm para setting [%s]" %(res)
         if self.Quiet:
             res += "-q"
         return res
