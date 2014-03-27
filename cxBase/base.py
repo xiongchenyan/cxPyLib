@@ -84,7 +84,7 @@ class cxConf(object):
         self.hConf = {}
     
     
-    def __init__(self,InName):
+    def __init__(self,InName = ""):
         self.Init()
         if (InName != ""):
             self.LoadConf(InName)
