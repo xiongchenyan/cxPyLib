@@ -63,7 +63,7 @@ def AdhocMeasureSum(lMeasure):
     return Measure
 
 def AdhocMeasureMean(lMeasure):
-    return AdhocMeasureSum / float(len(lMeasure))
+    return AdhocMeasureSum(lMeasure) / float(len(lMeasure))
         
         
 
