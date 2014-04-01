@@ -55,6 +55,15 @@ class AdhocMeasureC:
         return True
             
             
+
+def AdhocMeasureSum(lMeasure):
+    Measure = AdhocMeasureC()
+    for mid in lMeasure:
+        Measure += mid
+    return Measure
+
+def AdhocMeasureMean(lMeasure):
+    return AdhocMeasureSum / float(len(lMeasure))
         
         
 
