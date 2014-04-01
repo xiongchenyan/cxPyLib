@@ -13,8 +13,10 @@ class AdhocMeasureC:
         return
     
     
-    def __init__(self):
+    def __init__(self,line =""):
         self.Init()
+        if "" != line:
+            self.loads(line)
         
         
     def __deepcopy__(self,memo):

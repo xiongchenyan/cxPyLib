@@ -19,6 +19,22 @@ hStopWord= dict(zip(lStopWord,lStopWord))
 
 WORD = re.compile(r'\w+')
 
+
+class cxBaseC(object):
+    
+    def Init(self):
+        return
+    
+    def SetConf(self,ConfIn):
+        return True
+    
+    def __init__(self,ConfIn = ""):
+        self.Init()
+        if "" != ConfIn:
+            self.SetConf(ConfIn)
+        return
+
+
 def get_cosine(vec1, vec2):
     intersection = set(vec1.keys()) & set(vec2.keys())
     numerator = sum([vec1[x] * vec2[x] for x in intersection])
