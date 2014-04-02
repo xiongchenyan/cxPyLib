@@ -4,6 +4,7 @@ ad hoc ranking measure
 @author: cx
 '''
 from operator import itemgetter
+
 class AdhocMeasureC:
     
     def Init(self):
@@ -58,8 +59,16 @@ class AdhocMeasureC:
                 self.ndcg = float(vCol[1])
                 self.err = float(vCol[2])
         return True
-            
-            
+     
+    def GetMeasure(self,MeasureName):
+        return getattr(self,MeasureName,0)
+    
+    @staticmethod 
+    def NumOfMeasure():
+        return len(AdhocMeasureC().MeasureName())
+    @staticmethod
+    def MeasureName():        
+        return ['map','ndcg','err']
 
 def AdhocMeasureSum(lMeasure):
     Measure = AdhocMeasureC()
@@ -126,12 +135,12 @@ def GetBestPerform(lMeasure,MeasureName='map'):
 
 
 
-def ReadPerQEva(InName):
+def ReadPerQEva(InName,WithMean = False):
     lPerQEva = []
     for line in open(InName):
         line = line.strip()
         qid,MeaStr = line.split('\t')
-        if qid == 'mean':
+        if (not WithMean) &(qid == 'mean'):
             continue
         qid = int(qid)
         Measure = AdhocMeasureC(MeaStr)
