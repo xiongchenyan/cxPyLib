@@ -103,7 +103,7 @@ def CreatTwoDimList(a,b,value = 0):
     return m 
  
     
-class cxConf(cxBaseC):
+class cxConf(object):
     
     def Init(self):
         self.hConf = {}    
