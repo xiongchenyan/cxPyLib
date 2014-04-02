@@ -108,6 +108,11 @@ class cxConf(object):
     def Init(self):
         self.hConf = {}    
     
+    def __init__(self,ConfIn = ""):
+        self.Init()
+        if "" != ConfIn:
+            self.LoadConf(ConfIn)
+        return
     
     def LoadConf(self,InName):
         for line in open(InName):
