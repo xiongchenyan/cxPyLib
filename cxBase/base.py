@@ -103,17 +103,11 @@ def CreatTwoDimList(a,b,value = 0):
     return m 
  
     
-class cxConf(object):
+class cxConf(cxBaseC):
     
     def Init(self):
-        self.hConf = {}
+        self.hConf = {}    
     
-    
-    def __init__(self,InName = ""):
-        self.Init()
-        if (InName != ""):
-            self.LoadConf(InName)
-        return
     
     def LoadConf(self,InName):
         for line in open(InName):
@@ -127,10 +121,10 @@ class cxConf(object):
                 self.hConf[vCol[0].lower()] = lConfValue #support multiple value now
         return True
     
-    def GetConf(self,name):
+    def GetConf(self,name,DefaultValue = ""):
         name = name.lower()
         if (not name in self.hConf):
-            return ""
+            return DefaultValue
         return self.hConf[name] 
     
     def SetConf(self,name,value):
