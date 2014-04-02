@@ -46,12 +46,17 @@ class AdhocMeasureC:
         else:
             res = "%f %f %f" %(self.map,self.ndcg,self.err)
         return res
-    def loads(self,line):
+    def loads(self,line,WithName = False):
         vCol = line.strip().split()
         if len(vCol) > 3:            
-            self.map = float(vCol[0].split(':')[1])
-            self.ndcg = float(vCol[1].split(':')[1])
-            self.err = float(vCol[2].split(':')[1])
+            if WithName:
+                self.map = float(vCol[0].split(':')[1])
+                self.ndcg = float(vCol[1].split(':')[1])
+                self.err = float(vCol[2].split(':')[1])
+            else:
+                self.map = float(vCol[0])
+                self.ndcg = float(vCol[1])
+                self.err = float(vCol[2])
         return True
             
             
@@ -119,6 +124,18 @@ def GetBestPerform(lMeasure,MeasureName='map'):
             BestP = i
     return BestP
 
+
+
+def ReadPerQEva(InName):
+    lPerQEva = []
+    for line in open(InName):
+        line = line.strip()
+        qid,MeaStr = line.split('\t')
+        Measure = AdhocMeasureC(MeaStr)
+        lPerQEva.append([qid,Measure])
+    return lPerQEva
     
+    
+        
     
          
