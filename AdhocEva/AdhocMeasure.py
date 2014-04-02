@@ -3,7 +3,7 @@ Created on Mar 11, 2014
 ad hoc ranking measure
 @author: cx
 '''
-
+from operator import itemgetter
 class AdhocMeasureC:
     
     def Init(self):
@@ -48,7 +48,7 @@ class AdhocMeasureC:
         return res
     def loads(self,line,WithName = False):
         vCol = line.strip().split()
-        if len(vCol) > 3:            
+        if len(vCol) >= 3:            
             if WithName:
                 self.map = float(vCol[0].split(':')[1])
                 self.ndcg = float(vCol[1].split(':')[1])
@@ -131,8 +131,12 @@ def ReadPerQEva(InName):
     for line in open(InName):
         line = line.strip()
         qid,MeaStr = line.split('\t')
+        if qid == 'mean':
+            continue
+        qid = int(qid)
         Measure = AdhocMeasureC(MeaStr)
         lPerQEva.append([qid,Measure])
+    lPerQEva.sort(key=itemgetter(0))
     return lPerQEva
     
     
