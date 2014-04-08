@@ -142,7 +142,8 @@ def ReadPerQEva(InName,WithMean = False):
         qid,MeaStr = line.split('\t')
         if (not WithMean) &(qid == 'mean'):
             continue
-        qid = int(qid)
+        if qid != 'mean':
+            qid = int(qid)
         Measure = AdhocMeasureC(MeaStr)
         lPerQEva.append([qid,Measure])
     lPerQEva.sort(key=itemgetter(0))
