@@ -20,11 +20,17 @@ from cxBase.base import DiscardStopWord,ContainNonLetter
 import copy
 import pickle
 
-
-class LmBaseC:
+class LmBaseC(object):
     
-    def __init__(self):
+    def __init__(self,data = ""):
         self.Init()        
+        if "" == data:
+            return
+        if type(data) == str:
+            self.SetFromRawText(data)
+        if type(data) == PackedIndriResC:
+            self.SetFromPackedDoc(data)
+            
     
     def Init(self):
         self.hTermTF = {}
@@ -37,6 +43,10 @@ class LmBaseC:
 #             if term != "[OOV]":
             self.Insert(term)
         return True
+    
+    
+    def SetFromRawText(self,text):
+        self.AddRawText(text)
     
     def Insert(self,term,tf = 1):
         if not term in self.hTermTF:
