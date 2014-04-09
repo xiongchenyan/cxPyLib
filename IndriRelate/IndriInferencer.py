@@ -31,7 +31,7 @@ class LmBaseC(object):
             self.SetFromRawText(data)
         if type(data) == PackedIndriResC:
             self.SetFromPackedDoc(data)
-            
+        print "type [%s] not recognized" %(str(type(data)))    
     
     def Init(self):
         self.hTermTF = {}
