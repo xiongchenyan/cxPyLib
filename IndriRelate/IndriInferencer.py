@@ -27,6 +27,7 @@ class LmBaseC(object):
         if "" == data:
             return
         if type(data) == str:
+            print "initialing from text [%s]" %(data)
             self.SetFromRawText(data)
         if type(data) == PackedIndriResC:
             self.SetFromPackedDoc(data)
