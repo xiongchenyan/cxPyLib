@@ -27,10 +27,11 @@ class LmBaseC(object):
         if "" == data:
             return
         if type(data) in [str,unicode]:
-            print "initialing from text [%s]" %(data.encode('utf-8','ignore'))
             self.SetFromRawText(data)
+            return
         if type(data) == PackedIndriResC:
             self.SetFromPackedDoc(data)
+            return
         print "type [%s] not recognized" %(str(type(data)))    
     
     def Init(self):
