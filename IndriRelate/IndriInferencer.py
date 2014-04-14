@@ -56,7 +56,7 @@ class LmBaseC(object):
         self.hTermTF[term] += tf
         self.len += tf
     def AddRawText(self,text):
-        lTerm = text.split(' ')
+        lTerm = text.split()
         for term in lTerm:
             self.Insert(term)
         

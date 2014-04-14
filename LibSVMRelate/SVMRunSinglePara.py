@@ -38,12 +38,14 @@ class SVMRunSingleParaC(object):
         lTestY,lTestX = self.LoadData(TestInName)
         p_label,p_acc,p_val = svm_predict(lTestY,lTestX,SVMModel,'-b 1')
         
-        out = open(OutName,'w')
-        json.dump(p_acc,out)
-        out.close()  
+         
         
         #add a contengency matrix output?
         lCTable = ContingencyTable(p_label,lTestY)
         print json.dumps(lCTable)        
+        
+        out = open(OutName,'w')
+        json.dump(lCTable,out)
+        out.close() 
         self.DumpPrediction(OutName + "_pre", TestInName, p_label, p_val)        
         return True
