@@ -146,7 +146,7 @@ def ReadPerQEva(InName,WithMean = False):
             qid = int(qid)
         Measure = AdhocMeasureC(MeaStr)
         lPerQEva.append([qid,Measure])
-    lPerQEva.sort(key=itemgetter(0))
+#     lPerQEva.sort(key=itemgetter(0))
     return lPerQEva
     
     
