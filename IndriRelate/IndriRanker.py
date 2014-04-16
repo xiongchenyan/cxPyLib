@@ -22,7 +22,7 @@ from cxBase.base import *
 from AdhocEva.AdhocEva import *
 
 
-RunQueryExe = '/bos/usr0/cx/RunQuery/RunQuery'
+RunQueryExe = '/bos/usr0/cx/lemur/indri-5.3/runquery/IndriRunQuery'
 
 class IndriRankerC(cxBaseC):
     def Init(self):
