@@ -12,7 +12,7 @@ from AdhocMeasure import *
 from cxBase.base import *
 from operator import itemgetter
 import math,json
-class AdhocEvaC:
+class AdhocEvaC(object):
     
     def Init(self):
         self.AdhocQRel = AdhocQRelC()
@@ -27,11 +27,14 @@ class AdhocEvaC:
         conf = cxConf(ConfIn)
         QRelIn = conf.GetConf("qrel")
         self.AdhocQRel.Load(QRelIn)
-        Depth = conf.GetConf("evadepth")
-        if "" != Depth:
-            self.Depth = int(Depth)
+        Depth = conf.GetConf("evadepth",self.Depth)
         return True
-            
+    
+    @staticmethod
+    def ShowConf():
+        print"qrel\nevadepth 20"
+    
+    
     
     
     def MAP(self,Qid,lDocNo):
@@ -132,7 +135,44 @@ class AdhocEvaC:
         for doc in lDoc:
             lDocNo.append(doc.DocNo)
         return lDocNo
-
+    
+    
+    def EvaluateTrecOutFile(self,InName,OutName = ""):
+        
+        lEvaRes = []
+        lQid,llDocNo = AdhocEvaC().ReadTrecOut(InName)
+        
+        for i in range(len(lQid)):
+            lEvaRes.append(self.EvaluatePerQ(lQid[i], llDocNo[i]))
+        
+        Mean = AdhocMeasureMean(lEvaRes)
+        
+        if OutName != "":
+            out = open(OutName,'w')
+            for i in range(len(lQid)):
+                print >>out,"%s\t%s" %(lQid[i],lEvaRes[i].dumps())
+            print out,"mean\t%s" %(Mean.dumps())                    
+        return lEvaRes
+    
+    
+    @staticmethod
+    def ReadTrecOut(InName):
+        lQid = []
+        llDocNo = []
+        for line in open(InName):
+            vCol = line.strip().split()
+            qid = vCol[0]
+            DocNo = vCol[2]
+            if lQid == []:
+                lQid.append(qid)
+                llDocNo.append([])
+            if qid != lQid[len(lQid) - 1]:
+                lQid.append(qid)
+                llDocNo.append([])
+            llDocNo[len(llDocNo) - 1].append(DocNo)
+        return lQid,llDocNo
+            
+    
 
 def AdhocEvaUnitTest(ConfIn = ""):
     #UnitTest add hoc eva
