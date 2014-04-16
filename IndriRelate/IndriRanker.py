@@ -69,7 +69,7 @@ class IndriRankerC(cxBaseC):
         self.MakeQParaFile(lQid, lQuery)
         
         print "start to run query at [%s]" %(self.QueryParaName())
-        ReRankOutStr = subprocess.check_output(RunQueryExe,self.QueryParaName())
+        ReRankOutStr = subprocess.check_output([RunQueryExe,self.QueryParaName()])
         print "indri ranking res get"
         OutReRank = open(self.OutRerankName(),'w')
         print >> OutReRank, ReRankOutStr
