@@ -161,6 +161,8 @@ class AdhocEvaC(object):
         llDocNo = []
         for line in open(InName):
             vCol = line.strip().split()
+            if line(vCol) < 6:
+                continue
             qid = vCol[0]
             DocNo = vCol[2]
             if lQid == []:
