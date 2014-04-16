@@ -35,12 +35,13 @@ class TermCtfC:
             self.hTermCtf[term] = value
         return True    
     def GetCtf(self,term):
-        if not term in self.hTermCtf:
-            return 0.5
         return self.hTermCtf[term]
     
     def GetCtfProb(self,term):
-        return self.GetCtf(term) / float(self.TotalCnt)
+        CTF = self.GetCtf(term)
+        if 0 == CTF:
+            return 0.5
+        return CTF / float(self.TotalCnt)
     
 
 
