@@ -48,8 +48,8 @@ class IndriRankerC(cxBaseC):
     
     @staticmethod
     def ShowConf():
-        print"index /bos/tmp17/gzheng/ClueWeb09_Indexes_Spam_Filtered/ClueWeb09_English_01\nnumofres 20\nneedeve True\nin\noutdir" 
-    
+        print"index /bos/tmp17/gzheng/ClueWeb09_Indexes_Spam_Filtered/ClueWeb09_English_01\nnumofres 20\nneedeva True\nin\noutdir" 
+        AdhocEvaC().ShowConf()
     
     def Process(self):
         #read query
