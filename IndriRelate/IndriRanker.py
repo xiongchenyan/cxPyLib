@@ -15,7 +15,6 @@ site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 
 from IndriRelate.IndriQueryParameter import *
 import subprocess
-from CondorBase import *
 import json
 
 
