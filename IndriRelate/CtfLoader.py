@@ -35,6 +35,8 @@ class TermCtfC:
             self.hTermCtf[term] = value
         return True    
     def GetCtf(self,term):
+        if not term in self.hTermCtf:
+            return 0
         return self.hTermCtf[term]
     
     def GetCtfProb(self,term):
