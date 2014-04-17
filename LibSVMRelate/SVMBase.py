@@ -102,5 +102,17 @@ def ReadSVMParaSet(ParaSetIn):
         SVMPara.SetParameter(ParaSet)
         lSVMPara.append(SVMPara)
     return lSVMPara
-             
+
+
+
+def FetchLabelProbIndex(Label,p_label,p_val):
+    for i in range(len(p_label)):
+        if p_label[i] == Label:
+            return p_val[i].index(max(p_val[i]))
+    print "label [%s] not appeared will return a random one" %(str(Label))
+    return p_val[0].index(min(p_val[0])
+        
+        
+    
+                 
              
