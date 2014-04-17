@@ -110,4 +110,5 @@ def FetchLabelProbIndex(Label,p_label,p_val):
         if p_label[i] == Label:
             return p_val[i].index(max(p_val[i]))
     print "label [%s] not appeared will return a random one" %(str(Label))
-    return p_val[0].index(min(p_val[0])
+    return p_val[0].index(min(p_val[0]))
+                          
