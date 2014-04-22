@@ -100,6 +100,21 @@ class LmBaseC(object):
         Lm.len = self.len
         Lm.hTermTF = copy.deepcopy(self.hTermTF)
         return Lm
+
+    
+    @staticmethod
+    def Cosine(LmA,LmB):
+        return LmA * LmB
+    
+    
+    def __mul__(self,LmB):
+        prod = 0
+        for term in self.hTermTF:
+            prod += self.GetTFProb(term) * LmB.GetTFProb(term)
+        return prod
+
+
+
     
 def MakeLmForDocs(lDoc):
     lLm = []
