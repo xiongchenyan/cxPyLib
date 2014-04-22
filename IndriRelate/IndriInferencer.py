@@ -68,7 +68,7 @@ class LmBaseC(object):
     
     
     def load(self,InName):
-        f = open(InName,'r')
+        f = open(InName)
         self.hTermTF = pickle.load(f)
         self.CalcLen()
         f.close()
