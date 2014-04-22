@@ -39,6 +39,20 @@ class LmBaseC(object):
         self.len = 0
         return True
     
+    def empty(self):
+        if self.len == 0:
+            return True
+        return False
+    def clear(self):
+        self.hTermTF = {}
+        self.len = 0
+    
+    def __deepcopy__(self,memo):
+        lm = LmBaseC()
+        lm.hTermTF = copy.deepcopy(self.hTermTF, memo)
+        lm.len = self.len
+        return lm
+    
     def SetFromPackedDoc(self,PackedDoc):
         for pos in PackedDoc.lPosition:
             term = PackedDoc.lTerm[pos]
