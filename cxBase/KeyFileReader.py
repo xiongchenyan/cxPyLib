@@ -41,7 +41,7 @@ class KeyFileReaderC(object):
             self.LastvCol = []
         
         CurrentKey = ""    
-        for line in self.In:
+        for line in self.InFile:
             vCol = line.strip().split(self.Spliter)
             if [] == vCol:
                 continue
