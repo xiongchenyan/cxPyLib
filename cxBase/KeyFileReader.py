@@ -43,7 +43,7 @@ class KeyFileReaderC(object):
         CurrentKey = ""    
         for line in self.InFile:
             vCol = line.strip().split(self.Spliter)
-            print "read [%s]" %(line.encode('utf-8','ignore'))
+#             print "read [%s]" %(line.encode('utf-8','ignore'))
             if [] == vCol:
                 continue
             if CurrentKey == "":
