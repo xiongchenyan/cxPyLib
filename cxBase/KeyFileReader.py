@@ -36,9 +36,9 @@ class KeyFileReaderC(object):
         
     def ReadNextKey(self):
         lvCol = [] #one object's all triples
-        if self.CurrentvCol != []:
-            lvCol.append(self.CurrentvCol)
-            self.CurrentvCol = []
+        if self.LastvCol != []:
+            lvCol.append(self.LastvCol)
+            self.LastvCol = []
         
         CurrentKey = ""    
         for line in self.In:
@@ -48,7 +48,7 @@ class KeyFileReaderC(object):
             if CurrentKey == "":
                 CurrentKey = vCol[self.KeyIndex]
             if vCol[self.KeyIndex] != CurrentKey:
-                self.CurrentvCol = vCol
+                self.LastvCol = vCol
                 break
             lvCol.append(vCol)
         return lvCol
