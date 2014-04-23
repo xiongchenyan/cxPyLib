@@ -13,19 +13,25 @@ class KeyFileReaderC(object):
         self.Spliter = '\t'
         self.MaxLinePerKey = 100000
         self.LastvCol = []
+        self.InName = ""
     def __init__(self):
         self.Init()
         
         
     def open(self,InName,mode = 'r'):
+        self.InName = InName
         if self.UseGzip:
             self.InFile = gzip.open(InName,mode)
         else:
             self.InFile = open(InName,mode)
             
+    def empty(self):
+        return "" == self.InName
             
     def close(self):
-        self.InFile.close()
+        if not self.empty():
+            self.InFile.close()
+            self.InName = ""
         
         
     def ReadNextKey(self):
