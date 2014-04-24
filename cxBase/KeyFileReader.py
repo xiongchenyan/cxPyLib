@@ -9,9 +9,9 @@ class KeyFileReaderC(object):
     def Init(self):
         self.InFile = ""
         self.UseGzip = False
-        self.KeyIndex = 0
+        self.lKeyIndex = [0]
         self.Spliter = '\t'
-        self.MaxLinePerKey = 100000
+        self.MaxLinePerKey = 1000000
         self.LastvCol = []
         self.InName = ""
     def __init__(self):
@@ -32,6 +32,13 @@ class KeyFileReaderC(object):
         if not self.empty():
             self.InFile.close()
             self.InName = ""
+    
+    
+    def GenerateKey(self,vCol):
+        key = ""
+        for i in self.lKeyIndex:
+            key += vCol[i] + self.Spliter
+        return key.strip(self.Spliter)
         
         
     def ReadNextKey(self):
@@ -43,12 +50,13 @@ class KeyFileReaderC(object):
         CurrentKey = ""    
         for line in self.InFile:
             vCol = line.strip().split(self.Spliter)
+            ThisKey = self.GenerateKey(vCol)
 #             print "read [%s]" %(line.encode('utf-8','ignore'))
             if [] == vCol:
                 continue
             if CurrentKey == "":
-                CurrentKey = vCol[self.KeyIndex]
-            if vCol[self.KeyIndex] != CurrentKey:
+                CurrentKey = ThisKey
+            if ThisKey != CurrentKey:
                 self.LastvCol = vCol
                 break
             lvCol.append(vCol)
