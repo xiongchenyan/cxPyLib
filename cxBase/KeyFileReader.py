@@ -43,17 +43,19 @@ class KeyFileReaderC(object):
         
     def ReadNextKey(self):
         lvCol = [] #one object's all triples
+        CurrentKey = ""
         if self.LastvCol != []:
             lvCol.append(self.LastvCol)
+            CurrentKey = self.GenerateKey(self.LastvCol)
             self.LastvCol = []
         
-        CurrentKey = ""    
         for line in self.InFile:
             vCol = line.strip().split(self.Spliter)
-            ThisKey = self.GenerateKey(vCol)
-#             print "read [%s]" %(line.encode('utf-8','ignore'))
             if [] == vCol:
                 continue
+            ThisKey = self.GenerateKey(vCol)
+#             print "read [%s]" %(line.encode('utf-8','ignore'))
+
             if CurrentKey == "":
                 CurrentKey = ThisKey
             if ThisKey != CurrentKey:
