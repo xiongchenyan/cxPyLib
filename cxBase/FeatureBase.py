@@ -58,4 +58,22 @@ class cxFeatureC(object):
         return Term
     
     
+    def Key(self):
+        print "should be implemented by sub class"
+        return ""
+    
+    
+    @classmethod
+    def LoadFeatureToDict(cls,InName,hFeature = {}):
+        #build h{key}->EdgeFeature
+        
+        for line in open(InName):
+            Feature = cls(line.strip())
+            hFeature[Feature.Key()] = Feature
+        return hFeature
+        
+        
+    
+    
+        
     
