@@ -19,7 +19,7 @@ from IndriRelate.CtfLoader import *
 from cxBase.base import DiscardStopWord,ContainNonLetter
 import copy
 import pickle
-
+from cxBase.Vector import VectorC
 class LmBaseC(object):
     
     def __init__(self,data = ""):
@@ -109,11 +109,7 @@ class LmBaseC(object):
     
     def GetTFProb(self,term):
         return self.GetTF(term) / float(self.len)
-    def __deepcopy__(self,memo):
-        Lm = LmBaseC()
-        Lm.len = self.len
-        Lm.hTermTF = copy.deepcopy(self.hTermTF)
-        return Lm
+
 
     
     @staticmethod
@@ -127,7 +123,27 @@ class LmBaseC(object):
             prod += self.GetTFProb(term) * LmB.GetTFProb(term)
         return prod
 
-
+    @staticmethod
+    def TfIdfCosine(LmA,LmB,CtfCenter):
+        vA = VectorC(LmA.hTermTF)
+        vB = VectorC(LmB.hTermTF)
+        
+        vA /= LmA.len
+        vB /= LmB.len
+        
+        
+        for item in vA.hDim:
+            CTF = CtfCenter.GetCtfProb(item)
+            vA.hDim[item] *= math.log(1.0/CTF)
+        for item in vB.hDim:
+            CTF = CtfCenter.GetCtfProb(item)
+            vB.hDim[item] *= math.log(1.0/CTF)
+            
+        return VectorC.cosine(vA, vB)
+        
+        
+        
+        
 
     
 def MakeLmForDocs(lDoc):
