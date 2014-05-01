@@ -95,7 +95,7 @@ class LmBaseC(object):
     def CalcLen(self):
         self.len = 0
         for item in self.hTermTF:
-            self.len += self.hTermTf[item]
+            self.len += self.hTermTF[item]
         return
     
     
