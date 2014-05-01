@@ -11,7 +11,7 @@ class KeyFileReaderC(object):
         self.UseGzip = False
         self.lKeyIndex = [0]
         self.Spliter = '\t'
-        self.MaxLinePerKey = 1000000
+        self.MaxLinePerKey = 100000
         self.LastvCol = []
         self.InName = ""
     def __init__(self):
@@ -48,7 +48,7 @@ class KeyFileReaderC(object):
             lvCol.append(self.LastvCol)
             CurrentKey = self.GenerateKey(self.LastvCol)
             self.LastvCol = []
-        
+        cnt = 0
         for line in self.InFile:
             vCol = line.strip().split(self.Spliter)
             if [] == vCol:
@@ -61,7 +61,9 @@ class KeyFileReaderC(object):
             if ThisKey != CurrentKey:
                 self.LastvCol = vCol
                 break
-            lvCol.append(vCol)
+            if cnt < self.MaxLinePerKey:
+                lvCol.append(vCol)
+            cnt += 1
         return lvCol
     
     

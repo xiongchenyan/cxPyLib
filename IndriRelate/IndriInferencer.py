@@ -44,8 +44,7 @@ class LmBaseC(object):
             return True
         return False
     def clear(self):
-        self.hTermTF = {}
-        self.len = 0
+        self.hTermTF.clear()
     
     def __deepcopy__(self,memo):
         lm = LmBaseC()
