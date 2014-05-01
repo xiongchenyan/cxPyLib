@@ -298,3 +298,7 @@ def ProtectedLog(value,MinValue=-10.0):
     if value <= 0:
         value = math.exp(MinValue)
     return math.log(value)
+
+
+def PMI(pa,pb,pab):
+    return math.log(pab) - math.log(pa) - math.log(pb)
