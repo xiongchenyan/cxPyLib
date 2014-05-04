@@ -140,8 +140,12 @@ class LmBaseC(object):
         for item in vB.hDim:
             CTF = CtfCenter.GetCtfProb(item)
             vB.hDim[item] *= math.log(1.0/CTF)
-            
-        return VectorC.cosine(vA, vB)
+        
+        
+        score =  VectorC.cosine(vA, vB)
+        
+        print "cosine [%f] of:\n%s\n%s" %(score, json.dumps(vA.hDim),json.dumps(vB.hDim))
+        return score
         
         
         
