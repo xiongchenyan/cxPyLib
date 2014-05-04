@@ -127,6 +127,9 @@ class LmBaseC(object):
         vA = VectorC(LmA.hTermTF)
         vB = VectorC(LmB.hTermTF)
         
+        if (LmA.len == 0) | ( LmB.Len == 0):
+            return 0
+        
         vA /= LmA.len
         vB /= LmB.len
         
