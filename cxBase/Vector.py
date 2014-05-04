@@ -43,6 +43,9 @@ class VectorC(object):
     
     @staticmethod
     def cosine(vA,vB):
+        InnerProd = vA*vB
+        print "inner prod [%f] mod [%f][%f]" %(InnerProd,vA.Mod(),vB.Mod())
+        
         return (vA*vB)/(vA.Mod() * vB.Mod())
             
                 
