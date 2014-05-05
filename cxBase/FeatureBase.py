@@ -4,7 +4,7 @@ the base structure for features
 features used every where
 @author: cx
 '''
-
+import json
 class cxFeatureC(object):
     def Init(self):
         self.hFeature = {}
@@ -39,10 +39,12 @@ class cxFeatureC(object):
     
     
     def AddFeature(self,hFDict):
+        print "add feature [%s] to [%s]" %(json.dumps(hFDict),self.dumps())
         for item in hFDict:
             if not item in self.hFeature:
                 self.hFeature[item] = 0
             self.hFeature[item] += hFDict[item]
+        print "res [%s]" %(self.dumps())
         return True
     
     
