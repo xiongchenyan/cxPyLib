@@ -38,13 +38,13 @@ class VectorC(object):
         score = 0
         for dim,value in self.hDim.items():
             score += math.pow(value,2)
-        score = math.pow(value,0.5)
+        score = math.pow(score,0.5)
         return score
     
     @staticmethod
     def cosine(vA,vB):
         InnerProd = vA*vB
-        print "inner prod [%f] mod [%f][%f]" %(InnerProd,vA.Mod(),vB.Mod())
+#         print "inner prod [%f] mod [%f][%f]" %(InnerProd,vA.Mod(),vB.Mod())
         
         return (vA*vB)/(vA.Mod() * vB.Mod())
             
