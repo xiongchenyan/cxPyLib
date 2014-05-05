@@ -66,10 +66,11 @@ class cxFeatureC(object):
     @classmethod
     def LoadFeatureToDict(cls,InName,hFeature = {}):
         #build h{key}->EdgeFeature
-        
+        print "start loading feature from [%s]" %(InName)
         for line in open(InName):
             Feature = cls(line.strip())
             if Feature.Key() in hFeature:
+                print "[%s] in, add new feature" %(Feature.Key())
                 hFeature[Feature.Key()].AddFeature(Feature.hFeature)
             hFeature[Feature.Key()] = Feature
         return hFeature
