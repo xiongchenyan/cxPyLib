@@ -69,6 +69,8 @@ class cxFeatureC(object):
         
         for line in open(InName):
             Feature = cls(line.strip())
+            if Feature.Key() in hFeature:
+                hFeature[Feature.Key()].AddFeature(Feature.hFeature)
             hFeature[Feature.Key()] = Feature
         return hFeature
         
