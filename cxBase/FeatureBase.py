@@ -39,12 +39,12 @@ class cxFeatureC(object):
     
     
     def AddFeature(self,hFDict):
-        print "add feature [%s] to [%s]" %(json.dumps(hFDict),self.dumps())
+#         print "add feature [%s] to [%s]" %(json.dumps(hFDict),self.dumps())
         for item in hFDict:
             if not item in self.hFeature:
                 self.hFeature[item] = 0
             self.hFeature[item] += hFDict[item]
-        print "res [%s]" %(self.dumps())
+#         print "res [%s]" %(self.dumps())
         return True
     
     
@@ -72,7 +72,7 @@ class cxFeatureC(object):
         for line in open(InName):
             Feature = cls(line.strip())
             if Feature.Key() in hFeature:
-                print "[%s] in, add new feature" %(Feature.Key())
+#                 print "[%s] in, add new feature" %(Feature.Key())
                 hFeature[Feature.Key()].AddFeature(Feature.hFeature)
             else:
                 hFeature[Feature.Key()] = Feature
