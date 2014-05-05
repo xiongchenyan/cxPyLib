@@ -74,7 +74,8 @@ class cxFeatureC(object):
             if Feature.Key() in hFeature:
                 print "[%s] in, add new feature" %(Feature.Key())
                 hFeature[Feature.Key()].AddFeature(Feature.hFeature)
-            hFeature[Feature.Key()] = Feature
+            else:
+                hFeature[Feature.Key()] = Feature
         return hFeature
         
         
