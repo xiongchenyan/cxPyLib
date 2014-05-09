@@ -5,6 +5,8 @@ features used every where
 @author: cx
 '''
 import json
+from copy import deepcopy
+
 class cxFeatureC(object):
     def Init(self):
         self.hFeature = {}
@@ -56,8 +58,9 @@ class cxFeatureC(object):
     
     
     def __deepcopy__(self,memo):
-        Term = cxFeatureC(self.dumps())
-        return Term
+        Feature = cxFeatureC()
+        Feature.hFeature = deepcopy(self.hFeature,memo)
+        return Feature
     
     
     def Key(self):
@@ -79,7 +82,33 @@ class cxFeatureC(object):
         return hFeature
         
         
-    
+    @staticmethod
+    def FilterByFraction(lData,MinFraction = 0.01):
+        #filter feature dimension in lData[i] by the minimum appearance fraction
+        hFeatureCnt = {}
+        MinCnt = len(lData) * MinFraction
+        
+        for data in lData:
+            for feature in data.hFeature:
+                if not feature in hFeatureCnt:
+                    hFeatureCnt[feature] = 1
+                else:
+                    hFeatureCnt[feature] += 1
+                    
+        lRes = []
+        for data in lData:
+            hNewFeature = {}
+            for feature in data.hFeature:
+                if hFeatureCnt[feature] > MinCnt:
+                    hNewFeature[feature] = data.hFeature[feature]
+            data.hFeature.clear()
+            data.hFeature = hNewFeature
+            lRes.append(data)
+        return lRes
+
+                    
+        
+        
     
         
     
