@@ -81,20 +81,26 @@ class cxFeatureC(object):
                 hFeature[Feature.Key()] = Feature
         return hFeature
         
-        
+    
     @staticmethod
-    def FilterByFraction(lData,MinFraction = 0.01):
-        #filter feature dimension in lData[i] by the minimum appearance fraction
+    def CountFeatureDataAppearance(lData):
         hFeatureCnt = {}
-        MinCnt = len(lData) * MinFraction
-        
         for data in lData:
             for feature in data.hFeature:
                 if not feature in hFeatureCnt:
                     hFeatureCnt[feature] = 1
                 else:
                     hFeatureCnt[feature] += 1
-                    
+        return hFeatureCnt
+     
+    @staticmethod
+    def FilterByFraction(lData,MinFraction = 0.01):
+        #filter feature dimension in lData[i] by the minimum appearance fraction
+        print "start filter by fraction > [%f]" %(MinFraction)
+        hFeatureCnt = cxFeatureC.CountFeatureDataAppearance(lData) 
+        MinCnt = len(lData) * MinFraction
+        print "feature dim = [%d]" %(len(hFeatureCnt))           
+        
         lRes = []
         for data in lData:
             hNewFeature = {}
@@ -104,6 +110,9 @@ class cxFeatureC(object):
             data.hFeature.clear()
             data.hFeature = hNewFeature
             lRes.append(data)
+        
+        hResCnt = cxFeatureC.CountFeatureDataAppearance(lRes)
+        print "after filter feature dim = [%d]" %(len(hResCnt))    
         return lRes
 
                     
