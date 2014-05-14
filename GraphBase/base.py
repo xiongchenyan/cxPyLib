@@ -100,10 +100,14 @@ class GraphC(object):
         
     def ReadFromSimpleEdgeFile(self,InName):
         #format: node\tnode\tedge name\tweight
-        for line in open(InName):
-            vCol = line.strip().split('\t')
-            lEdgeAttr = [vCol[2],float(vCol[3])]
-            self.AddEdge(vCol[0], vCol[1], lEdgeAttr)
+        try:
+            for line in open(InName):
+                vCol = line.strip().split('\t')
+                lEdgeAttr = [vCol[2],float(vCol[3])]
+                self.AddEdge(vCol[0], vCol[1], lEdgeAttr)
+        except IOError:
+            print "file [%s] not exist" %(InName)
+            return False
         return True
     
     def OutSimpleEdgeFile(self,OutName):
@@ -119,14 +123,16 @@ class GraphC(object):
     
     def DiscardNoneTargetEdge(self,hTargetEdge):
         #discard edge that is not in htarget
-        
+        TotalCnt = 0
         for i in range(len(self.lNode)):
             lToDel = []
             for j in self.lNode[i].hChild:
+                TotalCnt += 1
                 if not (i,j) in hTargetEdge:
                     lToDel.append(j)
             for child in lToDel:
                 self.DeleteEdge((i,child))
+        print "keep [%d] edge from [%d]" %(len(hTargetEdge),TotalCnt)
         return True
     
     
