@@ -31,7 +31,7 @@ class NodeC(object):
     def __deepcopy__(self,memo):
         res = NodeC()
         for key,item in self.__dict__.items():
-            if key.startwith('__'):
+            if key.startswith('__'):
                 continue
             res.__dict__[key] = deepcopy(item,memo)
         return res
