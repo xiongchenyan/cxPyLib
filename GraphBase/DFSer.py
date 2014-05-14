@@ -42,7 +42,7 @@ class DFSerC(cxBaseC):
         self.ProcessCurrentNode(CurrentNodeId,lPath,Graph)
         #deal with curernt node, left for subclass API
         
-        Node = Graph[CurrentNodeId]
+        Node = Graph.lNode[CurrentNodeId]
         for ChildId in Node.hChild:
             self.DFS(ChildId,lPath + [(CurrentNodeId,ChildId)])
         return True
