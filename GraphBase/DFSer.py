@@ -44,7 +44,7 @@ class DFSerC(cxBaseC):
         
         Node = Graph.lNode[CurrentNodeId]
         for ChildId in Node.hChild:
-            self.DFS(ChildId,lPath + [(CurrentNodeId,ChildId)])
+            self.DFS(ChildId,lPath + [(CurrentNodeId,ChildId)],Graph)
         return True
         
         
