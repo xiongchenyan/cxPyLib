@@ -23,7 +23,7 @@ class NodeC(object):
             self.hChild[NodeId] = []
         print "add child [%d] to [%s]" %(NodeId,self.name)
         self.hChild[NodeId].append(lEdgeAttr)
-        print "[%d] edge between them" %(len(self.hChild[NodeId]))
+        print "[%d] edge between them\n%s" %(len(self.hChild[NodeId]),json.dumps(self.hChild[NodeId]))
         return True
     
     
@@ -58,7 +58,8 @@ class GraphC(object):
         if type(graph).__name__ == 'GraphC':
             self = deepcopy(graph)
 
-    def AddNode(self,Node):
+    def AddNode(self,InNode):
+        Node = deepcopy(InNode)
         if not Node.Key() in self.hNode:
             self.lNode.append(Node)
             self.lNode[len(self.lNode)-1].id = len(self.lNode) - 1
