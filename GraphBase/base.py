@@ -27,6 +27,11 @@ class NodeC(object):
 #         print "[%d] edge between them\n%s" %(len(self.hChild[NodeId]),json.dumps(self.hChild[NodeId]))
         return True
     
+    def GetNumOfChild(self):
+        cnt = 0
+        for item in self.hChild:
+            cnt += len(self.hChild[item])
+        return cnt
     
     def Key(self):
         return self.name
@@ -148,6 +153,26 @@ class GraphC(object):
         
         
         
+    def GetNumOfNode(self):
+        return len(self.lNode)
+    
+    def GetNumOfEdge(self):
+        cnt = 0
+        for node in self.lNode:
+            cnt += node.GetNumOfChild()
+        return cnt
+    
+    def GetEdgeCnt(self,EdgeNamePos = 0):
+        hEdge = {}
+        for node in self.lNode:
+            for item in node.hChild:
+                for lEdgeAttr in node.hChild[item]:
+                    EdgeName = lEdgeAttr[EdgeNamePos]
+                    if not EdgeName in hEdge:
+                        hEdge[EdgeName] = 1
+                    else:
+                        hEdge[EdgeName] += 1
+        return hEdge
                     
     
         
