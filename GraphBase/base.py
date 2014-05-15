@@ -22,7 +22,8 @@ class NodeC(object):
         if not NodeId in self.hChild:
             self.hChild[NodeId] = []
         print "add child [%d] to [%s]" %(NodeId,self.name)
-        self.hChild[NodeId].append(lEdgeAttr)
+        if not lEdgeAttr in self.hChild[NodeId]:
+            self.hChild[NodeId].append(lEdgeAttr)
         print "[%d] edge between them\n%s" %(len(self.hChild[NodeId]),json.dumps(self.hChild[NodeId]))
         return True
     
