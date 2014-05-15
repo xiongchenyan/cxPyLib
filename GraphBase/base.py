@@ -23,6 +23,7 @@ class NodeC(object):
             self.hChild[NodeId] = []
         print "add child [%d] to [%s]" %(NodeId,self.name)
         self.hChild[NodeId].append(lEdgeAttr)
+        print "[%d] edge between them" %(len(self.hChild[NodeId]))
         return True
     
     
