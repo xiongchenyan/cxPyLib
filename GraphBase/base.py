@@ -3,7 +3,7 @@ Created on May 14, 2014
 basic class for node,and graph
 @author: cx
 '''
-
+import json
 from copy import deepcopy
 
 class NodeC(object):
@@ -21,6 +21,7 @@ class NodeC(object):
     def AddChild(self,NodeId,lEdgeAttr):
         if not NodeId in self.hChild:
             self.hChild[NodeId] = []
+        print "add child [%d] to [%s]" %(NodeId,self.name)
         self.hChild[NodeId].append(lEdgeAttr)
         return True
     
@@ -64,7 +65,7 @@ class GraphC(object):
         p = self.hNode[Node.Key()]
         for att in Node.lAttr:
             if not att in self.lNode[p].lAttr:
-                self.lNode[p].lAttr.extend(att)
+                self.lNode[p].lAttr.append(att)
         return True
                 
     
@@ -77,6 +78,7 @@ class GraphC(object):
             self.AddNode(Node)
         StId = self.hNode[StName]
         EdId = self.hNode[EdName]
+        print "adding edge [%s][%d]-[%s][%d] %s" %(StName,StId,EdName,EdId,json.dumps(lEdgeAttr))
         self.lNode[StId].AddChild(EdId,lEdgeAttr)
         return True
     
@@ -116,6 +118,7 @@ class GraphC(object):
             for ChildId in node.hChild:
                 StName = node.name
                 EdName = self.lNode[ChildId].name
+                print "outing [%s]-[%s] [%d] edge" %(StName,EdName,len(node.hChild[ChildId]))
                 for lEdgeAttr in node.hChild[ChildId]:
                     print >>out, StName + "\t" + EdName + "\t" + lEdgeAttr[0] + "\t%f" %(lEdgeAttr[1])
         out.close()
