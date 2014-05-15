@@ -21,10 +21,10 @@ class NodeC(object):
     def AddChild(self,NodeId,lEdgeAttr):
         if not NodeId in self.hChild:
             self.hChild[NodeId] = []
-        print "add child [%d] to [%s]" %(NodeId,self.name)
+#         print "add child [%d] to [%s]" %(NodeId,self.name)
         if not lEdgeAttr in self.hChild[NodeId]:
             self.hChild[NodeId].append(lEdgeAttr)
-        print "[%d] edge between them\n%s" %(len(self.hChild[NodeId]),json.dumps(self.hChild[NodeId]))
+#         print "[%d] edge between them\n%s" %(len(self.hChild[NodeId]),json.dumps(self.hChild[NodeId]))
         return True
     
     
@@ -81,7 +81,7 @@ class GraphC(object):
             self.AddNode(Node)
         StId = self.hNode[StName]
         EdId = self.hNode[EdName]
-        print "adding edge [%s][%d]-[%s][%d] %s" %(StName,StId,EdName,EdId,json.dumps(lEdgeAttr))
+#         print "adding edge [%s][%d]-[%s][%d] %s" %(StName,StId,EdName,EdId,json.dumps(lEdgeAttr))
         self.lNode[StId].AddChild(EdId,lEdgeAttr)
         return True
     
@@ -121,7 +121,7 @@ class GraphC(object):
             for ChildId in node.hChild:
                 StName = node.name
                 EdName = self.lNode[ChildId].name
-                print "outing [%s]-[%s] [%d] edge" %(StName,EdName,len(node.hChild[ChildId]))
+#                 print "outing [%s]-[%s] [%d] edge" %(StName,EdName,len(node.hChild[ChildId]))
                 for lEdgeAttr in node.hChild[ChildId]:
                     print >>out, StName + "\t" + EdName + "\t" + lEdgeAttr[0] + "\t%f" %(lEdgeAttr[1])
         out.close()
