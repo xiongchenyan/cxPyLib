@@ -151,6 +151,30 @@ class GraphC(object):
     def DeleteEdge(self,edge):
         del self.lNode[edge[0]].hChild[edge[1]]
         
+    
+    def DeleteNode(self,NodeName):
+        if not NodeName in self.hNode:
+            return True
+        p = self.hNode[NodeName]
+        self.lNode[p] = self.lNode[len(self.lNode) - 1]
+        self.hNode[self.lNode[p].name] = p
+        del self.hNode[NodeName]
+        del self.lNode[len(self.lNode)-1]
+        return True
+    
+    def BatchDelNode(self,lDelNodeName):
+        lNewNode = []
+        for node in self.lNode:
+            if not node.name in lDelNodeName:
+                lNewNode.append(node)
+        self.clear()
+        self.lNode = lNewNode
+        self.BuildNodeHash()
+        
+    def BuildNodeHash(self):
+        for i in range(len(self.lNode)):
+            self.hNode[self.lNode[i].name] = i
+        return True
         
         
     def GetNumOfNode(self):
