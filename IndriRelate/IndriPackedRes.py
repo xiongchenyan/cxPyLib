@@ -5,6 +5,12 @@ TBD: add support to raw doc string. as FACC1 data will require the full doc stri
 @author: cx
 '''
 
+'''
+May 19 2014.
+Put the read function to PackedIndriResC class.
+not tested
+'''
+
 
 class FieldC:
     begin = 0
@@ -24,7 +30,7 @@ class FieldC:
     
 
 #raw doc content not implemented. all information now comes from DocVector
-class PackedIndriResC:
+class PackedIndriResC(object):
     DocNo = ""
     score = 0
     lPosition = []
@@ -36,14 +42,19 @@ class PackedIndriResC:
     hField = {}
     RawContent = "";
     
-    def __init__(self):
+    def Init(self):
         self.DocNo = ""
         self.score = 0
         self.lPosition = []
         self.lTerm = []
         self.lField = []
         self.hField={}
-        self.RawContent = ""
+        self.RawContent = ""    
+    def __init__(self,lLine = []):
+        self.Init()
+        if [] != lLine:
+            self.Loads(lLine)
+            
     def out(self):
         res = ""
         res += self.DocNo + "\t" + str(self.score)
@@ -119,6 +130,44 @@ class PackedIndriResC:
     def GetLen(self):
         return len(self.lPosition)
     
+    
+    def Loads(self,lLine):
+        cnt = 0
+        bToReadDocRaw = False
+        for line in lLine:
+            line = line.strip('\n')
+            vCol = line.split('\t')
+            if 0 == cnt:
+    #             print json.dumps(vCol)            
+                self.DocNo = vCol[0]            
+                self.score = float(vCol[1])
+                if (len(vCol) > 2):
+                    if vCol[2] == '1':
+                        bToReadDocRaw = True                  
+            if 1 == cnt:
+                if bToReadDocRaw:
+                    if line == "<DOCRAW>":
+                        continue
+                    if line == "</DOCRAW>":
+                        bToReadDocRaw = False #read finished
+                        continue
+                    self.RawContent += line + "\n"
+                    continue                      
+                self.lTerm = list(vCol)
+            if 2 == cnt:
+                for col in vCol:
+                    self.lPosition.append(int(col))
+            if 3 == cnt:
+                for col in vCol:
+                    field = FieldC(col)
+                    self.lField.append(field)              
+                self.SetHField()
+            if 4 == cnt:
+                cnt  = -1
+            cnt += 1
+        return True
+    
+    
 import json    
 #read packed indri res from InName.
 #there are multiple docs in one file, MaxRes sets how many i want
@@ -127,41 +176,36 @@ def ReadPackedIndriRes(InName,MaxRes=50):
     lPackedIndriRes = []
     cnt = 0    
     bToReadDocRaw = False
+    lLine = []
     for line in open(InName):
         line = line.strip('\n')
         vCol = line.split('\t')
         p = len(lPackedIndriRes) - 1
         if 0 == cnt:
+            lLine = []
             if (len(lPackedIndriRes) >= MaxRes):
                 break
-            lPackedIndriRes.append(PackedIndriResC())
             p += 1 
 #             print json.dumps(vCol)            
-            lPackedIndriRes[p].DocNo = vCol[0]            
-            lPackedIndriRes[p].score = float(vCol[1])
             if (len(vCol) > 2):
                 if vCol[2] == '1':
-                    bToReadDocRaw = True                  
+                    bToReadDocRaw = True
         if 1 == cnt:
             if bToReadDocRaw:
                 if line == "<DOCRAW>":
+                    lLine.append(line)
                     continue
                 if line == "</DOCRAW>":
                     bToReadDocRaw = False #read finished
+                    lLine.append(line)
                     continue
-                lPackedIndriRes[p].RawContent += line + "\n"
-                continue                      
-            lPackedIndriRes[p].lTerm = list(vCol)
-        if 2 == cnt:
-            for col in vCol:
-                lPackedIndriRes[p].lPosition.append(int(col))
-        if 3 == cnt:
-            for col in vCol:
-                field = FieldC(col)
-                lPackedIndriRes[p].lField.append(field)              
-            lPackedIndriRes[p].SetHField()
-        if 4 == cnt:
+                lLine.append(line)
+                continue
+        lLine.append(line)
+        if 4 == cnt:            
             cnt  = -1
+            Doc = PackedIndriResC(lLine)
+            lPackedIndriRes.append(Doc)
         cnt += 1
     return lPackedIndriRes
 

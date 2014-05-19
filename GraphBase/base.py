@@ -3,6 +3,25 @@ Created on May 14, 2014
 basic class for node,and graph
 @author: cx
 '''
+
+
+
+
+'''
+5/15/2014
+Major change: TBD
+the hChild in NodeC now keeps its node name
+position in GraphC.lNode is defined only by GraphC.hNode
+(for deletion)
+all class using this library should be modified accordingly
+'''
+
+
+
+
+
+
+
 import json
 from copy import deepcopy
 
