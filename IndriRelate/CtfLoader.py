@@ -34,10 +34,33 @@ class TermCtfC:
             value = float(vCol[1])
             self.hTermCtf[term] = value
         return True    
+    
+    def dump(self,OutName):
+        out = open(OutName,'w')
+        print >>out, "%d" %(self.TotalCnt)
+        
+        for key,value in self.hTermCtf.items().sort(key=lambda item:item[1], reverse=True):
+            print >>out, key + "\t%f" %(value)
+        out.close()
+        print "dump to [%s] finished" %(OutName)
+        return True
+    
+    
+    
+    def insert(self,term,cnt=1):
+        self.TotalCnt += cnt
+        if not term in self.hTermCtf:
+            self.hTermCtf[term] = cnt
+        else:
+            self.hTermCtf[term] += cnt
+        return True
+            
     def GetCtf(self,term):
         if not term in self.hTermCtf:
             return 0
         return self.hTermCtf[term]
+    
+    
     
     def GetCtfProb(self,term):
         CTF = self.GetCtf(term)

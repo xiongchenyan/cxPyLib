@@ -180,12 +180,10 @@ def ReadPackedIndriRes(InName,MaxRes=50):
     for line in open(InName):
         line = line.strip('\n')
         vCol = line.split('\t')
-        p = len(lPackedIndriRes) - 1
         if 0 == cnt:
             lLine = []
             if (len(lPackedIndriRes) >= MaxRes):
                 break
-            p += 1 
 #             print json.dumps(vCol)            
             if (len(vCol) > 2):
                 if vCol[2] == '1':
