@@ -38,8 +38,8 @@ class TermCtfC:
     def dump(self,OutName):
         out = open(OutName,'w')
         print >>out, "%d" %(self.TotalCnt)
-        
-        for key,value in self.hTermCtf.items().sort(key=lambda item:item[1], reverse=True):
+        l = self.hTermCtf.items().sort(key=lambda item:item[1], reverse=True)
+        for key,value in l:
             print >>out, key + "\t%f" %(value)
         out.close()
         print "dump to [%s] finished" %(OutName)
