@@ -5,10 +5,11 @@ Created on Apr 29, 2014
 '''
 
 from copy import deepcopy
-import math
+import math,json
 class VectorC(object):
     def Init(self):
         self.hDim = {}
+        self.Key = ""
         
     def __init__(self,InData = {}):
         self.Init()
@@ -19,6 +20,10 @@ class VectorC(object):
                 self.hDim = dict(zip(InData,range(len(InData))))
     
     
+    def dumps(self):
+        return json.dumps(self.hDim)
+    def loads(self,line):
+        self.hDim = json.loads(line)
         
         
     def __mul__(self,vb):
@@ -63,6 +68,13 @@ class VectorC(object):
         return score
     
     
+    def Normalize(self):
+        cnt = 0
+        for item in self.hDim:
+            cnt += self.hDim[item]
+        for item in self.hDim:
+            self.hDim[item] /= cnt
+            
     
     
     @staticmethod
