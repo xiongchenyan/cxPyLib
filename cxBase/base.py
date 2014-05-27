@@ -7,6 +7,7 @@ import re, math
 import sys
 from collections import Counter
 from copy import deepcopy
+import json
 # import site
 # site.addsitedir('/bos/usr4/cx/local/lib/python2.7/site-packages')
 #from nltk import PorterStemmer
@@ -129,7 +130,9 @@ class cxConf(object):
     def GetConf(self,name,DefaultValue = ""):
         name = name.lower()
         if (not name in self.hConf):
+            print "conf [%s] not exist" %(name)
             return DefaultValue
+        print "get conf [%s] [%s]" %(name,json.dumps(self.hConf[name]))
         return self.hConf[name] 
     
     def SetConf(self,name,value):
