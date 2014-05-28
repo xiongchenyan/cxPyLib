@@ -89,7 +89,12 @@ class LmBaseC(object):
         f = open(OutName,'w')
         pickle.dump(self.hTermTF,f)
         f.close()
-        
+    
+    def dumps(self):
+        return json.dumps(self.hTermTF)
+    def loads(self,line):
+        self.hTermTF = json.loads(line)
+        self.CalcLen()    
         
     def CalcLen(self):
         self.len = 0

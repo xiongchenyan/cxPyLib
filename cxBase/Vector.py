@@ -72,6 +72,8 @@ class VectorC(object):
         cnt = 0
         for item in self.hDim:
             cnt += self.hDim[item]
+        if 0 == cnt:
+            return
         for item in self.hDim:
             self.hDim[item] /= cnt
             
