@@ -10,7 +10,9 @@ def FormKey(line):
     global lKey
     vCol = line.strip().split('\t')
     Key = ""
+    print "len vcol [%d]" %(len(vCol)) 
     for i in lKey:
+        print "key [%d]" %(i)
         Key += "%s\t" %(vCol[i])
     return Key.strip('\t')
 
