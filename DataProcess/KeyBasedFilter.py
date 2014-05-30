@@ -19,7 +19,7 @@ def FormKey(line):
 def ReadKeys(InName):
     global lKey
     hKey = {}
-    for line in InName:
+    for line in open(InName):
         hKey[FormKey(line)] = True
     return hKey
         
