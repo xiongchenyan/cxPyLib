@@ -11,7 +11,7 @@ def FormKey(line):
     vCol = line.strip().split('\t')
     Key = ""
     for i in lKey:
-        Key += "%s\t" %(vCol[lKey[i]])
+        Key += "%s\t" %(vCol[i])
     return Key.strip('\t')
 
 def ReadKeys(InName):
