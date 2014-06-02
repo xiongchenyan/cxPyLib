@@ -134,8 +134,8 @@ class LmBaseC(object):
         
         if (type(LmB) == float) | (type(LmB) == int):
             Lm = copy.deepcopy(self)
-            for dim in Lm.hTerm:
-                Lm.hTerm[dim] *= LmB
+            for dim in Lm.hTermTF:
+                Lm.hTermTF[dim] *= LmB
             Lm.CalcLen()
             return Lm
         
