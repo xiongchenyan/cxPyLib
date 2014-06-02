@@ -6,7 +6,7 @@ will load and keep in class, output as service
 @author: cx
 '''
 
-
+import math
 class TermCtfC:
     
     def __init__(self,InName = ""):
@@ -69,7 +69,8 @@ class TermCtfC:
             return 0.5
         return CTF / float(self.TotalCnt)
     
-
+    def GetLogIdf(self,term):
+        return math.log(1.0/self.GetCtfProb(term))
 
 def UnitTest(TermCtrIn,TestTermIn):
     TermCtfCenter = TermCtfC(TermCtrIn)
