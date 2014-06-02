@@ -128,6 +128,7 @@ class LmBaseC(object):
             else:
                 Lm.hTermTF[dim] += LmB.hTermTF[dim]
         Lm.CalcLen()
+        return Lm
     
     def __mul__(self,LmB):
         prod = 0
