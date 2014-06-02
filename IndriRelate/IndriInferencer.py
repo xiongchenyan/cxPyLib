@@ -124,9 +124,9 @@ class LmBaseC(object):
         Lm = copy.deepcopy(self)
         for dim in LmB.hTermTF:
             if not dim in Lm.hTermTF:
-                Lm.hTerm[dim] = LmB.hTermTF[dim]
+                Lm.hTermTF[dim] = LmB.hTermTF[dim]
             else:
-                Lm.hTerm[dim] += LmB.hTermTF[dim]
+                Lm.hTermTF[dim] += LmB.hTermTF[dim]
         Lm.CalcLen()
     
     def __mul__(self,LmB):
