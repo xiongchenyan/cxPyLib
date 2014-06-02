@@ -120,9 +120,25 @@ class LmBaseC(object):
     def Cosine(LmA,LmB):
         return LmA * LmB
     
+    def __add__(self,LmB):
+        Lm = copy.deepcopy(self)
+        for dim in LmB.hTerm:
+            if not dim in Lm.hTerm:
+                Lm.hTerm[dim] = LmB.hTerm[dim]
+            else:
+                Lm.hTerm[dim] += LmB.hTerm[dim]
+        Lm.CalcLen()
     
     def __mul__(self,LmB):
         prod = 0
+        
+        if (type(LmB) == float) | (type(LmB) == int):
+            Lm = copy.deepcopy(self)
+            for dim in Lm.hTerm:
+                Lm.hTerm[dim] *= LmB
+            Lm.CalcLen()
+            return Lm
+        
         for term in self.hTermTF:
             prod += self.GetTFProb(term) * LmB.GetTFProb(term)
         return prod
