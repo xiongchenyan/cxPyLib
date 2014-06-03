@@ -27,6 +27,15 @@ class AdhocMeasureC:
         res.err = self.err
         return res
     
+    
+    
+    def __sub__(self,other):
+        res = AdhocMeasureC()
+        res.map = self.map - other.map
+        res.ndcg = self.ndcg - other.ndcg
+        res.err = self.err - other.err
+        return res
+    
     def __add__(self,other):
         res = AdhocMeasureC()
         res.map = self.map + other.map
@@ -69,6 +78,23 @@ class AdhocMeasureC:
     @staticmethod
     def MeasureName():        
         return ['map','ndcg','err']
+    
+    
+    
+    @staticmethod
+    def ReadPerQEva(InName,WithMean = False):
+        lPerQEva = []
+        for line in open(InName):
+            line = line.strip()
+            qid,MeaStr = line.split('\t')
+            if (not WithMean) &(qid == 'mean'):
+                continue
+            if qid != 'mean':
+                qid = int(qid)
+            Measure = AdhocMeasureC(MeaStr)
+            lPerQEva.append([qid,Measure])
+    #    lPerQEva.sort(key=itemgetter(0))
+        return lPerQEva
 
 def AdhocMeasureSum(lMeasure):
     Measure = AdhocMeasureC()
