@@ -18,7 +18,7 @@ class cxConfC(object):
     def __init__(self,ConfIn = ""):
         self.Init()
         if "" != ConfIn:
-            self.LoadConf(ConfIn)
+            self.SetConf(ConfIn)
         return
     
     def SetConf(self,InName):
