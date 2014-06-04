@@ -1,6 +1,9 @@
 '''
 Created on Jun 17, 2013
 
+---trying to expire the file, split its class/functions into separate files---
+June 4th
+
 @author: cx
 '''
 import re, math
