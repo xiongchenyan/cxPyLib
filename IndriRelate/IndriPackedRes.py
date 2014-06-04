@@ -74,6 +74,8 @@ class PackedIndriResC(object):
         return res
     
     
+    def ContainTerm(self,term):
+        return term in self.lTerm
     
         
     def SetHField(self):
