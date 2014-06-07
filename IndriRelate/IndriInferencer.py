@@ -16,6 +16,7 @@ from IndriRelate.QueryPreprocess import *
 import math
 from IndriRelate.IndriPackedRes import *
 from IndriRelate.CtfLoader import *
+from cxBase.TextBase import TextBaseC
 from cxBase.base import DiscardStopWord,ContainNonLetter
 import copy
 import pickle
@@ -69,7 +70,7 @@ class LmBaseC(object):
         self.hTermTF[term] += tf
         self.len += tf
     def AddRawText(self,text):
-        lTerm = text.split()
+        lTerm = TextBaseC.RawClean(text).split()
         for term in lTerm:
             self.Insert(term)
         

@@ -41,4 +41,45 @@ class TextBaseC(object):
                 res += c        
             else:
                 res += " "
-        return res  
+        return res
+    
+        
+    @staticmethod    
+    def UW(vCol,hTerm,WindowSize=20, AllowOverlap=False):
+        #count the un-ordered count of terms in lTerm appear in text
+        if type(hTerm) == list:
+            hTerm = dict(zip(hTerm,[0]*len(hTerm)))
+        if AllowOverlap:
+            return TextBaseC.UWOverlap(vCol,hTerm,WindowSize)
+        else:
+            return TextBaseC.UWNonOverlap(vCol,hTerm,WindowSize)
+    @staticmethod
+    def UWOverlap(vCol,hTerm,WindowSize):
+        #used terms marked as ""
+        #O(n) is OK..    
+        cnt = 0    
+        for st in range(len(vCol)):
+            hMid = dict(hTerm)
+            for p in range(st,min(st+WindowSize,len(vCol))):
+                if vCol[p] in hMid:
+                    del hMid[vCol[p]]
+                    vCol[p] = ""                             
+            if len(hMid) == 0:
+                cnt += 1                        
+        return cnt
+    
+    @staticmethod
+    def UWNonOverlap(vCol,hTerm,WindowSize):
+        cnt = 0
+        st = 0
+        while st < len(vCol):
+            hMid = dict(hTerm)
+            for i in range(st,min(st+WindowSize,len(vCol))):
+                if vCol[i] in hMid:
+                    del hMid[vCol[i]]
+                    if len(hMid) == 0:
+                        cnt += 1
+                        st = i
+                        break
+            st += 1      
+        return cnt  
