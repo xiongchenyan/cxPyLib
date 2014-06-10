@@ -113,6 +113,8 @@ class LmBaseC(object):
         return self.hTermTF[term]
     
     def GetTFProb(self,term):
+        if 0 == self.len:
+            return 0
         return self.GetTF(term) / float(self.len)
 
 
