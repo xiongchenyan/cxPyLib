@@ -43,6 +43,28 @@ class TextBaseC(object):
                 res += " "
         return res
     
+    @staticmethod
+    def TermMatchFrac(texta,textb):
+        lA = TextBaseC.RawClean(texta).split()
+        lB = TextBaseC.RawClean(textb).split()
+        if (len(lA) == 0) | (len(lB) == 0):
+            return 0
+        score = 0
+        
+        cnt = 0
+        for term in lA:
+            if term in lB:
+                cnt += 1.0
+        score += cnt / float(len(lB))
+        cnt = 0.0
+        for term in lB:
+            if term in lA:
+                cnt += 1.0
+        score += cnt / float(len(lA))
+        score /= 2.0
+        return score
+        
+        
         
     @staticmethod    
     def UW(vCol,hTerm,WindowSize=20, AllowOverlap=False):
