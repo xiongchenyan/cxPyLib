@@ -96,6 +96,8 @@ class VectorC(object):
             b = 0
             if dim in vB.hDim:
                 b = vB.hDim[dim]
+            if (0 == b) | (0 == value):
+                continue
             score += -value * math.log(b / value)
         return score
     
