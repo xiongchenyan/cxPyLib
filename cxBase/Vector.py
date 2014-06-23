@@ -3,6 +3,9 @@ Created on Apr 29, 2014
 
 @author: cx
 '''
+'''
+add KL divergence and two-way KL
+'''
 
 from copy import deepcopy
 import math,json
@@ -81,11 +84,24 @@ class VectorC(object):
     
     @staticmethod
     def cosine(vA,vB):
-        InnerProd = vA*vB
+#         InnerProd = vA*vB
 #         print "inner prod [%f] mod [%f][%f]" %(InnerProd,vA.Mod(),vB.Mod())
         
         return (vA*vB)/(vA.Mod() * vB.Mod())
             
-                
+    @staticmethod
+    def KL(vA,vB):
+        score = 0
+        for dim,value in vA.hDim.items():
+            b = 0
+            if dim in vB.hDim:
+                b = vB.hDim[dim]
+            score += -value * math.log(b / value)
+        return score
+    
+    @staticmethod
+    def TwoWayKL(vA,vB):
+        Avg = (vA + vB) / 2.0
+        return 0.5 * VectorC.KL(vA, Avg) + 0.5 * VectorC.KL(vB,Avg)          
         
     
