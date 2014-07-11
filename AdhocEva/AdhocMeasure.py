@@ -122,6 +122,15 @@ class AdhocMeasureC(object):
     
     @staticmethod
     def FillMissEvaByBaseline(lPerQEva,lBasePerQEva):
+        
+        if type(lPerQEva) == dict:
+            lEva = lPerQEva.items()
+            lBase = lBasePerQEva.items()
+            
+            lRes = AdhocMeasureC.FillMissEvaByBaseline(lEva, lBase)
+            return dict(lRes)
+        
+        
         lQid = [item[0] for item in lPerQEva]
         for qid,Measure in lBasePerQEva:
             if not qid in lQid:
@@ -132,7 +141,7 @@ class AdhocMeasureC(object):
             del lPerQEva[p]
             lPerQEva.sort(key = lambda item:item[0])
             lMeasure = [item[1] for item in lPerQEva]
-            lPerQEva.append('mean',AdhocMeasureC.AdhocMeasureMean(lMeasure))
+            lPerQEva.append(['mean',AdhocMeasureC.AdhocMeasureMean(lMeasure)])
         lPerQEva.sort(key = lambda item:item[0])    
         return lPerQEva
         
