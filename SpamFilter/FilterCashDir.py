@@ -35,7 +35,7 @@ def FilterBySpamScore(SpamIn,hDocId,SpamBar = 50):
             continue
         if DocNo in hDocId:
             del hDocId[DocNo]
-    print "keep [%d] doc id" %(hDocId)
+    print "keep [%d] doc id" %(len(hDocId))
     return hDocId
 
 def FilterCache(CashDir,OutDir,QueryIn,QueryOut,hKeepDocId):
