@@ -68,7 +68,7 @@ OutDir = conf.GetConf('outdir')
 QueryIn = conf.GetConf('queryin')
 QueryOut = conf.GetConf('queryout')
 SpamIn = conf.GetConf('spamfile')
-SpamBar = conf.GetConf('spamscore',50)
+SpamBar = int(conf.GetConf('spamscore',50))
 
 hAllDoc = LoadTargetDocId(CashDir,QueryIn)   
 hKeepDoc = FilterBySpamScore(SpamIn,hAllDoc,SpamBar)
