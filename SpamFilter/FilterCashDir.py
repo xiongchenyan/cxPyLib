@@ -35,7 +35,7 @@ def FilterBySpamScore(SpamIn,hDocId,SpamBar = 50):
             continue
         if DocNo in hDocId:
             del hDocId[DocNo]
-            print "[%s] score [%d] filtered" %(DocNo, score)
+#             print "[%s] score [%d] filtered" %(DocNo, score)
     print "keep [%d] doc id" %(len(hDocId))
     return hDocId
 
@@ -47,13 +47,15 @@ def FilterCache(CashDir,OutDir,QueryIn,QueryOut,hKeepDocId):
         
     for line in open(QueryIn):
         qid,query = line.strip().split('\t')
-        lDoc = ReadPackedIndriRes(CashDir + '/' + query)
+        lDoc = ReadPackedIndriRes(CashDir + '/' + query,1000)
         out = open(OutDir + '/' + hQid[qid],'w')
+        cnt = 0
         for Doc in lDoc:
             if Doc.DocNo in hKeepDocId:
                 print >>out, Doc.dumps()
+                cnt += 1 
         out.close()
-        print "[%s] done" %(hQid[qid])
+        print "[%s] done, [%d] doc left" %(hQid[qid],cnt)
     print "filter cache done"
         
 import sys
