@@ -16,7 +16,7 @@ def LoadTargetDocId(CashDir, QueryIn):
     hTargetDocId = {}
     for line in open(QueryIn):
         query = line.strip().split('\t')[1]
-        lDoc = ReadPackedIndriRes(CashDir + '/' + query)
+        lDoc = ReadPackedIndriRes(CashDir + '/' + query,1000)
         for Doc in lDoc:
             hTargetDocId[Doc.DocNo] = True
     print "load [%d] target doc id" %(len(hTargetDocId))        
@@ -27,7 +27,7 @@ def FilterBySpamScore(SpamIn,hDocId,SpamBar = 50):
     cnt = 0
     for line in open(SpamIn):
         cnt += 1
-        if 0 == (cnt % 10000):
+        if 0 == (cnt % 100000):
             print "processed [%d] spam scores" %(cnt)
         score,DocNo = line.strip().split()
         score = int(score)
@@ -35,6 +35,7 @@ def FilterBySpamScore(SpamIn,hDocId,SpamBar = 50):
             continue
         if DocNo in hDocId:
             del hDocId[DocNo]
+            print "[%s] score [%d] filtered" %(DocNo, score)
     print "keep [%d] doc id" %(len(hDocId))
     return hDocId
 
