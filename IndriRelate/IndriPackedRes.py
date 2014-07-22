@@ -146,7 +146,7 @@ class PackedIndriResC(object):
                     try:
                         self.lPosition.append(int(col))
                     except ValueError:
-                        print "doc [%s] line [%s] error" %(self.DocNo,line)
+                        print "doc [%s] line [%s][%s] error" %(self.DocNo,line,col)
             if 3 == cnt:
                 for col in vCol:
                     field = FieldC(col)
