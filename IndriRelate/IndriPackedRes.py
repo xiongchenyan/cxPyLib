@@ -72,7 +72,8 @@ class PackedIndriResC(object):
             res += field.out() + "\t"
         res.strip("\t")
         return res
-    
+    def dumps(self):
+        return self.out()
     
     def ContainTerm(self,term):
         return term in self.lTerm

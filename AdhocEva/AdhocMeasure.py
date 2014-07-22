@@ -3,9 +3,16 @@ Created on Mar 11, 2014
 ad hoc ranking measure
 @author: cx
 '''
-from operator import itemgetter
 
-class AdhocMeasureC:
+'''
+Jun 26 2014
+move some method to class's static method
+add fill target measure's missing q res by baseline res
+'''
+
+from operator import itemgetter
+from copy import deepcopy
+class AdhocMeasureC(object):
     
     def Init(self):
         self.map = 0
@@ -22,9 +29,9 @@ class AdhocMeasureC:
         
     def __deepcopy__(self,memo):
         res = AdhocMeasureC()
-        res.map = self.map
-        res.ndcg = self.ndcg
-        res.err = self.err
+        res.map = deepcopy(self.map,memo)
+        res.ndcg = deepcopy(self.ndcg,memo)
+        res.err = deepcopy(self.err,memo)
         return res
     
     
@@ -72,14 +79,30 @@ class AdhocMeasureC:
     def GetMeasure(self,MeasureName):
         return getattr(self,MeasureName,0)
     
+    def SetMeasure(self,name,value):
+        if name == 'map':
+            self.map = value
+        if name == 'ndcg':
+            self.ndcg = value
+        if name == 'err':
+            self.err = value
+    
     @staticmethod 
     def NumOfMeasure():
         return len(AdhocMeasureC().MeasureName())
     @staticmethod
     def MeasureName():        
         return ['map','ndcg','err']
+    @staticmethod
+    def AdhocMeasureSum(lMeasure):
+        Measure = AdhocMeasureC()
+        for mid in lMeasure:
+            Measure += mid
+        return Measure
     
-    
+    @staticmethod
+    def AdhocMeasureMean(lMeasure):
+        return AdhocMeasureSum(lMeasure) / float(len(lMeasure))
     
     @staticmethod
     def ReadPerQEva(InName,WithMean = False):
@@ -95,7 +118,38 @@ class AdhocMeasureC:
             lPerQEva.append([qid,Measure])
     #    lPerQEva.sort(key=itemgetter(0))
         return lPerQEva
-
+    
+    
+    @staticmethod
+    def FillMissEvaByBaseline(lPerQEva,lBasePerQEva):
+        
+        if type(lPerQEva) == dict:
+            lEva = lPerQEva.items()
+            lBase = lBasePerQEva.items()
+            
+            lRes = AdhocMeasureC.FillMissEvaByBaseline(lEva, lBase)
+            return dict(lRes)
+        
+        
+        lQid = [item[0] for item in lPerQEva]
+        for qid,Measure in lBasePerQEva:
+            if not qid in lQid:
+                lPerQEva.append([qid,deepcopy(Measure)])
+        
+        if 'mean' in lQid:
+            p = lQid.index('mean')
+            del lPerQEva[p]
+            lPerQEva.sort(key = lambda item:item[0])
+            lMeasure = [item[1] for item in lPerQEva]
+            lPerQEva.append(['mean',AdhocMeasureC.AdhocMeasureMean(lMeasure)])
+        lPerQEva.sort(key = lambda item:item[0])    
+        return lPerQEva
+        
+        
+        
+    
+    
+    
 def AdhocMeasureSum(lMeasure):
     Measure = AdhocMeasureC()
     for mid in lMeasure:

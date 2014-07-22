@@ -6,6 +6,8 @@ modify some api
 @author: cx
 '''
 
+import site
+site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib/')
 
 import json
 from copy import deepcopy

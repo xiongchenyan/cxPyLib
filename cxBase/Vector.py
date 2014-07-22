@@ -3,6 +3,9 @@ Created on Apr 29, 2014
 
 @author: cx
 '''
+'''
+add KL divergence and two-way KL
+'''
 
 from copy import deepcopy
 import math,json
@@ -87,7 +90,7 @@ class VectorC(object):
     
     @staticmethod
     def cosine(vA,vB):
-        InnerProd = vA*vB
+#         InnerProd = vA*vB
 #         print "inner prod [%f] mod [%f][%f]" %(InnerProd,vA.Mod(),vB.Mod())
         
         return (vA*vB)/(vA.Mod() * vB.Mod())
@@ -97,13 +100,13 @@ class VectorC(object):
         vMidA = deepcopy(vA)
         vMidB = deepcopy(vB)
         vMidA.Normalize()
-        vMidB.Normalize()
-        
+        vMidB.Normalize()        
         score = 0
         for dim,value in vMidA.hDim:
             if value == 0:
                 continue
             score += math.log(value / vMidB.GetDim(dim)) * value
+
         return score
     
     @staticmethod
@@ -113,8 +116,6 @@ class VectorC(object):
         score += 0.5 * VectorC.KL(vB,vSum)
         return score
         
-        
-        
-        
+  
         
     
