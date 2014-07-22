@@ -122,7 +122,7 @@ class PackedIndriResC(object):
         cnt = 0
         bToReadDocRaw = False
         for line in lLine:
-            line = line.strip('\n')
+            line = line.strip('\n').strip('\t')
             vCol = line.split('\t')
             if 0 == cnt:
     #             print json.dumps(vCol)            
@@ -142,11 +142,11 @@ class PackedIndriResC(object):
                     continue                      
                 self.lTerm = list(vCol)
             if 2 == cnt:
-                for col in vCol:
+                for col in vCol:                    
                     try:
                         self.lPosition.append(int(col))
                     except ValueError:
-                        print "doc [%s] line [%s][%s] error" %(self.DocNo,line,col)
+                        print "[%s] not int" %(self.DocNo,line,col)
             if 3 == cnt:
                 for col in vCol:
                     field = FieldC(col)
@@ -168,11 +168,11 @@ class PackedIndriResC(object):
         res += "\t".join(self.lTerm) + "\n"
         for p in self.lPosition:
             res += str(p) + "\t"
-        res.strip('\t')
+        res = res.strip('\t')
         res += "\n"
         for field in self.lField:
             res += field.out() + "\t"
-        res.strip("\t")
+        res = res.strip("\t")
         res += '\nEOD'
         return res
     
