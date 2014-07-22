@@ -25,7 +25,10 @@ for line in open(sys.argv[2]):
     
 for line in open(sys.argv[1]):
     qid,query = line.strip().split('\t')
-    os.rename(CashDir + '/' + query, CashDir + '/' + hQName[qid])
+    try:
+        os.rename(CashDir + '/' + query, CashDir + '/' + hQName[qid])
+    except OSError:
+        print "rename [%s] to [%s] failed" %(CashDir + '/' +query, CashDir + '/' +hQName[qid])
     
 
 
