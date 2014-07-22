@@ -55,23 +55,7 @@ class PackedIndriResC(object):
         if [] != lLine:
             self.Loads(lLine)
             
-    def out(self):
-        res = ""
-        res += self.DocNo + "\t" + str(self.score)
-        if self.RawContent == "":
-            res += '\t0\n'
-        else:
-            res += '\t1\n'
-            res += '<DOCRAW>\n' + self.RawContent + "\n</DOCRAW>\n"            
-        res += "\t".join(self.lTerm) + "\n"
-        for p in self.lPosition:
-            res += str(p) + "\t"
-        res.strip('\t')
-        res += "\n"
-        for field in self.lField:
-            res += field.out() + "\t"
-        res.strip("\t")
-        return res
+
     def dumps(self):
         return self.out()
     
@@ -170,6 +154,24 @@ class PackedIndriResC(object):
             cnt += 1
         return True
     
+    def out(self):
+        res = ""
+        res += self.DocNo + "\t" + str(self.score)
+        if self.RawContent == "":
+            res += '\t0\n'
+        else:
+            res += '\t1\n'
+            res += '<DOCRAW>\n' + self.RawContent + "\n</DOCRAW>\n"            
+        res += "\t".join(self.lTerm) + "\n"
+        for p in self.lPosition:
+            res += str(p) + "\t"
+        res.strip('\t')
+        res += "\n"
+        for field in self.lField:
+            res += field.out() + "\t"
+        res.strip("\t")
+        res += '\nEOD'
+        return res
     
 import json    
 #read packed indri res from InName.
