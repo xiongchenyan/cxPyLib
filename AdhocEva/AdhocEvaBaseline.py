@@ -8,7 +8,7 @@ output: evaluation file
 
 
 import site
-site.addsitedir('/bos/usr0/cx/cxPyLib')
+site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 
 from AdhocEva import *
 from IndriRelate.IndriPackedRes import *

@@ -6,7 +6,7 @@ evaluate a rank, by given AdHocQRelC
 '''
 from AdhocQRel import *
 import site
-site.addsitedir('/bos/usr0/cx/cxPyLib')
+site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 from AdhocMeasure import *
 from cxBase.base import *
 from operator import itemgetter
