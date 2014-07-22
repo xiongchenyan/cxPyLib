@@ -13,7 +13,7 @@ site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 from AdhocEva import *
 from IndriRelate.IndriPackedRes import *
 from cxBase.Conf import cxConfC
-
+from AdhocMeasure import *
 
 
 def EvaluatePerQ(qid,query,Evaluator,CashDir):
@@ -39,8 +39,13 @@ OutName = conf.GetConf('out')
 CashDir = conf.GetConf('cashdir')
 
 out = open(OutName,'w')
+lMeasure = []
 for line in open(QueryIn):
     qid,query = line.strip().split('\t')
     Measure = EvaluatePerQ(qid,query,Evaluator,CashDir)
+    lMeasure.append(Measure)
     print >>out, qid + '\t' + Measure.dumps()
+    
+MeanMea = AdhocMeasureMean(lMeasure)
+print >>out, 'mean\t' + MeanMea.dumps()
 out.close() 
