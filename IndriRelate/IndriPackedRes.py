@@ -143,7 +143,10 @@ class PackedIndriResC(object):
                 self.lTerm = list(vCol)
             if 2 == cnt:
                 for col in vCol:
-                    self.lPosition.append(int(col))
+                    try:
+                        self.lPosition.append(int(col))
+                    except ValueError:
+                        print "doc [%s] line [%s] error" %(self.DocNo,line)
             if 3 == cnt:
                 for col in vCol:
                     field = FieldC(col)
