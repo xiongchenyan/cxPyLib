@@ -48,6 +48,7 @@ class VectorC(object):
     def __deepcopy__(self,memo):
         res = VectorC()
         res.hDim = deepcopy(self.hDim,memo)
+        res.Key = deepcopy(self.Key,memo)
         return res
     
     def __add__(self,vB):
@@ -67,6 +68,11 @@ class VectorC(object):
         score = math.pow(score,0.5)
         return score
     
+    def GetDim(self,name):
+        if name in self.hDim:
+            return self.hDim
+        return 0
+       
     
     def Normalize(self):
         cnt = 0
@@ -86,6 +92,29 @@ class VectorC(object):
         
         return (vA*vB)/(vA.Mod() * vB.Mod())
             
-                
+    @staticmethod
+    def KL(vA,vB):
+        vMidA = deepcopy(vA)
+        vMidB = deepcopy(vB)
+        vMidA.Normalize()
+        vMidB.Normalize()
+        
+        score = 0
+        for dim,value in vMidA.hDim:
+            if value == 0:
+                continue
+            score += math.log(value / vMidB.GetDim(dim)) * value
+        return score
+    
+    @staticmethod
+    def TwoWayKL(vA,vB):
+        vSum = vA + vB
+        score = 0.5 * VectorC.KL(vA,vSum)
+        score += 0.5 * VectorC.KL(vB,vSum)
+        return score
+        
+        
+        
+        
         
     
