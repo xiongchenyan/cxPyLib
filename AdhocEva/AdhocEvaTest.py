@@ -7,8 +7,7 @@ unit test
 
 
 import site
-site.addsitedir('/bos/usr0/cx/local/lib/python2.7/site-packages')
-site.addsitedir('/bos/usr0/cx/cxPylib')
+site.addsitedir('/bos/usr0/cx/PyCode/cxPylib')
 import sys
 
 from AdhocEva import *

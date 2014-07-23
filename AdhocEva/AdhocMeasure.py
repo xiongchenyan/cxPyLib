@@ -119,6 +119,14 @@ class AdhocMeasureC(object):
     #    lPerQEva.sort(key=itemgetter(0))
         return lPerQEva
     
+    @staticmethod
+    def DumpPerQEva(OutName,lPerQEva):
+        out = open(OutName,'w')
+        for qid,Eva in lPerQEva:
+            print >> out, str(qid) + '\t' + Eva.dumps()
+        out.close()
+        
+    
     
     @staticmethod
     def FillMissEvaByBaseline(lPerQEva,lBasePerQEva):
@@ -142,7 +150,8 @@ class AdhocMeasureC(object):
             lPerQEva.sort(key = lambda item:item[0])
             lMeasure = [item[1] for item in lPerQEva]
             lPerQEva.append(['mean',AdhocMeasureC.AdhocMeasureMean(lMeasure)])
-        lPerQEva.sort(key = lambda item:item[0])    
+        else:
+            lPerQEva.sort(key = lambda item:item[0])    
         return lPerQEva
         
         
