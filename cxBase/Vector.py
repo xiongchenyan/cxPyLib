@@ -20,7 +20,7 @@ class VectorC(object):
             if type(InData) == dict:
                 self.hDim = deepcopy(InData)
             if type(InData) == list:
-                self.hDim = dict(zip(InData,range(len(InData))))
+                self.hDim = dict(zip(range(len(InData)),InData))
     
     
     def dumps(self):
