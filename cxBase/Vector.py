@@ -105,6 +105,8 @@ class VectorC(object):
         for dim,value in vMidA.hDim.items():
             if value == 0:
                 continue
+            if 0 == vMidB.GetDim(dim):
+                continue
             score += math.log(value / vMidB.GetDim(dim)) * value
 
         return score
