@@ -102,7 +102,7 @@ class VectorC(object):
         vMidA.Normalize()
         vMidB.Normalize()        
         score = 0
-        for dim,value in vMidA.hDim:
+        for dim,value in vMidA.hDim.items():
             if value == 0:
                 continue
             score += math.log(value / vMidB.GetDim(dim)) * value
