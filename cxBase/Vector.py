@@ -73,7 +73,7 @@ class VectorC(object):
     
     def GetDim(self,name):
         if name in self.hDim:
-            return self.hDim
+            return self.hDim[name]
         return 0
        
     
