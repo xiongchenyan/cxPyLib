@@ -28,7 +28,10 @@ class cxFeatureC(object):
             if len(lMid) < 2:
                 return False
             dim = lMid[0]
-            value = float(lMid[1])
+            try:
+                value = float(lMid[1])
+            except ValueError:
+                print "converting feature value for str [%s] failed" %(FeatureStr)
             self.hFeature[dim] = value
         return True
     
