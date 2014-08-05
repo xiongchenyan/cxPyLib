@@ -123,7 +123,7 @@ class PackedIndriResC(object):
         bToReadDocRaw = False
         for line in lLine:
             line = line.strip('\n').strip('\t')
-            print "working on line [%s] with cnt [%d]" %(line,cnt)
+#             print "working on line [%s] with cnt [%d]" %(line,cnt)
             if 'EOD' == line.strip():
                 cnt = 0
                 continue
@@ -159,7 +159,7 @@ class PackedIndriResC(object):
             if 4 == cnt:
                 cnt  = -1
             cnt += 1
-            print "cnt add to [%d]" %(cnt)
+#             print "cnt add to [%d]" %(cnt)
         return True
     
     def out(self):
