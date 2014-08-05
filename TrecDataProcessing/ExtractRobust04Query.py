@@ -18,6 +18,7 @@ qid = '0'
 flag = False
 for line in open(sys.argv[1]):
     line = line.strip()
+    line = line.replace('.','')
     if '<num>' in line:
         qid = line.replace('<num> Number:','').strip()
     if '<title>' in line:
