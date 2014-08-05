@@ -215,7 +215,7 @@ def ReadPackedIndriRes(InName,MaxRes=50):
                 lLine.append(line)
                 continue
         lLine.append(line)
-        if 4 == cnt:            
+        if (4 == cnt) | ('EOD' == line.strip()):            
             cnt  = -1
             Doc = PackedIndriResC(lLine)
             lPackedIndriRes.append(Doc)
