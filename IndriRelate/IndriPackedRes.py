@@ -159,6 +159,7 @@ class PackedIndriResC(object):
             if 4 == cnt:
                 cnt  = -1
             cnt += 1
+            print "cnt add to [%d]" %(cnt)
         return True
     
     def out(self):
