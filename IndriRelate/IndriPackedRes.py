@@ -123,6 +123,7 @@ class PackedIndriResC(object):
         bToReadDocRaw = False
         for line in lLine:
             line = line.strip('\n').strip('\t')
+            print "working on line [%s] with cnt [%d]" %(line,cnt)
             if 'EOD' == line.strip():
                 cnt = 0
                 continue
