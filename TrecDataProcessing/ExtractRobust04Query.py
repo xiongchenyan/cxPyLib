@@ -5,7 +5,9 @@ Created on Aug 5, 2014
 '''
 
 import sys
-
+import site
+site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
+from cxBase.TextBase import *
 
 if 3 != len(sys.argv):
     print "q in + out"
@@ -24,9 +26,9 @@ for line in open(sys.argv[1]):
             flag = True
             continue
         else:
-            print >>out, qid + '\t' + query
+            print >>out, qid + '\t' + TextBaseC.DiscardNonAlphaNonDigit(query)
     if flag:
-        print >>out, qid + "\t" + line.strip()
+        print >>out, qid + "\t" +  TextBaseC.DiscardNonAlphaNonDigit(line.strip())
         flag = False
 out.close()
     
