@@ -18,7 +18,7 @@ for line in open(sys.argv[1]):
     if '<num>' in line:
         qid = line.replace('<num> Number:','').strip()
     if '<title>' in line:
-        query = line.replace('<title>').strip().lower()
+        query = line.replace('<title>','').strip().lower()
         print >>out, qid + '\t' + query
 out.close()
     
