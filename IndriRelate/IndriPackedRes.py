@@ -123,6 +123,9 @@ class PackedIndriResC(object):
         bToReadDocRaw = False
         for line in lLine:
             line = line.strip('\n').strip('\t')
+            if 'EOD' == line.strip():
+                cnt = 0
+                continue
             vCol = line.split('\t')
             if 0 == cnt:
     #             print json.dumps(vCol)            
@@ -170,10 +173,12 @@ class PackedIndriResC(object):
             res += str(p) + "\t"
         res = res.strip('\t')
         res += "\n"
-        for field in self.lField:
-            res += field.out() + "\t"
-        res = res.strip("\t")
-        res += '\nEOD'
+        if len(self.lField) != 0:
+            for field in self.lField:
+                res += field.out() + "\t"
+            res = res.strip("\t")
+            res += '\n'        
+        res += 'EOD'
         return res
     
 import json    
