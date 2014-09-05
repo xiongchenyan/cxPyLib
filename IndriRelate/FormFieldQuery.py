@@ -11,7 +11,7 @@ def FormOneQ(query):
     vCol = query.split()
     vTitle = [item + '.title' for item in vCol]
     vBody = [item + '.body' for item in vCol]
-    res = '#weight( 0.5 (%s) 0.5 (%s) )' %(' '.join(vTitle), ' '.join(vBody))
+    res = '#weight( 0.5 #combine(%s) 0.5 #combine(%s) )' %(' '.join(vTitle), ' '.join(vBody))
     return res
 
 
