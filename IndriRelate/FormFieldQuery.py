@@ -23,6 +23,6 @@ out = open(sys.argv[2],'w')
 
 for line in open(sys.argv[1]):
     qid,query = line.strip().split('\t')
-    print > out,qid + '\t' + FormOneQ(query)
+    print >> out,qid + '\t' + FormOneQ(query)
     
 out.close()
