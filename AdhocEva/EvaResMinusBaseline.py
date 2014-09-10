@@ -9,7 +9,7 @@ out: score minus baseline's
 
 import site
 site.addsitedir('/bos/usr0/cx/cxPylib')
-from AdhocEva.AdhocMeasure import *
+from AdhocMeasure import *
 
 import sys
 if 4 != len(sys.argv):
