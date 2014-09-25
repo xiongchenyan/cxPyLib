@@ -7,7 +7,7 @@ will load and keep in class, output as service
 '''
 
 import math
-class TermCtfC:
+class TermCtfC(object):
     
     def __init__(self,InName = ""):
         self.Init()
