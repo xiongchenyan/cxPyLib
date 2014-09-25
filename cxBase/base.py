@@ -37,7 +37,11 @@ class cxBaseC(object):
         if "" != ConfIn:
             self.SetConf(ConfIn)
         return
-
+    
+    
+    @staticmethod
+    def ShowConf():
+        print "conf:"
 
 def get_cosine(vec1, vec2):
     intersection = set(vec1.keys()) & set(vec2.keys())
