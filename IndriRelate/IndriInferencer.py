@@ -80,6 +80,15 @@ class LmBaseC(object):
         return
         
     
+    def AddIdfFactor(self,CtfCenter):
+        for term in self.hTermTF.keys():
+            LogIdf = CtfCenter.GetLogIdf()
+            self.hTermTF[term] *= LogIdf
+        self.CalcLen()
+        return True
+        
+        
+    
     
     def load(self,InName):
         f = open(InName)
