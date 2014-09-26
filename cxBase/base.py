@@ -11,6 +11,7 @@ import sys
 from collections import Counter
 from copy import deepcopy
 import json
+from Conf import cxConfC
 # import site
 # site.addsitedir('/bos/usr4/cx/local/lib/python2.7/site-packages')
 #from nltk import PorterStemmer
@@ -30,6 +31,9 @@ class cxBaseC(object):
         return
     
     def SetConf(self,ConfIn):
+        self.conf = cxConfC(ConfIn)
+        self.ConfIn = ConfIn
+
         return True
     
     def __init__(self,ConfIn = ""):
