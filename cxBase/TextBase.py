@@ -118,3 +118,18 @@ class TextBaseC(object):
                         break
             st += 1      
         return cnt  
+    
+    
+    @staticmethod
+    def CoordinateMatchNum(TextA,TextB):
+        vColA = TextA.split()
+        vColB = TextB.split()
+        cnt = 0
+        for term in vColA:
+            if term in vColB:
+                cnt += 1
+        return cnt
+        
+        
+        
+        
