@@ -45,7 +45,9 @@ class AdhocEvaC(object):
         #lDoc is ranked DocNo
         PosCnt = 0
         SumPrecision = 0
-        for i in range(min(len(lDocNo),self.Depth)):
+        #allow the maximum depth 1000
+        Depth = 1000
+        for i in range(min(len(lDocNo),Depth)):
             value = self.AdhocQRel.GetScore(Qid, lDocNo[i])
             if value != 0:
                 PosCnt += 1
