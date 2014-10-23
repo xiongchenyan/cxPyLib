@@ -30,7 +30,7 @@ class AdhocEvaC(object):
             lQRelIn = [lQRelIn]
         for QRelIn in lQRelIn:
             self.AdhocQRel.Load(QRelIn)
-        Depth = conf.GetConf("evadepth",self.Depth)
+        self.Depth = conf.GetConf("evadepth",self.Depth)
         return True
     
     @staticmethod
