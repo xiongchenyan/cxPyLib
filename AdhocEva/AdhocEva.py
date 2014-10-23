@@ -9,6 +9,7 @@ import site
 site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 from AdhocMeasure import *
 from cxBase.base import *
+from cxBase.Conf import cxConfC
 from operator import itemgetter
 import math,json
 class AdhocEvaC(object):
@@ -23,9 +24,12 @@ class AdhocEvaC(object):
         return
 
     def SetConf(self,ConfIn):
-        conf = cxConf(ConfIn)
-        QRelIn = conf.GetConf("qrel")
-        self.AdhocQRel.Load(QRelIn)
+        conf = cxConfC(ConfIn)
+        lQRelIn = conf.GetConf("qrel")
+        if type(lQRelIn) != list:
+            lQRelIn = [lQRelIn]
+        for QRelIn in lQRelIn:
+            self.AdhocQRel.Load(QRelIn)
         Depth = conf.GetConf("evadepth",self.Depth)
         return True
     
