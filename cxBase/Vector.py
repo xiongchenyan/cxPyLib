@@ -27,7 +27,9 @@ class VectorC(object):
         return json.dumps(self.hDim)
     def loads(self,line):
         self.hDim = json.loads(line)
-        
+    
+    def IsEmpty(self):
+        return self.hDim == {}    
         
     def __mul__(self,vb):
         if (type(vb) == float) | (type(vb) == int):
