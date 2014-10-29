@@ -10,6 +10,7 @@ classes:
 @author: cx
 '''
 import site
+from IndriRelate.IndriDocBase import IndriDocBaseC
 site.addsitedir('/bos/usr4/cx/local/lib/python2.7/site-packages')
 site.addsitedir('/bos/usr4/cx/cxPylib')
 from IndriRelate.QueryPreprocess import *
@@ -33,6 +34,8 @@ class LmBaseC(object):
         if type(data) == PackedIndriResC:
             self.SetFromPackedDoc(data)
             return
+        if type(data) == IndriDocBaseC:
+            self.SetFromPackedDoc(data)
         print "type [%s] not recognized" %(str(type(data)))    
     
     def Init(self):
