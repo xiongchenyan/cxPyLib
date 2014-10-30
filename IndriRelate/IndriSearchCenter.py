@@ -63,7 +63,7 @@ class IndriSearchCenterC(cxBaseC):
     
     
     def GenerateCacheName(self,query):
-        return self.CacheDir + TextBaseC.DiscardNonAlphaNonDigit(query).replace(" ","_")[:50]
+        return self.CacheDir + TextBaseC.DiscardNonAlphaNonDigit(query).replace(" ","_")[:100]
     
     def LoadCache(self,query):
         FName = self.GenerateCacheName(query)
