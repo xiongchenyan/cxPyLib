@@ -269,6 +269,30 @@ class LmInferencerC:
         Prob /= len(lTerm)
         return Prob
     
+    def BM25Term(self,term,Lm,CtfCenter):
+        N = CtfCenter.TotalCnt;
+        df = CtfCenter.GetCtf(term)
+        tf = Lm.GetTF(term)
+        DocLen = Lm.GetLen()
+        b = 0.75
+        k1 = 1.2        
+        AvgDocLen = 800   #works for both CW09 and CW12
+        
+        score = math.log((N-df + 0.5)/(df+0.5)) * (tf)/(tf+k1(1-b + b*DocLen/AvgDocLen))       
+        return score
+    
+    def Bm25(self,query,Lm,CtfCenter):
+        score = 0
+        lTerm = query.split()
+        for term in lTerm:
+            score += self.BM25Term(term, Lm, CtfCenter)
+        return score
+        
+        
+        
+        
+    
+    
  
 def CleanQuery(query):
     lTerm = query.split(" ")
