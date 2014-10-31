@@ -278,7 +278,7 @@ class LmInferencerC:
         k1 = 1.2        
         AvgDocLen = 800   #works for both CW09 and CW12
         
-        score = math.log((N-df + 0.5)/(df+0.5)) * (tf)/(tf+k1(1-b + b*DocLen/AvgDocLen))       
+        score = math.log((N-df + 0.5)/(df+0.5)) * (tf)/(tf+k1*(1-b + b*DocLen/AvgDocLen))       
         return score
     
     def Bm25(self,query,Lm,CtfCenter):
