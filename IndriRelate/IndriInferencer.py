@@ -145,18 +145,18 @@ class LmBaseC(object):
         Lm.CalcLen()
         return Lm
     
-    def __mul__(self,LmB):
+    def __mul__(self,InData):
         prod = 0
         
-        if (type(LmB) == float) | (type(LmB) == int):
+        if (type(InData) == float) | (type(InData) == int):
             Lm = copy.deepcopy(self)
             for dim in Lm.hTermTF:
-                Lm.hTermTF[dim] *= LmB
+                Lm.hTermTF[dim] *= InData
             Lm.CalcLen()
             return Lm
         
         for term in self.hTermTF:
-            prod += self.GetTFProb(term) * LmB.GetTFProb(term)
+            prod += self.GetTFProb(term) * InData.GetTFProb(term)
         return prod
 
     @staticmethod
