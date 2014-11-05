@@ -18,7 +18,8 @@ class TextBaseC(object):
         
         text= text.lower()
         text = TextBaseC.DiscardNonAlphaNonDigit(text)
-        text = ' '.join(text.split())
+        lTerm = [term for term in text.split() if len(term) > 2]
+        text = ' '.join(lTerm)
         return text
         
     
