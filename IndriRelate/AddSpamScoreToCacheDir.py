@@ -20,26 +20,28 @@ if 3 > len(sys.argv):
     print "cachedir + spamscore files"
     sys.exit()
     
+
+
+hInCacheDocNo = {}
+
+for fname in WalkDir(sys.argv[1]):
+    lDoc = ReadPackedIndriRes(fname,  1000)
+    for doc in lDoc:
+        hInCacheDocNo[doc.DocNo] = 0
+    print "%s done" %(fname)
+
+    
+
+out = open(sys.argv[1]+"_WaterlooSpamScore",'w')
     
 print "loading spam score"
-hDocSpam = {}
 
 for fname in sys.argv[2:]:
     for line in open(fname):
         score,DocNo = line.strip().split()
-        hDocSpam[DocNo] = score
-        
+        if DocNo in hInCacheDocNo:
+            print >> out, DocNo + '\t' + score        
     print fname + " readed"
-    
-out = open(sys.argv[1]+"_WaterlooSpamScore",'w')
-for fname in WalkDir(sys.argv[1]):
-    lDoc = ReadPackedIndriRes(fname,  1000)
-    for doc in lDoc:
-        if not doc.DocNo in hDocSpam:
-            continue
-        print >>out, doc.DocNo + "\t" + hDocSpam[doc.DocNo]
-    print "%s done" %(fname)
+
 out.close()
 print "finished"
-    
-
