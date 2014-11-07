@@ -10,7 +10,8 @@ what's my output:
 CacheDir_WaterlooSpamScore:
     DocNo\tSpamScore
 '''
-
+import site
+site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 import sys
 
 from IndriPackedRes import *
