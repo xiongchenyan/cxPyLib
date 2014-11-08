@@ -32,7 +32,7 @@ for fname in WalkDir(sys.argv[1]):
 
     
 
-out = open(sys.argv[1]+"_WaterlooSpamScore",'w')
+out = open(sys.argv[1]+"WaterlooSpamScore",'w')
     
 print "loading spam score"
 
