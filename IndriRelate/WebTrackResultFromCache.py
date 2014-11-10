@@ -9,8 +9,9 @@ queries + cache dir
 what's my output:
 a rank in cache dir
 '''
-
-from IndriInferencer import *
+import site
+site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
+from IndriRelate.IndriInferencer import *
 import sys
 
 
