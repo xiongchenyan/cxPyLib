@@ -94,7 +94,10 @@ class VectorC(object):
     def cosine(vA,vB):
 #         InnerProd = vA*vB
 #         print "inner prod [%f] mod [%f][%f]" %(InnerProd,vA.Mod(),vB.Mod())
-        
+        Ma = vA.Mod()
+        Mb = vB.Mod()
+        if (0 == Ma) | (0 == Mb):
+            return 0
         return (vA*vB)/(vA.Mod() * vB.Mod())
             
     @staticmethod

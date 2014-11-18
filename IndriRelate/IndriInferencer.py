@@ -198,7 +198,7 @@ def MakeLmForDocs(lDoc):
     return lLm    
 
 #inferencer for language modeling
-class LmInferencerC: 
+class LmInferencerC(object): 
     
     def Init(self):
 #         self.DirSudoCnt = 2500
