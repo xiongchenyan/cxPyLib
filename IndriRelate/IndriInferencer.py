@@ -244,10 +244,13 @@ class LmInferencerC(object):
         if (0 == tf) & (0 == CorpusP):
             CorpusP = 0.5 #indri default
 #         print "term [%s] tf [%f] Ctf [%f]"%(term,float(tf)/DocLen,CorpusP)
+        res = self.LmFunc(tf, CorpusP, DocLen)
+        return res
+    def LmFunc(self,tf,CorpusP,DocLen):
         res = (tf +self.DirSudoCnt * CorpusP) / (DocLen + self.DirSudoCnt) * (1 - self.JmStrength)
         res += self.JmStrength * CorpusP
         return res
-
+        
 
     def InferQuery(self,query,Lm,CtfCenter):
         #dealing with words not exist (or stopword), just ignore it in query, (the term is discarded)
@@ -287,7 +290,126 @@ class LmInferencerC(object):
         for term in lTerm:
             score += self.BM25Term(term, Lm, CtfCenter)
         return score
+    
+    
+    def SDMQueryInfer(self,query,DocText,CtfCenter):
+        Lm = LmBaseC(DocText)
         
+        UnigramScore = self.InferQuery(query,Lm,CtfCenter)
+        
+        NearScore = 0
+        UWScore = 0
+        lQTerm = query.split()
+        lDocTerm = DocText.split()
+        
+        NearSize = 1
+        UWSize = 8
+        
+        for i in range(len(lQTerm) - 1):
+            lBigram = lQTerm[i:i+2]
+            NearScore += self.Near(lBigram, NearSize, lDocTerm, CtfCenter)
+            UWScore += self.UW(lBigram, UWSize, lDocTerm, CtfCenter)
+        
+        res = 0.8 * UnigramScore + 0.1 * NearScore + 0.1 * UWScore
+        return res
+    
+        
+    def Near(self,lQTerm,NearSize,lDocTerm,CtfCenter):
+        tf = self.NearCnt(lQTerm, NearSize, lDocTerm)
+        CtfP = 1
+        for term in lQTerm:
+            CtfP *= CtfCenter.GetTFProb(term)
+        if (0 == CtfP):
+            CtfP = 0.5
+        
+        res = self.LmFunc(tf,CtfP,len(lDocTerm))
+        return res    
+        
+    def NearCnt(self,lQTerm,NearSize,lDocTerm):
+        '''
+        go through lDocTerm,
+        if meet a qterm, always update the lQP to this position
+        if meet last qterm:
+            check if lQP satisfy NearSize requirements
+            if so:
+                res += 1
+                reset lQP to -1
+        '''
+        res = 0
+        lQP = [-1] * len(lQTerm)
+        hQ = dict(zip(lQTerm,range(len(lQTerm))))
+        
+        for i in range(len(lDocTerm)):
+            if not lDocTerm[i] in hQ:
+                continue
+            Qloc = hQ[lDocTerm[i]]
+            lQP[Qloc] = i
+            if Qloc == len(lQP):
+                #is last term, now check if is a match
+                if self.IsANearMatch(lQP, NearSize):
+                    res += 1
+                    lQP = [-1] * len(lQTerm)
+        return res
+        
+        
+        
+        
+    def IsANearMatch(self,lQP,NearSize):
+        for i in range(len(lQP) - 1):
+            if lQP[i] == -1:
+                return False
+            if lQP[i + 1] - lQP[i] <= 0:
+                return False
+            if lQP[i + 1] - lQP[i] > NearSize:
+                return False
+        return True
+        
+        
+    def UW(self,lQTerm,UWSize,lDocTerm,CtfCenter):
+        tf = self.UWCnt(lQTerm, UWSize, lDocTerm)
+        CtfP = 1
+        for term in lQTerm:
+            CtfP *= CtfCenter.GetTFProb(term)
+        if (0 == CtfP):
+            CtfP = 0.5
+        
+        res = self.LmFunc(tf,CtfP,len(lDocTerm))
+        return res
+        
+    def UWCnt(self,lQTerm,UWSize,lDocTerm):
+        '''
+        go through lDocTerm,
+        if meet a qterm, always update the lQP to this position
+        if meet last qterm:
+            check if lQP satisfy UW requirements
+            if so:
+                res += 1
+                reset lQP to -1
+        '''
+        res = 0
+        lQP = [-1] * len(lQTerm)
+        hQ = dict(zip(lQTerm,range(len(lQTerm))))
+        
+        for i in range(len(lDocTerm)):
+            if not lDocTerm[i] in hQ:
+                continue
+            Qloc = hQ[lDocTerm[i]]
+            lQP[Qloc] = i
+            if Qloc == len(lQP):
+                #is last term, now check if is a match
+                if self.IsAUWMatch(lQP, UWSize):
+                    res += 1
+                    lQP = [-1] * len(lQTerm)
+        return res    
+    
+    def IsAUWMatch(self,lQP,UWSize):
+        MinP = min(lQP)
+        MaxP = max(lQP)
+        if MinP == -1:
+            return False
+        if (MaxP - MinP) > UWSize:
+            return False
+        return True
         
         
         
