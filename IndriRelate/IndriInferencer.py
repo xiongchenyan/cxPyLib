@@ -318,7 +318,7 @@ class LmInferencerC(object):
         tf = self.NearCnt(lQTerm, NearSize, lDocTerm)
         CtfP = 1
         for term in lQTerm:
-            CtfP *= CtfCenter.GetTFProb(term)
+            CtfP *= CtfCenter.GetCtfProb(term)
         if (0 == CtfP):
             CtfP = 0.5
         
@@ -369,7 +369,7 @@ class LmInferencerC(object):
         tf = self.UWCnt(lQTerm, UWSize, lDocTerm)
         CtfP = 1
         for term in lQTerm:
-            CtfP *= CtfCenter.GetTFProb(term)
+            CtfP *= CtfCenter.GetCtfProb(term)
         if (0 == CtfP):
             CtfP = 0.5
         
