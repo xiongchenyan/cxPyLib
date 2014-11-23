@@ -99,6 +99,20 @@ class VectorC(object):
         if (0 == Ma) | (0 == Mb):
             return 0
         return (vA*vB)/(vA.Mod() * vB.Mod())
+    @staticmethod
+    def L2Distance(vA,vB):
+        res = 0
+        hAll = dict(vA.hDim)
+        hAll.update(vB.hDim)
+        lAllKey = hAll.keys()
+        for key in lAllKey:
+            a = vA.GetDim(key)
+            b = vB.GetDim(key)
+            res += (a-b)**2
+        res = math.sqrt(res)
+        return res
+            
+        
             
     @staticmethod
     def KL(vA,vB):
