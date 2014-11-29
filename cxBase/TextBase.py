@@ -125,9 +125,10 @@ class TextBaseC(object):
     def CoordinateMatchNum(TextA,TextB):
         vColA = TextA.split()
         vColB = TextB.split()
+        hB = dict(zip(vColB,[0]*len(vColB)))
         cnt = 0
         for term in vColA:
-            if term in vColB:
+            if term in hB:
                 cnt += 1
         return cnt
         
