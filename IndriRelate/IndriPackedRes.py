@@ -76,7 +76,7 @@ class PackedIndriResC(object):
         if (self.lField != []) &(self.hField == {}):
             self.SetHField()
         if not FieldName in self.hField:
-            return "\t".join(res)
+            return " ".join(res)
         lP = self.hField[FieldName]
 #        print "FieldName[%s] position l [%s]" %(FieldName,str(lP))        
         for p in lP:
@@ -85,7 +85,7 @@ class PackedIndriResC(object):
             end = self.lField[p].end
             for i in range(begin,end):
                 res.append(self.lTerm[self.lPosition[i]])
-        return "\t".join(res)
+        return " ".join(res)
     
     def GetTitle(self):
         if (self.title == ""):

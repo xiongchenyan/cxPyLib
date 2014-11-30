@@ -138,10 +138,12 @@ class AdhocMeasureC(object):
             lRes = AdhocMeasureC.FillMissEvaByBaseline(lEva, lBase)
             return dict(lRes)
         
-        
+        lPerQEva = [[str(item[0]),item[1]] for item in lPerQEva]
+        lBasePerQEva = [[str(item[0]),item[1]] for item in lBasePerQEva]
         lQid = [item[0] for item in lPerQEva]
+        hQid = dict(zip(lQid,[0]*len(lQid)))
         for qid,Measure in lBasePerQEva:
-            if not qid in lQid:
+            if not qid in hQid:
                 lPerQEva.append([qid,deepcopy(Measure)])
         
         if 'mean' in lQid:

@@ -11,8 +11,7 @@ classes:
 '''
 import site
 from IndriRelate.IndriDocBase import IndriDocBaseC
-site.addsitedir('/bos/usr4/cx/local/lib/python2.7/site-packages')
-site.addsitedir('/bos/usr4/cx/cxPylib')
+site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 from IndriRelate.QueryPreprocess import *
 import math
 from IndriRelate.IndriPackedRes import *
