@@ -290,6 +290,16 @@ class LmInferencerC(object):
             score += self.BM25Term(term, Lm, CtfCenter)
         return score
     
+    def CoorMatch(self,query,Lm):
+        lQTerm = query.split()
+        if len(lQTerm) == 0:
+            return 0
+        cnt = 0
+        for term in lQTerm:
+            if term in Lm.hTermTF:
+                cnt += 1
+        return cnt
+        
     
     def SDMQueryInfer(self,query,DocText,CtfCenter):
         Lm = LmBaseC(DocText)
