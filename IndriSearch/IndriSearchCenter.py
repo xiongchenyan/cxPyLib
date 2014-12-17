@@ -14,9 +14,9 @@ lDoc
 '''
 
 import site
-site.addsitedir('/bos/usr0/cx/PyCode/cxPylib')
+site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 import json
-from IndriRelate.IndriDocBase import IndriDocBaseC
+from IndriSearch.IndriDocBase import IndriDocBaseC
 from cxBase.Conf import cxConfC
 from cxBase.base import cxBaseC
 from cxBase.TextBase import TextBaseC
@@ -48,6 +48,7 @@ class IndriSearchCenterC(cxBaseC):
         
         
     def RunQuery(self,query):
+        print "running [%s]" %(query)
         lDoc = []
         TextResult = self.LoadCache(query)
         if "" == TextResult:
