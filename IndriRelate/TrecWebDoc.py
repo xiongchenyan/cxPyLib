@@ -21,6 +21,8 @@ class TrecWebDocC(object):
             if type(lData) == list:
                 if '.I' == lData[0][:2]:
                     self.LoadOhsumedDoc(lData)
+                if '*NEWRECORD' == lData[0]:
+                    self.LoadOhsumedDoc(lData)
         
     def dumps(self):
         res = "<DOC>\n"
@@ -42,4 +44,21 @@ class TrecWebDocC(object):
                 self.lField.append(['body',lLines[i]])
         return
     
-    
+    def LoadMeSHDoc(self,lLines):
+        for line in lLines:
+            if not '=' in line:
+                continue
+            head,content = line.split('=')
+            head = head.strip(' ')
+            content = content.strip(' ')
+            if head == 'MH':
+                self.lField.append(['name',content])
+            if head == 'MS':
+                self.lField.append(['desp',content])
+            if head == 'ENTRY':
+                self.lField.append(['alias',content])
+            if head == 'UI':
+                self.DocNo = content
+                self.Url = 'https:mesh/' + content
+        return
+                
