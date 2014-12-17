@@ -21,6 +21,7 @@ import sys
 if 2 != len(sys.argv):
     IndriSearchCenterC.ShowConf()
     print "in"
+    sys.exit()
     
 Searcher = IndriSearchCenterC(sys.argv[1])
 conf = cxConfC(sys.argv[1])
