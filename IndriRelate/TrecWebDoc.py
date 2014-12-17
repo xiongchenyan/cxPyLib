@@ -35,6 +35,7 @@ class TrecWebDocC(object):
         for i in range(1,len(lLines)):
             if lLines[i - 1] == '.U':
                 self.DocNo = lLines[i]
+                self.Url = 'http://ir.ohsu.edu/ohsumed/ohsumed.html/%s' %(self.DocNo)
             if lLines[i - 1] == '.T':
                 self.lField.append(['title',lLines[i]])
             if lLines[i - 1] == '.W':
