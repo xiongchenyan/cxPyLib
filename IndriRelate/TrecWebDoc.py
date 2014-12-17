@@ -36,7 +36,7 @@ class TrecWebDocC(object):
             if lLines[i - 1] == '.U':
                 self.DocNo = lLines[i]
             if lLines[i - 1] == '.T':
-                self.lField.append['title',lLines[i]]
+                self.lField.append(['title',lLines[i]])
             if lLines[i - 1] == '.W':
                 self.lField.append(['body',lLines[i]])
         return
