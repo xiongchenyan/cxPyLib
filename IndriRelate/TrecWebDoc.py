@@ -48,7 +48,11 @@ class TrecWebDocC(object):
         for line in lLines:
             if not '=' in line:
                 continue
-            head,content = line.split('=')
+            vCol = line.split('=')
+            if len(vCol) < 2:
+                print line
+            head = vCol[0].strip(' ')
+            content = ' '.join(vCol[1:]).strip(' ')
             head = head.strip(' ')
             content = content.strip(' ')
             if head == 'MH':
