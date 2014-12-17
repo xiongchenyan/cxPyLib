@@ -22,7 +22,7 @@ class TrecWebDocC(object):
                 if '.I' == lData[0][:2]:
                     self.LoadOhsumedDoc(lData)
                 if '*NEWRECORD' == lData[0]:
-                    self.LoadOhsumedDoc(lData)
+                    self.LoadMeSHDoc(lData)
         
     def dumps(self):
         res = "<DOC>\n"
