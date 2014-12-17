@@ -27,7 +27,7 @@ class TrecWebDocC(object):
         res += "<DOCNO>%s</DOCNO>\n" %(self.DocNo)
         res += "<DOCHDR>\n%s\n</DOCHDR>\n" %(self.Url)
         for field in self.lField:
-            res += "<%s>\n%s</%s>\n" %(field[0],field[1],field[2])
+            res += "<%s>\n%s</%s>\n" %(field[0],field[1],field[0])
         res += "</DOC>"
         return res
     
