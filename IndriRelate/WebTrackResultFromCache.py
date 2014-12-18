@@ -13,7 +13,7 @@ import site
 site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 from IndriRelate.IndriInferencer import *
 from IndriSearch.IndriDocBase import *
-from IndriSearch.IndriSearchRunQuery import *
+from IndriSearch.IndriSearchCenter import *
 import sys
 
 
