@@ -17,13 +17,14 @@ from IndriSearch.IndriSearchCenter import *
 import sys
 
 
-if 3 > len(sys.argv):
-    print "query + cache dir"
+if 4 > len(sys.argv):
+    print "query + cache dir + out"
     sys.exit()
     
 CacheVersion = 'old'
-if len(sys.argv) > 3:
-    CacheVersion = sys.argv[3]
+out = open(sys.argv[3],'w')
+if len(sys.argv) > 4:
+    CacheVersion = sys.argv[4]
     IndriSearcher = IndriSearchCenterC()
     IndriSearcher.CacheDir = sys.argv[2]    
 
@@ -34,7 +35,9 @@ for line in open(sys.argv[1]):
     else:
         lDoc = IndriSearcher.RunQuery(query)
     for i in range(len(lDoc)):
-        print "%s Q0 %s %d %f base" %(qid,lDoc[i].DocNo,i+1,lDoc[i].score)
+        print >>out, "%s Q0 %s %d %f base" %(qid,lDoc[i].DocNo,i+1,lDoc[i].score)
+
+out.close()
         
 
 
