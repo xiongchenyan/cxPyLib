@@ -28,7 +28,7 @@ class IndriSearchCenterC(cxBaseC):
     def Init(self):
         cxBaseC.Init(self)
         self.CacheDir = ""
-        self.WriteCache = True
+        self.WriteCache = False
         self.IndexPath = ""
         self.NumOfDoc = 100
         self.ExecPath = "/bos/usr0/cx/RunQuery/RunQueryJsonOut"
