@@ -301,6 +301,17 @@ class LmInferencerC(object):
         return cnt
         
     
+    def TFIDF(self,query,Lm,CtfCenter):
+        lScore = []
+        lTerm = query.split()
+        for term in lTerm:
+            score = Lm.GetTFProb(term) * math.log(self.CtfCenter.GetCtfProb(term))
+            lScore.append(score)
+        MeanScore = 0
+        if len(lScore) != 0:
+            MeanScore = sum(lScore) / float(len(lScore))
+        return MeanScore
+    
     def SDMQueryInfer(self,query,DocText,CtfCenter):
         Lm = LmBaseC(DocText)
         
