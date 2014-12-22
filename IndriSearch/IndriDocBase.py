@@ -28,7 +28,7 @@ class IndriDocBaseC(object):
         self.lPosition = [] #ints
         self.lTerm = [] #terms
         self.lField = [] #triples:(name,st,ed)
-        
+        self.lAnnotation = []
     
     def dumps(self):
         return json.dumps(self.__dict__)
@@ -64,7 +64,15 @@ class IndriDocBaseC(object):
         return ' '.join(lTerm)
     
     
-        
+    def GetAnnotation(self):
+        return self.lAnnnotation    
+    
+    def SetHField(self):
+        for i in range(0,len(self.lField)):
+            if not self.lField[i].name in self.hField:
+                self.hField[self.lField[i].name] = []
+            self.hField[self.lField[i].name].append(i)  
+        return True  
         
         
         
