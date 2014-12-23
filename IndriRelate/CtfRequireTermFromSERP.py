@@ -42,7 +42,7 @@ out = open(OutName,'w')
 hAllTerm = {}
 for line in open(InName):
     qid,query = line.strip().split('\t')
-    lDoc = ReadPackedIndriRes(CashDir + "/" + query)
+    lDoc = ReadPackedIndriRes(CashDir + "/" + query[:68])
     hTerm = GetTermFromSERP(lDoc)
     hAllTerm = dict(hAllTerm.items() + hTerm.items())
     print "after query [%s] term number [%d]" %(query,len(hAllTerm))
