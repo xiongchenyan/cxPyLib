@@ -65,7 +65,7 @@ class IndriDocBaseC(object):
     
     
     def GetAnnotation(self):
-        return self.lAnnnotation    
+        return self.lAnnotation    
     
     def SetHField(self):
         for i in range(0,len(self.lField)):
