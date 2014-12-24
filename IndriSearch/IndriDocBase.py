@@ -75,9 +75,9 @@ class IndriDocBaseC(object):
     
     def SetHField(self):
         for i in range(0,len(self.lField)):
-            if not self.lField[i].name in self.hField:
-                self.hField[self.lField[i].name] = []
-            self.hField[self.lField[i].name].append(i)  
+            if not self.lField[i][0] in self.hField:
+                self.hField[self.lField[i][0]] = []
+            self.hField[self.lField[i][0]].append(i)  
         return True  
         
         
