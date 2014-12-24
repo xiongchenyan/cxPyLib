@@ -25,11 +25,15 @@ class IndriDocBaseC(object):
             self.SetFromDict(hData)
         
     def Init(self):
+        #stuff that returned by indri api
         self.DocNo = "" #doc no
         self.score = 0 #ranking score of indri
         self.lPosition = [] #ints
         self.lTerm = [] #terms
         self.lField = [] #triples:(name,st,ed)
+        
+        #stuff that is added
+        self.hField = {}
         self.lAnnotation = []
         
     def SetFromDict(self,hData):
