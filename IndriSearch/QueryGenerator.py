@@ -17,7 +17,7 @@ class QueryGeneratorC(object):
         lTerm = query.split()
         if len(lTerm) == 1:
             return query
-        BOWPart = "#AND(" + query + ")"
+        BOWPart = "#combine(" + query + ")"
         
         
         
@@ -27,14 +27,14 @@ class QueryGeneratorC(object):
         
             
             
-        lNears = ["#NEAR/1(" + phase + ' ) ' for phase in lPhase]    
-        NearPart = "#AND( " + ' '.join(lNears) + ' )'
+        lNears = ["#1(" + phase + ' ) ' for phase in lPhase]    
+        NearPart = "#combine( " + ' '.join(lNears) + ' )'
         
         
-        lUWs = ["#WINDOW/8(" + phase + ' ) ' for phase in lPhase]    
-        UWPart = "#AND( " + ' '.join(lUWs) + ' )'
+        lUWs = ["#uw8(" + phase + ' ) ' for phase in lPhase]    
+        UWPart = "#combine( " + ' '.join(lUWs) + ' )'
         
-        sdm = '#WAND( 0.8 ' + BOWPart + " 0.1 " + NearPart + ' 0.1 ' + UWPart + ")"
+        sdm = '#weight( 0.8 ' + BOWPart + " 0.1 " + NearPart + ' 0.1 ' + UWPart + ")"
         
         return sdm
     
@@ -44,10 +44,10 @@ class QueryGeneratorC(object):
         lField = ['url','title','inlink','body']
         lWeight = [0.1,0.2,0.3,0.4]
         
-        MulRepQ = '#AND ( '
+        MulRepQ = '#combine ( '
         
         for term in lTerm:
-            MulRepQ += '#WSUM( '
+            MulRepQ += '#wsum( '
             for i in range(len(lField)):
                 field = lField[i]
                 w = lWeight[i]
@@ -58,7 +58,7 @@ class QueryGeneratorC(object):
     
     @staticmethod
     def GenerateSDMAndMulRep(query):
-        return "#WAND(0.5 " + QueryGeneratorC.GenerateSDM(query) + " 0.5 " + QueryGeneratorC.GenerateMultipleRep(query) + ")"
+        return "#weight(0.5 " + QueryGeneratorC.GenerateSDM(query) + " 0.5 " + QueryGeneratorC.GenerateMultipleRep(query) + ")"
     
         
     
