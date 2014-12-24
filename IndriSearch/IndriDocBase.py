@@ -19,8 +19,10 @@ import json
 import copy
 
 class IndriDocBaseC(object):
-    def __init__(self):
+    def __init__(self,hData = {}):
         self.Init()
+        if {} != hData:
+            self.SetFromDict(hData)
         
     def Init(self):
         self.DocNo = "" #doc no
@@ -29,6 +31,11 @@ class IndriDocBaseC(object):
         self.lTerm = [] #terms
         self.lField = [] #triples:(name,st,ed)
         self.lAnnotation = []
+        
+    def SetFromDict(self,hData):
+        for key in hData.keys():
+            setattr(self, key, hData[key])
+        
     
     def dumps(self):
         return json.dumps(self.__dict__)
@@ -45,8 +52,7 @@ class IndriDocBaseC(object):
         lData = json.loads(text)
         lDoc = []
         for data in lData:
-            doc = IndriDocBaseC()
-            doc.__dict__ = data
+            doc = IndriDocBaseC(data)
             lDoc.append(doc)
         return lDoc
     

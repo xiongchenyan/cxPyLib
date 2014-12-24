@@ -57,10 +57,11 @@ class IndriSearchCenterC(cxBaseC):
                 self.DumpCache(query, TextResult)
         lMid = json.loads(TextResult)
         for MidDoc in lMid[:self.NumOfDoc]:
-            doc = IndriDocBaseC()
-            doc.__dict__ = MidDoc
+            doc = IndriDocBaseC(MidDoc)
             lDoc.append(doc)
         return lDoc;
+    
+    
     
     
     def GenerateCacheName(self,query):
