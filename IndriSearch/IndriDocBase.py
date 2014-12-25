@@ -67,11 +67,11 @@ class IndriDocBaseC(object):
                 lPos.extend(self.lPosition[Field[1]:Field[2]])
                 
         lTerm = [self.lTerm[pos] for pos in lPos]
-        return ' '.join(lTerm)
+        return ' '.join(lTerm).encode('ascii','replace')
     
     def GetContent(self):
         lTerm = [self.lTerm[pos].lower() for pos in self.lPosition]
-        return ' '.join(lTerm)
+        return ' '.join(lTerm).encode('ascii','replace')
     
     
     def GetAnnotation(self):
