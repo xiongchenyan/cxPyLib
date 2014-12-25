@@ -72,7 +72,7 @@ class IndriSearchCenterC(cxBaseC):
         if not os.path.exists(FName):
             return ""
         lLine = open(FName).readlines()
-        return '\n'.join(lLine)
+        return '\n'.join(lLine).replace('\\','')
     
     def DumpCache(self,query,TextResult):
         FName = self.GenerateCacheName(query)
@@ -83,6 +83,7 @@ class IndriSearchCenterC(cxBaseC):
         print "query[%s] cache not find, running to index" %(query)
         OutStr = subprocess.check_output([self.ExecPath,query,self.IndexPath])
         line = OutStr.split('\n')[-1]
+        line = line.replace('\\','')
         return line
     
     
