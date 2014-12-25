@@ -35,6 +35,7 @@ class LmBaseC(object):
             return
         if type(data) == IndriDocBaseC:
             self.SetFromPackedDoc(data)
+            return
         print "type [%s] not recognized" %(str(type(data)))    
     
     def Init(self):
