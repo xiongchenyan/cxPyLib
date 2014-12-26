@@ -112,8 +112,8 @@ class AdhocMeasureC(object):
             qid,MeaStr = line.split('\t')
             if (not WithMean) &(qid == 'mean'):
                 continue
-            if qid != 'mean':
-                qid = int(qid)
+#             if qid != 'mean':
+#                 qid = int(qid)
             Measure = AdhocMeasureC(MeaStr)
             lPerQEva.append([qid,Measure])
     #    lPerQEva.sort(key=itemgetter(0))
