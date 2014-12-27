@@ -12,18 +12,27 @@ query
 what's my output:
 lDoc
 '''
+import math
+
+'''
+Dec 27 2014
+add extract PRF Lm for a query
+    first run query get ldoc
+    then use RM3 for Lm (need input CtfCenter for idf)
+'''
 
 import site
 site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 import json
 from IndriSearch.IndriDocBase import IndriDocBaseC
+from IndriRelate.IndriInferencer import LmBaseC
 from cxBase.Conf import cxConfC
 from cxBase.base import cxBaseC
 from cxBase.TextBase import TextBaseC
 import os
 import ntpath
 import subprocess
-
+import math
 class IndriSearchCenterC(cxBaseC):
     def Init(self):
         cxBaseC.Init(self)
@@ -61,7 +70,25 @@ class IndriSearchCenterC(cxBaseC):
             lDoc.append(doc)
         return lDoc;
     
-    
+    def RM3PRF(self,query,CtfCenter):
+        lDoc = self.RunQuery(query)
+        hPRFTerm = {}
+        for doc in lDoc:
+            DocLm = LmBaseC(doc)
+            for term in DocLm.hTermTF.keys():
+                prob = DocLm.GetTFProb(term)
+                score = prob * math.exp(doc.score)
+                if not term in hPRFTerm:
+                    hPRFTerm[term] = score
+                else:
+                    hPRFTerm[term] += score
+                    
+        for term in hPRFTerm.keys():
+            LogIDF = CtfCenter.GetLogIdf(term)
+            hPRFTerm[term] *= LogIDF
+        return hPRFTerm
+        
+        
     
     
     def GenerateCacheName(self,query):
