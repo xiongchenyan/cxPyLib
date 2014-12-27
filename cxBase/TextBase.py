@@ -132,6 +132,13 @@ class TextBaseC(object):
                 cnt += 1
         return cnt
         
+    @staticmethod
+    def TextMinus(TextA,ToDiscardText):
+        lA = TextA.lower().split()
+        lB = ToDiscardText.lower().split()
+        hB = dict(zip(lB,range(len(lB))))
         
+        lA = [term for term in lA if not term in hB]
+        return ' '.join(lA)    
         
         
