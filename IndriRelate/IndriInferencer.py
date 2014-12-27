@@ -261,7 +261,7 @@ class LmInferencerC(object):
         lTerm = query.split()
         Prob = 0
         if len(lTerm) == 0:
-            return math.log(math.exp(-10))
+            return math.log(math.exp(-15))
         for term in lTerm:
             p = self.InferTerm(term,Lm,CtfCenter)   
             if 0 == p:
