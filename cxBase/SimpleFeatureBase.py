@@ -96,7 +96,7 @@ class SimpleFeatureBaseC(object):
                     if diff == 0:
                         continue
                     hFeature[key] = (value - hMin[key]) / float(diff)
-                llFeature[i] = hFeature
+                llFeature[i][j] = hFeature
         return llFeature
     
     
