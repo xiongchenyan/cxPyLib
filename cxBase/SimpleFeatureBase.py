@@ -14,7 +14,7 @@ what's my output:
 
 '''
 import itertools
-from copu import deepcopy
+from copy import deepcopy
 class SimpleFeatureBaseC(object):
     
     @staticmethod
