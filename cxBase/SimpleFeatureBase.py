@@ -89,7 +89,7 @@ class SimpleFeatureBaseC(object):
         hDiff = {hMax[key] - value for key,value in hMin.items()}
         
         for i in range(len(llFeature)):
-            for j in range(len(llFeature[j])):
+            for j in range(len(llFeature[i])):
                 hFeature = llFeature[i][j]
                 for key,value in hFeature.items():
                     diff = hDiff[key]
@@ -106,7 +106,7 @@ class SimpleFeatureBaseC(object):
         hMin = SimpleFeatureBaseC.MinFeatureValue(lFeature)
         for i in range(len(lllFeature)):
             for j in range(len(lllFeature[i])):
-                for k in range(len(lllFeature[i][j][k])):
+                for k in range(len(lllFeature[i][j])):
                     hMid = dict(hMin)
                     hMid.update(lllFeature[i][j][k])
                     lllFeature[i][j][k] = dict(hMid)
@@ -123,7 +123,7 @@ class SimpleFeatureBaseC(object):
         
         for i in range(len(lllFeature)):
             for j in range(len(lllFeature[i])):
-                for k in range(len(lllFeature[i][j][k])):
+                for k in range(len(lllFeature[i][j])):
                     hFeature = lllFeature[i][j][k]
                     for key,value in hFeature.items():
                         diff = hDiff[key]
