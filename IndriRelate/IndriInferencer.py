@@ -10,7 +10,7 @@ classes:
 @author: cx
 '''
 import site
-from IndriRelate.IndriDocBase import IndriDocBaseC
+from IndriSearch.IndriDocBase import IndriDocBaseC
 site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 from IndriRelate.QueryPreprocess import *
 import math
