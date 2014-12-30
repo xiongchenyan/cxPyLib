@@ -119,7 +119,7 @@ class SimpleFeatureBaseC(object):
         hMin = SimpleFeatureBaseC.MinFeatureValue(lFeature)
         hMax = SimpleFeatureBaseC.MaxFeatureValue(lFeature)
         
-        hDiff = {hMax[key] - value for key,value in hMin.items()}
+        hDiff = dict([[key,hMax[key] - value] for key,value in hMin.items()])
         
         for i in range(len(lllFeature)):
             for j in range(len(lllFeature[i])):
