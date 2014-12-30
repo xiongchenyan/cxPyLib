@@ -306,7 +306,7 @@ class LmInferencerC(object):
         lScore = []
         lTerm = query.split()
         for term in lTerm:
-            score = Lm.GetTFProb(term) * math.log(CtfCenter.GetCtfProb(term))
+            score = Lm.GetTFProb(term) * CtfCenter.GetLogIdf(term)
             lScore.append(score)
         MeanScore = 0
         if len(lScore) != 0:
