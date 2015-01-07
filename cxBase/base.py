@@ -133,7 +133,7 @@ class cxConf(object):
                 continue
             lConfValue = vCol[1].split('#')
             if 1 == len(lConfValue):
-                self.hConf[vCol[0].lower()] = vCol[1]
+                self.hConf[vCol[0].lower()] = ' '.join(vCol[1:])
             else:
                 self.hConf[vCol[0].lower()] = lConfValue #support multiple value now
         return True
