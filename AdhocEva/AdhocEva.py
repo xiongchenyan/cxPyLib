@@ -12,18 +12,19 @@ from cxBase.base import *
 from cxBase.Conf import cxConfC
 from operator import itemgetter
 import math,json
-class AdhocEvaC(object):
+from IndriSearch.IndriSearchCenter import IndriSearchCenterC
+from cxBase.base import cxBaseC
+class AdhocEvaC(cxBaseC):
     
     def Init(self):
+        cxBaseC.Init(self)
         self.AdhocQRel = AdhocQRelC()
         self.Depth = 20
-    def __init__(self,ConfIn = ""):
-        self.Init()
-        if "" != ConfIn:
-            self.SetConf(ConfIn)
-        return
+        self.IndriSearcher = IndriSearchCenterC()
+        self.MAPDepth = 100
 
     def SetConf(self,ConfIn):
+        cxBaseC.SetConf(self, ConfIn)
         conf = cxConfC(ConfIn)
         lQRelIn = conf.GetConf("qrel")
         if type(lQRelIn) != list:
@@ -31,22 +32,31 @@ class AdhocEvaC(object):
         for QRelIn in lQRelIn:
             self.AdhocQRel.Load(QRelIn)
         self.Depth = int(conf.GetConf("evadepth",self.Depth))
+        self.IndriSearcher.SetConf(ConfIn)
+        
         return True
     
     @staticmethod
     def ShowConf():
+        cxBaseC.ShowConf()
         print"qrel\nevadepth 20"
+        IndriSearchCenterC.ShowConf()
     
     
     
     
-    def MAP(self,Qid,lDocNo):
+    def MAP(self,Qid,query,lDocNo):
         #evaluate the map
         #lDoc is ranked DocNo
         PosCnt = 0
         SumPrecision = 0
         #allow the maximum depth 1000
-        Depth = 100
+        Depth = self.MAPDepth
+        if len(lDocNo) < Depth:
+            self.IndriSearcher.NumOfDoc = Depth
+            lBaseDoc = self.IndriSearcher.RunQuery(query)
+            lDocNo.extend(lBaseDoc[len(lDocNo):])
+        
         for i in range(min(len(lDocNo),Depth)):
             value = self.AdhocQRel.GetScore(Qid, lDocNo[i])
             if value != 0:
@@ -55,6 +65,7 @@ class AdhocEvaC(object):
         if 0 == PosCnt:
             return 0
         return SumPrecision / float(PosCnt)
+    
     
     
     def Precision(self,qid,lDocNo):
@@ -114,20 +125,20 @@ class AdhocEvaC(object):
     
     
     
-    def EvaluatePerQ(self,Qid,lDocNo):
+    def EvaluatePerQ(self,Qid,query,lDocNo):
         print "start eva query [%s], doc num [%d]" %(Qid,len(lDocNo)) 
 #         print json.dumps(lDocNo)
 #         lMeasure.append(["map",self.MAP(Qid, lDocNo)])
 #         lMeasure.append(['ndcg',self.NDCG(Qid,lDocNo)])
 #         lMeasure.append(['err',self.ERR(Qid,lDocNo)])
         EvaRes = AdhocMeasureC()
-        EvaRes.map = self.MAP(Qid, lDocNo)
+        EvaRes.map = self.MAP(Qid, query,lDocNo)
         EvaRes.ndcg = self.NDCG(Qid,lDocNo)
         EvaRes.err = self.ERR(Qid,lDocNo)
         print "evares:\n%s" %(EvaRes.dumps(True))
         return EvaRes
     
-    def EvaluateMul(self,lQid,llDocNo):
+    def EvaluateMul(self,lQid,lQuery,llDocNo):
         EvaRes = AdhocMeasureC()
         for i in range(len(lQid)):
             mid = self.EvaluatePerQ(lQid[i],llDocNo[i])

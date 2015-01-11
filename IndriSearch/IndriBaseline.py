@@ -31,7 +31,7 @@ import sys
 def EvaluatePerQ(qid,query,Searcher,Evaluator):
     lDoc = Searcher.RunQuery(query)
     lDocNo = [Doc.DocNo for Doc in lDoc]
-    Measure = Evaluator.EvaluatePerQ(qid,lDocNo)
+    Measure = Evaluator.EvaluatePerQ(qid,query,lDocNo)
     return Measure
 
 def ReadAndGenerateQuery(InName,QueryType = 'raw'):

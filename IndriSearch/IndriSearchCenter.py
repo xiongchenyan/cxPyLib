@@ -50,6 +50,8 @@ class IndriSearchCenterC(cxBaseC):
         self.NumOfDoc = int(self.conf.GetConf('numofdoc',self.NumOfDoc))
         
         
+        
+        
     @staticmethod
     def ShowConf():
         cxBaseC.ShowConf()
