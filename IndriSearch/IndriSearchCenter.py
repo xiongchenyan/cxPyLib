@@ -60,11 +60,14 @@ class IndriSearchCenterC(cxBaseC):
         print "running [%s]" %(query)
         lDoc = []
         TextResult = self.LoadCache(query)
-        if "" == TextResult:
+        lMid = []
+        if "" != TextResult:
+            lMid = json.loads(TextResult)
+        if len(lMid) < self.NumOfDoc:
             TextResult = self.CallExec(query)
             if self.WriteCache:
                 self.DumpCache(query, TextResult)
-        lMid = json.loads(TextResult)
+                lMid = json.loads(TextResult)
         for MidDoc in lMid[:self.NumOfDoc]:
             doc = IndriDocBaseC(MidDoc)
             lDoc.append(doc)
