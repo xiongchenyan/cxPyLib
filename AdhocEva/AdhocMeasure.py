@@ -155,10 +155,7 @@ class AdhocMeasureC(object):
         else:
             lPerQEva.sort(key = lambda item:item[0])    
         return lPerQEva
-        
-        
-        
-    
+ 
     
     
 def AdhocMeasureSum(lMeasure):
