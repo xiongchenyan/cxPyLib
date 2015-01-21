@@ -52,7 +52,7 @@ class AdhocEvaC(cxBaseC):
         SumPrecision = 0
         #allow the maximum depth 1000
         Depth = self.MAPDepth
-        if len(lDocNo) < Depth:
+        if (len(lDocNo) < Depth) & (query != ""):
             self.IndriSearcher.NumOfDoc = Depth
             lBaseDoc = self.IndriSearcher.RunQuery(query)
             lDocNo.extend(lBaseDoc[len(lDocNo):])
