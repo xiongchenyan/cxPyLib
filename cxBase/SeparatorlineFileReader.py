@@ -23,9 +23,11 @@ class SeparatorlineFileReaderC(object):
         self.InName = ""
         self.SeparatorPre = ''
         self.CurrentSeparatorLine = ""
-    def __init__(self,SeparatorPre = 'trec'):
+        self.KeepSepLine = False
+    def __init__(self,SeparatorPre = 'trec',KeepSepLine = False):
         self.Init()
         self.SeparatorPre = SeparatorPre
+        self.KeepSepLine = KeepSepLine
         
         
     def open(self,InName,mode = 'r'):
@@ -65,7 +67,11 @@ class SeparatorlineFileReaderC(object):
                 self.CurrentSeparatorLine = line
                 if [] != lvCol:
                     break
-            vCol = [self.CurrentSeparatorLine] + line.split(self.Spliter)
+            if self.KeepSepLine:
+                vCol = [self.CurrentSeparatorLine] + line.split(self.Spliter)
+            else:
+                vCol = line.split(self.Spliter)
+            vCol = [col.strip() for col in vCol]
             if [] == vCol:
                 continue
             if cnt < self.MaxLinePerFile:
