@@ -67,6 +67,8 @@ class SeparatorlineFileReaderC(object):
                 self.CurrentSeparatorLine = line
                 if [] != lvCol:
                     break
+                else:
+                    continue
             if self.KeepSepLine:
                 vCol = [self.CurrentSeparatorLine] + line.split(self.Spliter)
             else:
