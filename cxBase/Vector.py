@@ -65,6 +65,23 @@ class VectorC(object):
                 res.hDim[item] += vB.hDim[item]
         return res
     
+    def __sub__(self,vB):
+        res = deepcopy(self)
+        for item in vB.hDim:
+            if not item in res.hDim:
+                res.hDim[item] = vB.hDim[item] * (-1)
+            else:
+                res.hDim[item] -= vB.hDim[item]
+        return res
+    
+    def __abs__(self):
+        res = deepcopy(self)
+        for item in self.hDim:
+            res.hDim[item] = math.fabs(self.hDim[item])
+        return res
+    
+            
+    
     
     def Mod(self,level=2):
         score = 0
@@ -111,7 +128,18 @@ class VectorC(object):
             res += (a-b)**2
         res = math.sqrt(res)
         return res
-            
+    
+    @staticmethod
+    def PointWiseL2(vA,vB):
+        res = VectorC()
+        hAll = dict(vA.hDim)
+        hAll.update(vB.hDim)
+        lAllKey = hAll.keys()
+        for key in lAllKey:
+            a = vA.GetDim(key)
+            b = vB.GetDim(key)
+            res.hDim[key] += (a-b)**2
+        return res     
         
             
     @staticmethod
@@ -138,5 +166,5 @@ class VectorC(object):
         return score
         
   
-        
+    
     
