@@ -30,6 +30,9 @@ class TermCtfC(object):
 #                 print vCol[0]
                 self.TotalCnt = int(vCol[0])
                 continue
+            if len(vCol) < 2:
+                print "ctf error line [%s]" %(line)
+                continue
             term = vCol[0]
             value = float(vCol[1])
             self.hTermCtf[term] = value
