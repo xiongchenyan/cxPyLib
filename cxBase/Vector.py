@@ -103,7 +103,7 @@ class VectorC(object):
         if 0 == cnt:
             return
         for item in self.hDim:
-            self.hDim[item] /= cnt
+            self.hDim[item] /= float(cnt)
             
     
     
