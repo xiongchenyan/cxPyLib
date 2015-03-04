@@ -45,6 +45,8 @@ class IndriSearchCenterC(cxBaseC):
     def SetConf(self, ConfIn):
         cxBaseC.SetConf(self, ConfIn)
         self.CacheDir = self.conf.GetConf('cachedir') + '/'
+        if not os.path.exists(self.CacheDir):
+            os.mkdir(self.CacheDir)
         self.WriteCache = bool(int(self.conf.GetConf('writeindricache',self.WriteCache)))
         self.IndexPath = self.conf.GetConf('indexpath') + '/'
         self.NumOfDoc = int(self.conf.GetConf('numofdoc',self.NumOfDoc))
