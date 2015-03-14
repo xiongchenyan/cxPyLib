@@ -138,7 +138,7 @@ class VectorC(object):
         for key in lAllKey:
             a = vA.GetDim(key)
             b = vB.GetDim(key)
-            res.hDim[key] += (a-b)**2
+            res.hDim[key] = (a-b)**2
         return res     
         
             
