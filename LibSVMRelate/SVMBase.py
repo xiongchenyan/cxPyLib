@@ -7,7 +7,7 @@ Created on Mar 19, 2014
 
 import site
 site.addsitedir('/bos/usr0/cx/PyCode/GeekTools')
-from CrossValidation.ParameterSet import *
+from CrossValidation_old.ParameterSet import *
 
 
 '''

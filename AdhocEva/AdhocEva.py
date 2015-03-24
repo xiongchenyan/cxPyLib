@@ -22,17 +22,19 @@ class AdhocEvaC(cxBaseC):
         self.Depth = 20
         self.IndriSearcher = IndriSearchCenterC()
         self.MAPDepth = 100
+        self.lQRelIn = ['/bos/usr0/cx/tmp/data/qrel_09']
+        
 
     def SetConf(self,ConfIn):
         cxBaseC.SetConf(self, ConfIn)
         conf = cxConfC(ConfIn)
-        lQRelIn = conf.GetConf("qrel")
-        if type(lQRelIn) != list:
-            lQRelIn = [lQRelIn]
-        for QRelIn in lQRelIn:
+        self.lQRelIn = conf.GetConf("qrel",self.lQRelIn)
+        if type(self.lQRelIn) != list:
+            self.lQRelIn = [self.lQRelIn]
+        for QRelIn in self.lQRelIn:
             self.AdhocQRel.Load(QRelIn)
         self.Depth = int(conf.GetConf("evadepth",self.Depth))
-        self.IndriSearcher.SetConf(ConfIn)
+#         self.IndriSearcher.SetConf(ConfIn)
         
         return True
     
@@ -52,10 +54,10 @@ class AdhocEvaC(cxBaseC):
         SumPrecision = 0
         #allow the maximum depth 1000
         Depth = self.MAPDepth
-        if (len(lDocNo) < Depth) & (query != ""):
-            self.IndriSearcher.NumOfDoc = Depth
-            lBaseDoc = self.IndriSearcher.RunQuery(query)
-            lDocNo.extend(lBaseDoc[len(lDocNo):])
+#         if (len(lDocNo) < Depth) & (query != ""):
+#             self.IndriSearcher.NumOfDoc = Depth
+#             lBaseDoc = self.IndriSearcher.RunQuery(query)
+#             lDocNo.extend(lBaseDoc[len(lDocNo):])
         
         for i in range(min(len(lDocNo),Depth)):
             value = self.AdhocQRel.GetScore(Qid, lDocNo[i])
@@ -126,6 +128,9 @@ class AdhocEvaC(cxBaseC):
     
     
     def EvaluatePerQ(self,Qid,query,lDocNo):
+        if self.AdhocQRel.hQRel == {}:
+            for QRelIn in self.lQRelIn:
+                self.AdhocQRel.Load(QRelIn)
         print "start eva query [%s], doc num [%d]" %(Qid,len(lDocNo)) 
 #         print json.dumps(lDocNo)
 #         lMeasure.append(["map",self.MAP(Qid, lDocNo)])
