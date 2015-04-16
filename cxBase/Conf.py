@@ -63,3 +63,21 @@ class cxConfC(object):
         conf = cxConfC()
         conf.hConf = deepcopy(self.hConf)
         return conf
+
+
+
+if __name__ == '__main__':
+    import logging
+    import sys
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+    
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+    
+    print "I am the conf class, please import me for futher usage"
+    
+    
+    root.addHandler(ch)

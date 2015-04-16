@@ -42,7 +42,7 @@ class AdhocEvaC(cxBaseC):
     def ShowConf():
         cxBaseC.ShowConf()
         print"qrel\nevadepth 20"
-        IndriSearchCenterC.ShowConf()
+#         IndriSearchCenterC.ShowConf()
     
     
     
