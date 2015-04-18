@@ -33,6 +33,7 @@ import os
 import ntpath
 import subprocess
 import math
+import logging
 class IndriSearchCenterC(cxBaseC):
     def Init(self):
         cxBaseC.Init(self)
@@ -40,6 +41,8 @@ class IndriSearchCenterC(cxBaseC):
         self.WriteCache = True
         self.IndexPath = ""
         self.NumOfDoc = 100
+        self.OOVFractionFilter = True
+        self.OOVMinFraction = 0.1  #must have >= 0.1 oov to stay
         self.ExecPath = "/bos/usr0/cx/RunQuery/RunQueryJsonOut"
         
     def SetConf(self, ConfIn):
@@ -72,10 +75,26 @@ class IndriSearchCenterC(cxBaseC):
             if self.WriteCache:
                 self.DumpCache(query, TextResult)
                 lMid = json.loads(TextResult)
+                
+        lMid = [doc for doc in lMid if not self.IsSpamDoc(doc)]
         for MidDoc in lMid[:self.NumOfDoc]:
             doc = IndriDocBaseC(MidDoc)
             lDoc.append(doc)
         return lDoc;
+    
+    def IsSpamDoc(self,doc):
+        if self.OOVFractionFilter:
+            if doc.OOVFraction() < self.OOVMinFraction:
+                return True
+        return False
+        
+        
+        
+    
+        
+        
+    
+    
     
     def RM3PRF(self,query,CtfCenter):
         lDoc = self.RunQuery(query)

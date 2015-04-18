@@ -50,6 +50,20 @@ class IndriDocBaseC(object):
         '''
         self.__dict__ = json.loads(text)
         
+    
+    def OOVFraction(self):
+        if [] == self.lPosition:
+            return 0
+        OOVP = -1
+        for i in range(len(self.lTerm)):
+            if self.lTerm[i] == '[OOV]':
+                OOVP = i
+                break
+            
+        OOVCnt = len([p for p in self.lPosition if p == OOVP])
+        return float(OOVCnt) / float(len(self.lPosition))
+        
+        
         
     @staticmethod
     def MulLoads(text):
