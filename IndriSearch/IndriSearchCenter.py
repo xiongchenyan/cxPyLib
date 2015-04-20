@@ -41,7 +41,7 @@ class IndriSearchCenterC(cxBaseC):
         self.WriteCache = True
         self.IndexPath = ""
         self.NumOfDoc = 100
-        self.OOVFractionFilter = True
+        self.OOVFractionFilter = False   #default false
         self.OOVMinFraction = 0.1  #must have >= 0.1 oov to stay
         self.ExecPath = "/bos/usr0/cx/RunQuery/RunQueryJsonOut"
         self.hQRefRank = {}   #{qid->[DocNo,DocScore]}
@@ -101,18 +101,21 @@ class IndriSearchCenterC(cxBaseC):
                 self.DumpCache(query, TextResult)
                 lMid = json.loads(TextResult)
                 
-        lMid = [doc for doc in lMid if not self.IsSpamDoc(doc)]
+#         lMid = [doc for doc in lMid if not self.IsSpamDoc(doc)]
         
+        
+#         lMid = self.FollowRefRank(qid,lMid)
+        
+        
+        for MidDoc in lMid:
+            doc = IndriDocBaseC(MidDoc)
+            if not self.IsSpamDoc(doc):
+                lDoc.append(doc)
         '''
         use ref rank here if qid != "" and qid exists in self.hQRefRank
-        '''
-        lMid = self.FollowRefRank(qid,lMid)
-        
-        
-        for MidDoc in lMid[:self.NumOfDoc]:
-            doc = IndriDocBaseC(MidDoc)
-            lDoc.append(doc)
-        return lDoc;
+        '''        
+        lDoc = self.FollowRefRank(qid, lDoc)
+        return lDoc[:self.NumOfDoc];
     
     
     def FollowRefRank(self,qid,lRawDoc):
