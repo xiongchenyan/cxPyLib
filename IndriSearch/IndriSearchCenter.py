@@ -227,6 +227,14 @@ if __name__ == "_main__":
         IndriSearchCenterC.ShowConf()
         print "in"
         sys.exit()
+    
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+    
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
         
     Searcher = IndriSearchCenterC(sys.argv[1])
     conf = cxConfC(sys.argv[1])

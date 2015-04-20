@@ -26,7 +26,7 @@ from AdhocEva.AdhocMeasure import AdhocMeasureC
 from IndriSearch.QueryGenerator import QueryGeneratorC
 
 import sys
-
+import logging
 
 def EvaluatePerQ(qid,query,Searcher,Evaluator):
     lDoc = Searcher.RunQuery(query)
@@ -47,6 +47,14 @@ if 2 != len(sys.argv):
     AdhocEvaC.ShowConf()
     print "in\nout\nquerytype raw|sdm"
     sys.exit()
+
+root = logging.getLogger()
+root.setLevel(logging.INFO)
+
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
     
 conf = cxConfC(sys.argv[1])
 InName = conf.GetConf('in')
