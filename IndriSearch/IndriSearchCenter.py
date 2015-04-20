@@ -212,7 +212,30 @@ class IndriSearchCenterC(cxBaseC):
         line = line.replace('\\','')
         return line
     
+
+'''
+add simple run qid\tquery and output trec format function
+copied from IndriSearchRunQuery
+'''    
+if __name__ == "_main__":
+    import sys
+
+    if 2 != len(sys.argv):
+        IndriSearchCenterC.ShowConf()
+        print "in"
+        sys.exit()
+        
+    Searcher = IndriSearchCenterC(sys.argv[1])
+    conf = cxConfC(sys.argv[1])
     
+    QInName = conf.GetConf('in')
+    for line in open(QInName):
+        qid,query = line.strip().split('\t')
+        Searcher.RunQuery(query)
+    
+    print "finished"   
+   
+   
         
         
         
