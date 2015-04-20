@@ -29,7 +29,7 @@ import sys
 import logging
 
 def EvaluatePerQ(qid,query,Searcher,Evaluator):
-    lDoc = Searcher.RunQuery(query)
+    lDoc = Searcher.RunQuery(query,qid)
     lDocNo = [Doc.DocNo for Doc in lDoc]
     Measure = Evaluator.EvaluatePerQ(qid,query,lDocNo)
     return Measure
@@ -73,7 +73,8 @@ out = open(OutName,'w')
 
 for i in range(len(lMeasure)):
     print >>out,lQidQuery[i][0] + '\t' + lMeasure[i].dumps()
-    
+
+print 'mean\t' + Mean.dumps()    
 print >>out, 'mean\t' + Mean.dumps()
 
 out.close()
