@@ -1,13 +1,24 @@
 '''
-Created on my MAC Apr 20, 2015-6:06:09 PM
-What I do:
+Created on Apr 20, 2015 5:24:20 PM
+@author: cx
 
-What's my input:
+what I do:
+I generate to filter out spam list
+    for qid, query
+        run to index, get docs
+    go through spam data, record those to filter
+what's my input:
+qid query
+index
+cachedir
+spam data
+spam range (60 default)
+what's my output:
 
-What's my output:
+a qid\t docno black list
 
-@author: chenyanxiong
 '''
+
 
 
 import site
