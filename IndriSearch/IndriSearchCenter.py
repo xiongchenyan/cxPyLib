@@ -21,6 +21,13 @@ add extract PRF Lm for a query
     then use RM3 for Lm (need input CtfCenter for idf)
 '''
 
+'''
+Apr 20 2015
+Add func to read ref rank
+Add func to filter by OOV (by may not in use cause the following is more preferred)
+Add func to filter give blacklist Qid-DocNo pairs
+'''
+
 import site
 site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 import json
@@ -47,6 +54,10 @@ class IndriSearchCenterC(cxBaseC):
         self.hQRefRank = {}   #{qid->[DocNo,DocScore]}
         self.RefRankInName = ""
         
+        self.BlackListInName = ""
+        self.hQBlackList = {}   #qid->{DocNo}
+        
+        
     def SetConf(self, ConfIn):
         cxBaseC.SetConf(self, ConfIn)
         self.CacheDir = self.conf.GetConf('cachedir') + '/'
@@ -59,15 +70,18 @@ class IndriSearchCenterC(cxBaseC):
         if "" != self.RefRankInName:
             self.LoadRefRank()
             
-        
-        
-        
+        self.BlackListInName = self.conf.GetConf('blacklist')
+        if "" != self.BlackListInName:
+            self.LoadBlackList()
+            
+            
+            
     @staticmethod
     def ShowConf():
         cxBaseC.ShowConf()
-        print 'cachedir\nwriteindricache\nindexpath\nnumofdoc\nrefrank (opt)'
+        print 'cachedir\nwriteindricache\nindexpath\nnumofdoc\nrefrank (opt)\nblacklist (opt)'
         
-        
+            
     def LoadRefRank(self):
         lLines = open(self.RefRankInName).read().splitlines()
         lItem = [line.split() for line in lLines]
@@ -82,7 +96,22 @@ class IndriSearchCenterC(cxBaseC):
         return True
         
         
+    def LoadBlackList(self):
+        '''
+        qid\tdocno file
+        '''    
+        lLines = open(self.BlackListInName).read().splitlines()
+        lQidDocNo = [line.split() for line in lLines]
         
+        for qid,DocNo in lQidDocNo:
+            if not qid in self.hQBlackList:
+                self.hQBlackList[qid] = set([DocNo])
+            else:
+                self.hQBlackList[qid].add(DocNo)
+                
+        logging.info('load black list from [%s] done',self.BlackListInName)
+        return True
+            
         
         
     def RunQuery(self,query,qid = ""):
@@ -109,13 +138,25 @@ class IndriSearchCenterC(cxBaseC):
         
         for MidDoc in lMid:
             doc = IndriDocBaseC(MidDoc)
-            if not self.IsSpamDoc(doc):
+            if not self.IsFilterDoc(qid,doc):
                 lDoc.append(doc)
         '''
         use ref rank here if qid != "" and qid exists in self.hQRefRank
         '''        
         lDoc = self.FollowRefRank(qid, lDoc)
         return lDoc[:self.NumOfDoc];
+    
+    
+    def IsFilterDoc(self,qid,doc):
+        
+        if self.InBlackList(qid,doc):
+            return True
+        
+        if self.IsSpamDoc(doc):
+            return True
+        
+        return False
+    
     
     
     def FollowRefRank(self,qid,lRawDoc):
@@ -156,7 +197,12 @@ class IndriSearchCenterC(cxBaseC):
         
         
         
-        
+    def InBlackList(self,qid,doc):
+        if not qid in self.hQBlackList:
+            return False
+        if not doc.DocNo in self.hQBlackList[qid]:
+            return False
+        return True    
     
     def IsSpamDoc(self,doc):
         if self.OOVFractionFilter:
