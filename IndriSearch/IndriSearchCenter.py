@@ -242,7 +242,7 @@ if __name__ == "_main__":
     QInName = conf.GetConf('in')
     for line in open(QInName):
         qid,query = line.strip().split('\t')
-        Searcher.RunQuery(query)
+        Searcher.RunQuery(query,qid)
     
     print "finished"   
    
