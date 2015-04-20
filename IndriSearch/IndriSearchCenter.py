@@ -26,6 +26,11 @@ Apr 20 2015
 Add func to read ref rank
 Add func to filter by OOV  (main focus)
 Add func to filter give blacklist Qid-DocNo pairs (not in use for now)
+
+TBD:
+    get 60 black list
+    build 60 spam filtered index for CW09CatB
+    check baseline performance
 '''
 
 import site
