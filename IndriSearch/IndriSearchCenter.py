@@ -24,8 +24,8 @@ add extract PRF Lm for a query
 '''
 Apr 20 2015
 Add func to read ref rank
-Add func to filter by OOV (by may not in use cause the following is more preferred)
-Add func to filter give blacklist Qid-DocNo pairs
+Add func to filter by OOV  (main focus)
+Add func to filter give blacklist Qid-DocNo pairs (not in use for now)
 '''
 
 import site

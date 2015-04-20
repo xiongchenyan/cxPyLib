@@ -19,6 +19,12 @@ a qid\t docno black list
 
 '''
 
+'''
+not in use now.
+directly discard spam in index is a much better idea
+
+'''
+
 
 
 import site
