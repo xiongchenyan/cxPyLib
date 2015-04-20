@@ -44,6 +44,8 @@ class IndriSearchCenterC(cxBaseC):
         self.OOVFractionFilter = True
         self.OOVMinFraction = 0.1  #must have >= 0.1 oov to stay
         self.ExecPath = "/bos/usr0/cx/RunQuery/RunQueryJsonOut"
+        self.hQRefRank = {}   #{qid->[DocNo,DocScore]}
+        self.RefRankInName = ""
         
     def SetConf(self, ConfIn):
         cxBaseC.SetConf(self, ConfIn)
@@ -53,17 +55,40 @@ class IndriSearchCenterC(cxBaseC):
         self.WriteCache = bool(int(self.conf.GetConf('writeindricache',self.WriteCache)))
         self.IndexPath = self.conf.GetConf('indexpath') + '/'
         self.NumOfDoc = int(self.conf.GetConf('numofdoc',self.NumOfDoc))
-        
+        self.RefRankInName = self.conf.GetConf('refrank')
+        if "" != self.RefRankInName:
+            self.LoadRefRank()
+            
         
         
         
     @staticmethod
     def ShowConf():
         cxBaseC.ShowConf()
-        print 'cachedir\nwriteindricache\nindexpath\nnumofdoc'
+        print 'cachedir\nwriteindricache\nindexpath\nnumofdoc\nrefrank (opt)'
         
         
-    def RunQuery(self,query):
+    def LoadRefRank(self):
+        lLines = open(self.RefRankInName).read().splitlines()
+        lItem = [line.split() for line in lLines]
+        lQidDocScore = [[item[0],item[2],float(item[4])] for item in lItem]
+        
+        for qid, DocNo,score in lQidDocScore:
+            if not qid in self.hQRefRank:
+                self.hQRefRank[qid] = [[DocNo,score]]
+            else:
+                self.hQRefRank[qid].append([DocNo,score])
+        logging.info('ref rank loaded from [%s]',self.RefRankInName)        
+        return True
+        
+        
+        
+        
+        
+    def RunQuery(self,query,qid = ""):
+        '''
+        must have qid to use ref rank
+        '''
         print "running [%s]" %(query)
         lDoc = []
         TextResult = self.LoadCache(query)
@@ -77,10 +102,58 @@ class IndriSearchCenterC(cxBaseC):
                 lMid = json.loads(TextResult)
                 
         lMid = [doc for doc in lMid if not self.IsSpamDoc(doc)]
+        
+        '''
+        use ref rank here if qid != "" and qid exists in self.hQRefRank
+        '''
+        lMid = self.FollowRefRank(qid,lMid)
+        
+        
         for MidDoc in lMid[:self.NumOfDoc]:
             doc = IndriDocBaseC(MidDoc)
             lDoc.append(doc)
         return lDoc;
+    
+    
+    def FollowRefRank(self,qid,lRawDoc):
+        '''
+        match the qid's [doc,score] ranks,
+        order and score modified, till have enough self.NumOfDoc
+        '''
+        
+        if qid == "":
+            return lRawDoc
+        if not qid in self.hQRefRank:
+            return lRawDoc
+        
+        lDocNoScore = self.hQRefRank[qid]
+        
+        lModifiedDoc = []
+        lDocNoInRaw = [doc.DocNo for doc in lRawDoc]
+        hDocP = dict(zip(lDocNoInRaw,range(len(lDocNoInRaw))))
+        
+        MissCnt = 0
+        for DocNo,score in lDocNoScore:
+            if not DocNo in hDocP:
+                MissCnt += 1
+                continue
+            doc = lRawDoc[hDocP[DocNo]]
+            doc.score = score
+            lModifiedDoc.append(doc)
+            if len(lModifiedDoc) >= self.NumOfDoc:
+                break
+        
+        if 0 != MissCnt:
+            logging.warn('get [%d] doc for qid [%s], missing [%d] doc in ref rank',len(lModifiedDoc),qid,MissCnt)
+        else:
+            logging.info('qid [%s] ref rank full filled',qid)
+        return lModifiedDoc
+        
+        
+        
+        
+        
+        
     
     def IsSpamDoc(self,doc):
         if self.OOVFractionFilter:
