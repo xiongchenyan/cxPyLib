@@ -13,7 +13,8 @@ change query to different format
 class QueryGeneratorC(object):
     
     @staticmethod
-    def GenerateSDM(query):
+    def GenerateSDM(query,NearWeight = 0.1, UWWeight = 0.1):
+        BOWWeight = 1 - NearWeight - UWWeight
         lTerm = query.split()
         if len(lTerm) == 1:
             return query
@@ -34,7 +35,7 @@ class QueryGeneratorC(object):
         lUWs = ["#uw8(" + phase + ' ) ' for phase in lPhase]    
         UWPart = "#combine( " + ' '.join(lUWs) + ' )'
         
-        sdm = '#weight( 0.8 ' + BOWPart + " 0.1 " + NearPart + ' 0.1 ' + UWPart + ")"
+        sdm = '#weight( %.2f '%(BOWWeight) + BOWPart + " %.2f "%(NearWeight) + NearPart + ' %.2f ' %(UWWeight) + UWPart + ")"
         
         return sdm
     
@@ -57,8 +58,8 @@ class QueryGeneratorC(object):
         return MulRepQ
     
     @staticmethod
-    def GenerateSDMAndMulRep(query):
-        return "#weight(0.5 " + QueryGeneratorC.GenerateSDM(query) + " 0.5 " + QueryGeneratorC.GenerateMultipleRep(query) + ")"
+    def GenerateSDMAndMulRep(query,NearWeight = 0.1,UWWeight = 0.1):
+        return "#weight(0.5 " + QueryGeneratorC.GenerateSDM(query,NearWeight,UWWeight) + " 0.5 " + QueryGeneratorC.GenerateMultipleRep(query) + ")"
     
         
     
