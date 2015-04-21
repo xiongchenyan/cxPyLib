@@ -123,7 +123,7 @@ class IndriSearchCenterC(cxBaseC):
         '''
         must have qid to use ref rank
         '''
-        print "running [%s]" %(query)
+        logging.info("indri running query [%s]", query)
         lDoc = []
         TextResult = self.LoadCache(query)
         lMid = []
@@ -270,7 +270,7 @@ class IndriSearchCenterC(cxBaseC):
         print >>out, TextResult
     
     def CallExec(self,query):
-        print "query[%s] cache not find, running to index" %(query)
+        logging.info("query[%s] cache not find, running to index",query)
         OutStr = subprocess.check_output([self.ExecPath,query,self.IndexPath])
         line = OutStr.split('\n')[-1]
         line = line.replace('\\','')
