@@ -78,6 +78,7 @@ class IndriSearchCenterC(cxBaseC):
         self.BlackListInName = self.conf.GetConf('blacklist')
         if "" != self.BlackListInName:
             self.LoadBlackList()
+        self.OOVFractionFilter = bool(int(self.conf.GetConf('oovfilter', 0)))
             
             
             
@@ -85,7 +86,7 @@ class IndriSearchCenterC(cxBaseC):
     def ShowConf():
         cxBaseC.ShowConf()
         print 'cachedir\nwriteindricache\nindexpath\nnumofdoc\nrefrank (opt)\nblacklist (opt)'
-        
+        print 'oovfilter 0'
             
     def LoadRefRank(self):
         lLines = open(self.RefRankInName).read().splitlines()
