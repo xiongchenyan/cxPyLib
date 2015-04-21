@@ -165,7 +165,7 @@ class AdhocEvaC(cxBaseC):
         lQid,llDocNo = AdhocEvaC().ReadTrecOut(InName)
         
         for i in range(len(lQid)):
-            lEvaRes.append(self.EvaluatePerQ(lQid[i], llDocNo[i]))
+            lEvaRes.append(self.EvaluatePerQ(lQid[i], "",llDocNo[i]))
         
         Mean = AdhocMeasureMean(lEvaRes)
         
