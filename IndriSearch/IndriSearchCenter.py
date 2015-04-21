@@ -152,6 +152,16 @@ class IndriSearchCenterC(cxBaseC):
         return lDoc[:self.NumOfDoc];
     
     
+    def RunQueryTrecEvalFormat(self,query,qid):
+        lResStr = []
+        lDoc = self.RunQuery(query, qid)
+        for i in range(len(lDoc)):
+            ResStr = qid + ' Q0 ' + lDoc[i].DocNo + ' %d '%(i + 1) + ' %f IndriBase'%(lDoc[i].score)
+            lResStr.append(ResStr)
+        return lResStr
+        
+    
+    
     def IsFilterDoc(self,qid,doc):
         
         if self.InBlackList(qid,doc):
