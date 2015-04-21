@@ -4,16 +4,17 @@ evaluate a rank, by given AdHocQRelC
 2/10/2014: MAP supportted
 @author: cx
 '''
-from AdhocQRel import *
+
 import site
 site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 from AdhocMeasure import *
-from cxBase.base import *
+from AdhocQRel import *
 from cxBase.Conf import cxConfC
 from operator import itemgetter
 import math,json
 from IndriSearch.IndriSearchCenter import IndriSearchCenterC
 from cxBase.base import cxBaseC
+import logging
 class AdhocEvaC(cxBaseC):
     
     def Init(self):
@@ -131,7 +132,7 @@ class AdhocEvaC(cxBaseC):
         if self.AdhocQRel.hQRel == {}:
             for QRelIn in self.lQRelIn:
                 self.AdhocQRel.Load(QRelIn)
-        print "start eva query [%s], doc num [%d]" %(Qid,len(lDocNo)) 
+        logging.info("start eva query [%s], doc num [%d]",Qid,len(lDocNo)) 
 #         print json.dumps(lDocNo)
 #         lMeasure.append(["map",self.MAP(Qid, lDocNo)])
 #         lMeasure.append(['ndcg',self.NDCG(Qid,lDocNo)])
@@ -140,7 +141,7 @@ class AdhocEvaC(cxBaseC):
         EvaRes.map = self.MAP(Qid, query,lDocNo)
         EvaRes.ndcg = self.NDCG(Qid,lDocNo)
         EvaRes.err = self.ERR(Qid,lDocNo)
-        print "evares:\n%s" %(EvaRes.dumps(True))
+        logging.info("evares:\n%s", EvaRes.dumps(True))
         return EvaRes
     
     def EvaluateMul(self,lQid,lQuery,llDocNo):
@@ -171,8 +172,8 @@ class AdhocEvaC(cxBaseC):
         if OutName != "":
             out = open(OutName,'w')
             for i in range(len(lQid)):
-                print >>out,"%s\t%s" %(lQid[i],lEvaRes[i].dumps())
-            print out,"mean\t%s" %(Mean.dumps())                    
+                print >> out,"%s\t%s" %(lQid[i],lEvaRes[i].dumps())
+            print >> out,"mean\t%s" %(Mean.dumps())                    
         return lEvaRes
     
     
