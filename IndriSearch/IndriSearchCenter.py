@@ -133,13 +133,8 @@ class IndriSearchCenterC(cxBaseC):
             TextResult = self.CallExec(query)
             if self.WriteCache:
                 self.DumpCache(query, TextResult)
-                lMid = json.loads(TextResult)
+            lMid = json.loads(TextResult)
                 
-#         lMid = [doc for doc in lMid if not self.IsSpamDoc(doc)]
-        
-        
-#         lMid = self.FollowRefRank(qid,lMid)
-        
         
         for MidDoc in lMid:
             doc = IndriDocBaseC(MidDoc)
