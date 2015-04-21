@@ -149,6 +149,8 @@ class IndriSearchCenterC(cxBaseC):
         use ref rank here if qid != "" and qid exists in self.hQRefRank
         '''        
         lDoc = self.FollowRefRank(qid, lDoc)
+        logging.info('query [%s][%s] get [%d] doc',qid,query,len(lDoc))
+        
         return lDoc[:self.NumOfDoc];
     
     
@@ -258,6 +260,8 @@ class IndriSearchCenterC(cxBaseC):
         return self.CacheDir + '/' +  TextBaseC.DiscardNonAlphaNonDigit(query).replace(" ","_")[:100]
     
     def LoadCache(self,query):
+        if self.CacheDir == "":
+            return ""
         FName = self.GenerateCacheName(query)
         if not os.path.exists(FName):
             return ""
