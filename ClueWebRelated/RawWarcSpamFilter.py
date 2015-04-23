@@ -50,6 +50,9 @@ def process(InDir,OutDir,BlackInName):
             print "InDir must be absolute path [%s]" %(InDir)
             break
         OutName = InName.replace(InDir,OutDir)
+        OutPath = '/'.join(OutName.split('/')[:-1])
+        if not os.path.exists(OutPath):
+            os.makedirs(OutPath)
         FilterOneFile(InName, OutName, hBlack)
     return
 
