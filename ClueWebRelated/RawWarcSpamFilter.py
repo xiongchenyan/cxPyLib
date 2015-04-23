@@ -30,7 +30,7 @@ def FilterOneFile(InName,OutName,hBlack):
     while True:
         try:
             record = In.read_record()
-        except AssertionError:
+        except (AssertionError, EOFError) as e:
             break
         cnt += 1
         if 'warc-trec-id' in record:
