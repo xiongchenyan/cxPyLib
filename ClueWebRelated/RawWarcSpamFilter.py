@@ -29,7 +29,7 @@ def FilterOneFile(InName,OutName,hBlack):
     FilterCnt = 0
     while True:
         try:
-            record = In.read()
+            record = In.read_record()
         except AssertionError:
             break
         cnt += 1
