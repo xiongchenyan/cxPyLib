@@ -248,7 +248,15 @@ def AdhocEvaUnitTest(ConfIn = ""):
     return True
     
     
-    
+if __name__=='__main__':
+    if 4 > len(sys.argv):
+        print "trec in + qrel + out"
+        sys.exit()
+        
+    Evaluator = AdhocEvaC()
+    Evaluator.AdhocQRel.Load(sys.argv[2])
+    Evaluator.EvaluateTrecOutFile(sys.argv[1], sys.argv[3])
+    print "finished"
     
     
     
