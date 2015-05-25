@@ -105,7 +105,13 @@ class VectorC(object):
         for item in self.hDim:
             self.hDim[item] /= float(cnt)
             
-    
+    @staticmethod
+    def Similarity(vA,vB,SimMetric):
+        if SimMetric == 'cosine':
+            return VectorC.cosine(vA, vB)
+        if SimMetric == 'l2':
+            return VectorC.L2Distance(vA, vB)
+        return 0
     
     @staticmethod
     def cosine(vA,vB):
