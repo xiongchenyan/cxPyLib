@@ -147,7 +147,7 @@ class IndriSearchCenterC(cxBaseC):
         lDoc = self.FollowRefRank(qid, lDoc)
         logging.info('query [%s][%s] get [%d] doc',qid,query,len(lDoc))
         
-        return lDoc[:self.NumOfDoc];
+        return lDoc[:self.NumOfDoc]
     
     
     def RunQueryTrecEvalFormat(self,query,qid):
@@ -254,6 +254,10 @@ class IndriSearchCenterC(cxBaseC):
     
     def GenerateCacheName(self,query):
         return self.CacheDir + '/' +  TextBaseC.DiscardNonAlphaNonDigit(query).replace(" ","_")[:100]
+    
+    @staticmethod
+    def GenerateQueryTargetName(query):
+        return TextBaseC.DiscardNonAlphaNonDigit(query).replace(" ","_")[:100]
     
     def LoadCache(self,query):
         if self.CacheDir == "":
