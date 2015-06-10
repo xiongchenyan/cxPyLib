@@ -2,12 +2,18 @@
 Created on my MAC Jun 10, 2015-4:34:12 PM
 What I do:
 separate LmBaseC to here
-added KL,JS,distance (with protection)
+
 What's my input:
 
 What's my output:
 
 @author: chenyanxiong
+'''
+
+'''
+Jun 10:
+added KL,JS,distance (with protection)
+
 '''
 
 import site
@@ -161,31 +167,48 @@ class LmBaseC(object):
         for term in self.hTermTF:
             prod += self.GetTFProb(term) * InData.GetTFProb(term)
         return prod
-
+    
+    def TransferToVectorWithIdf(self,CtfCenter):
+        v = VectorC(self.hTermTF)
+        v /= self.len
+        for item in v.hDim:
+            CTF = CtfCenter.GetCtfProb(item)
+            v.hDim[item] *= math.log(1.0/CTF)
+        return v
+            
+    
     @staticmethod
     def TfIdfCosine(LmA,LmB,CtfCenter):
-        vA = VectorC(LmA.hTermTF)
-        vB = VectorC(LmB.hTermTF)
+        
         
         if (LmA.len == 0) | ( LmB.len == 0):
             return 0
         
-        vA /= LmA.len
-        vB /= LmB.len
-        
-        
-        for item in vA.hDim:
-            CTF = CtfCenter.GetCtfProb(item)
-            vA.hDim[item] *= math.log(1.0/CTF)
-        for item in vB.hDim:
-            CTF = CtfCenter.GetCtfProb(item)
-            vB.hDim[item] *= math.log(1.0/CTF)
-        
+        vA = LmA.TransferToVectorWithIdf(CtfCenter)
+        vB = LmB.TransferToVectorWithIdf(CtfCenter)
         
         score =  VectorC.cosine(vA, vB)
         
         print "cosine [%f] of:\n%s\n%s" %(score, json.dumps(vA.hDim),json.dumps(vB.hDim))
         return score
+    
+    
+    
+    @staticmethod
+    def Similarity(LmA,LmB,CtfCenter,SimMetric):
+        
+        if (LmA.len == 0) | (LmB.len == 0):
+            return 0
+        
+        vA = LmA.TransferToVectorWithIdf(CtfCenter)
+        vB = LmB.TransferToVectorWithIdf(CtfCenter)
+        
+        score =  VectorC.Similarity(vA, vB, SimMetric)
+        
+        print "similarity [%s] [%f] of:\n%s\n%s" %(SimMetric,score, json.dumps(vA.hDim),json.dumps(vB.hDim))
+        return score
+    
+  
     
     @staticmethod
     def MakeLmForDocs(lDoc):

@@ -110,7 +110,11 @@ class VectorC(object):
         if SimMetric == 'cosine':
             return VectorC.cosine(vA, vB)
         if SimMetric == 'l2':
-            return VectorC.L2Distance(vA, vB)
+            return -VectorC.L2Distance(vA, vB)
+        if SimMetric == 'js':
+            return -VectorC.TwoWayKL(vA, vB)
+        if SimMetric == 'kl':
+            return -VectorC.KL(vA, vB)
         return 0
     
     @staticmethod
@@ -153,7 +157,10 @@ class VectorC(object):
         vMidA = deepcopy(vA)
         vMidB = deepcopy(vB)
         vMidA.Normalize()
-        vMidB.Normalize()        
+        vMidB.Normalize()  
+        MaxKL = 20
+        if vMidA.IsEmpty() | vMidB.IsEmpty():
+            return MaxKL      
         score = 0
         for dim,value in vMidA.hDim.items():
             if value == 0:
