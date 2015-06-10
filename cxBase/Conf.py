@@ -41,6 +41,10 @@ class cxConfC(object):
             print "conf [%s] not exist" %(name)
             return DefaultValue
         print "get conf [%s] [%s]" %(name,json.dumps(self.hConf[name]))
+        
+        if type(DefaultValue) != type(self.hConf[name]):
+            return type(DefaultValue)(self.hConf[name])
+        
         return self.hConf[name] 
     
     def SetField(self,name,value):
