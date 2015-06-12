@@ -43,7 +43,9 @@ class cxConfC(object):
         print "get conf [%s] [%s]" %(name,json.dumps(self.hConf[name]))
         
         if type(DefaultValue) != type(self.hConf[name]):
-            print 'cast to %s type' %(type(DefaultValue))
+            print 'try cast to %s type' %(type(DefaultValue))
+            if type(DefaultValue) == list:
+                return [self.hConf[name]]
             return type(DefaultValue)(self.hConf[name])
         
         return self.hConf[name] 
