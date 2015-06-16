@@ -205,7 +205,7 @@ class LmBaseC(object):
         
         score =  VectorC.Similarity(vA, vB, SimMetric)
         
-        print "similarity [%s] [%f] of:\n%s\n%s" %(SimMetric,score, json.dumps(vA.hDim),json.dumps(vB.hDim))
+#         print "similarity [%s] [%f] of:\n%s\n%s" %(SimMetric,score, json.dumps(vA.hDim),json.dumps(vB.hDim))
         return score
     
   
