@@ -29,12 +29,15 @@ from cxBase.base import DiscardStopWord,ContainNonLetter
 import copy
 import pickle
 from cxBase.Vector import VectorC
+import logging
 class LmBaseC(object):
     
     def __init__(self,data = ""):
         self.Init()        
         if "" == data:
             return
+        if type(data) == list:
+            data = '\t'.join(data)
         if type(data) in [str,unicode]:
             self.SetFromRawText(data)
             return
@@ -44,7 +47,7 @@ class LmBaseC(object):
         if type(data) == IndriDocBaseC:
             self.SetFromPackedDoc(data)
             return
-        print "type [%s] not recognized" %(str(type(data)))    
+        logging.WARN("Init LmBaseC type [%s] not recognized", str(type(data)))    
     
     def Init(self):
         self.hTermTF = {}
