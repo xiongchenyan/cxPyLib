@@ -259,6 +259,19 @@ class IndriSearchCenterC(cxBaseC):
     def GenerateQueryTargetName(query):
         return TextBaseC.DiscardNonAlphaNonDigit(query).replace(" ","_")[:100]
     
+    @staticmethod
+    def RearrangeDocOrder(lDoc,lDocNo):
+        #stuff in lDocNo must be in lDoc
+        lRes = []
+        hDocPos = dict(zip([doc.DocNo for doc in lDoc],range(len(lDoc))))
+        for DocNo in lDocNo:
+            if not DocNo in hDocPos:
+                logging.error('doc [%s] not in lDoc given (IndriSearchCenter.RearrageDocOrder)',DocNo)
+                sys.exit()
+            lRes.append(lDoc[hDocPos[DocNo]])
+        return lRes
+            
+    
     def LoadCache(self,query):
         if self.CacheDir == "":
             return ""
