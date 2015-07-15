@@ -41,7 +41,7 @@ from IndriRelate.IndriInferencer import LmBaseC
 from cxBase.Conf import cxConfC
 from cxBase.base import cxBaseC
 from cxBase.TextBase import TextBaseC
-import os
+import os,sys
 import ntpath
 import subprocess
 import math
@@ -263,13 +263,20 @@ class IndriSearchCenterC(cxBaseC):
     @staticmethod
     def RearrangeDocOrder(lDoc,lDocNo):
         #stuff in lDocNo must be in lDoc
-        lRes = []
-        hDocPos = dict(zip([doc.DocNo for doc in lDoc],range(len(lDoc))))
-        for DocNo in lDocNo:
-            if not DocNo in hDocPos:
-                logging.error('doc [%s] not in lDoc given (IndriSearchCenter.RearrageDocOrder)',DocNo)
-                sys.exit()
-            lRes.append(lDoc[hDocPos[DocNo]])
+            
+        hDocPos = dict(zip(lDocNo,range(len(lDocNo))))
+        
+        lDocP = []
+        for doc in lDoc:
+            p = len(lDocNo)
+            if doc.DocNo in hDocPos:
+                p = hDocPos[doc.DocNo]
+            lDocP.append([doc,p])
+        
+        lDocP.sort(key = lambda item:item[1])
+        lRes = [item[0] for item in lDocP]
+        
+        
         return lRes
             
     
