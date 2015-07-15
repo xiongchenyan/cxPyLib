@@ -45,7 +45,7 @@ class cxBaseC(object):
     
     @staticmethod
     def ShowConf():
-        print "conf:"
+        print 'conf:'
 
 def get_cosine(vec1, vec2):
     intersection = set(vec1.keys()) & set(vec2.keys())

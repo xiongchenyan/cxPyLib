@@ -82,9 +82,10 @@ class IndriSearchCenterC(cxBaseC):
             
             
             
-    @staticmethod
-    def ShowConf():
+    @classmethod
+    def ShowConf(cls):
         cxBaseC.ShowConf()
+        print cls.__name__ 
         print 'cachedir\nwriteindricache\nindexpath\nnumofdoc\nrefrank (opt)\nblacklist (opt)'
         print 'oovfilter 0'
             
