@@ -172,6 +172,8 @@ class LmBaseC(object):
         return prod
     
     def TransferToVectorWithIdf(self,CtfCenter):
+        if self.len == 0:
+            return self
         v = VectorC(self.hTermTF)
         v /= self.len
         for item in v.hDim:
@@ -200,8 +202,8 @@ class LmBaseC(object):
     @staticmethod
     def Similarity(LmA,LmB,CtfCenter,SimMetric):
         
-        if (LmA.len == 0) | (LmB.len == 0):
-            return 0
+#         if (LmA.len == 0) | (LmB.len == 0):
+#             return 0
         
         vA = LmA.TransferToVectorWithIdf(CtfCenter)
         vB = LmB.TransferToVectorWithIdf(CtfCenter)
