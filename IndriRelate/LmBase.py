@@ -172,9 +172,10 @@ class LmBaseC(object):
         return prod
     
     def TransferToVectorWithIdf(self,CtfCenter):
-        if self.len == 0:
-            return self
+
         v = VectorC(self.hTermTF)
+        if self.len == 0:
+            return v
         v /= self.len
         for item in v.hDim:
             CTF = CtfCenter.GetCtfProb(item)
