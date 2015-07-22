@@ -6,15 +6,27 @@ QRel Center
 
 import sys
 
+from cxBase.Conf import cxConfC
+from cxBase.base import cxBaseC
 
-class AdhocQRelC:
+
+class AdhocQRelC(cxBaseC):
     def Init(self):
         self.hQRel = {}
         self.hQToDoc={} #query to documents
         self.MaxScore = 0
         return
-    def __init__(self):
-        self.Init()
+    def SetConf(self, ConfIn):
+        cxBaseC.SetConf(self, ConfIn)
+        QRelIn = self.conf.GetConf('qrelin')
+        self.Load(QRelIn)
+        
+    @classmethod
+    def ShowConf(cls):
+        cxBaseC.ShowConf()
+        print cls.__name__
+        print 'qrelin'
+    
     def Load(self,InName):
         #key: qid\tdocid
         #value:score, 0 if not contained
