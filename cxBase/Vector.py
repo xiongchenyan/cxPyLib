@@ -80,6 +80,8 @@ class VectorC(object):
             res.hDim[item] = math.fabs(self.hDim[item])
         return res
     
+    
+    
             
     
     
