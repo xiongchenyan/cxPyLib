@@ -32,12 +32,14 @@ class AdhocEvaC(cxBaseC):
         self.lQRelIn = conf.GetConf("qrel",self.lQRelIn)
         if type(self.lQRelIn) != list:
             self.lQRelIn = [self.lQRelIn]
-        for QRelIn in self.lQRelIn:
-            self.AdhocQRel.Load(QRelIn)
         self.Depth = int(conf.GetConf("evadepth",self.Depth))
 #         self.IndriSearcher.SetConf(ConfIn)
-        
+        self.Prepare()
         return True
+    
+    def Prepare(self):
+        for QRelIn in self.lQRelIn:
+            self.AdhocQRel.Load(QRelIn)
     
     @staticmethod
     def ShowConf():
