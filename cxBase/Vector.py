@@ -117,7 +117,20 @@ class VectorC(object):
             return -VectorC.TwoWayKL(vA, vB)
         if SimMetric == 'kl':
             return -VectorC.KL(vA, vB)
+        if SimMetric == 'coor':
+            return VectorC.coor(vA, vB)
         return 0
+    
+    @staticmethod
+    def coor(vA,vB):
+        if (vA.hDim == {}) | (vB.hDim == {}):
+            return 0
+        
+        cnt = 0
+        for key in vA.hDim:
+            if key in vB.hDim:
+                cnt += 1
+        return float(cnt) / float((len(vA.hDim) + len(vB.hDim))) 
     
     @staticmethod
     def cosine(vA,vB):
