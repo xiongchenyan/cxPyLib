@@ -11,7 +11,7 @@ class KeyFileReaderC(object):
         self.UseGzip = False
         self.lKeyIndex = [0]
         self.Spliter = '\t'
-        self.MaxLinePerKey = 100000
+        self.MaxLinePerKey = 1000000
         self.LastvCol = []
         self.InName = ""
     def __init__(self):
