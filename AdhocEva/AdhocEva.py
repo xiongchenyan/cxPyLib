@@ -153,7 +153,9 @@ class AdhocEvaC(cxBaseC):
             EvaRes = EvaRes + mid
         EvaRes = EvaRes / float(len(lQid))
         return EvaRes
-
+    
+    
+    
     def SegDocNoFromDocs(self,lDoc):
         lDocNo = []
         for doc in lDoc:

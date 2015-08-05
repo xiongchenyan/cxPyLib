@@ -120,6 +120,13 @@ class AdhocMeasureC(object):
         return lPerQEva
     
     @staticmethod
+    def AddMeanEva(lPerQEva):
+        lRes = list(lPerQEva)
+        MeanRes = AdhocMeasureC.AdhocMeasureMean([item[1] for item in lPerQEva])
+        lRes.append(['mean',MeanRes])
+        return lRes
+    
+    @staticmethod
     def DumpPerQEva(OutName,lPerQEva):
         out = open(OutName,'w')
         for qid,Eva in lPerQEva:
