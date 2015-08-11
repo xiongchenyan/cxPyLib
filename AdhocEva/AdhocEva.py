@@ -149,10 +149,21 @@ class AdhocEvaC(cxBaseC):
     def EvaluateMul(self,lQid,lQuery,llDocNo):
         EvaRes = AdhocMeasureC()
         for i in range(len(lQid)):
-            mid = self.EvaluatePerQ(lQid[i],llDocNo[i])
+            mid = self.EvaluatePerQ(lQid[i],lQuery[i],llDocNo[i])
             EvaRes = EvaRes + mid
         EvaRes = EvaRes / float(len(lQid))
         return EvaRes
+    
+    def EvaluateFullRes(self,lQid,lQuery,llDocNo):
+        lPerQEva= []
+        
+        for i in range(len(lQid)):
+            EvaRes = self.EvaluatePerQ(lQid[i],lQuery[i],llDocNo[i])
+            lPerQEva.apend([lQid[i],EvaRes])
+            
+        lFullEva = AdhocMeasureC.AddMeanEva(lPerQEva)
+        return lFullEva
+            
     
     
     
@@ -210,7 +221,7 @@ def AdhocEvaUnitTest(ConfIn = ""):
         print "conf:\nin\nqrel\nevadepth\nout\n"
         return False
     
-    conf = cxConf(ConfIn)
+    conf = cxConfC(ConfIn)
     InName = conf.GetConf('in')
     OutName = conf.GetConf('out')
     AdhocEva = AdhocEvaC(ConfIn)
