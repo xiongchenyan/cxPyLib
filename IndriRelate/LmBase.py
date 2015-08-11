@@ -176,6 +176,8 @@ class LmBaseC(object):
         v = VectorC(self.hTermTF)
         if self.len == 0:
             return v
+        if CtfCenter.Empty():
+            return v
         v /= self.len
         for item in v.hDim:
             CTF = CtfCenter.GetCtfProb(item)

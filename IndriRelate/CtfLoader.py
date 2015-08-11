@@ -49,7 +49,8 @@ class TermCtfC(object):
         print "dump to [%s] finished" %(OutName)
         return True
     
-    
+    def Empty(self):
+        return self.hTermCtf == {}
     
     def insert(self,term,cnt=1):
         self.TotalCnt += cnt
