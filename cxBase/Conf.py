@@ -23,6 +23,13 @@ class cxConfC(object):
             self.SetConf(ConfIn)
         return
     
+    def ParseParaStr(self,ParaStr):
+        lPara = ParaStr.split(',')
+        lParaScore = [Para.split('=') for Para in lPara]
+        hPara = dict(lParaScore)
+        self.hConf = hPara
+        
+    
     def SetConf(self,InName):
         for line in open(InName):
             vCol = line.strip().split(" ")
