@@ -159,7 +159,7 @@ class AdhocEvaC(cxBaseC):
         
         for i in range(len(lQid)):
             EvaRes = self.EvaluatePerQ(lQid[i],lQuery[i],llDocNo[i])
-            lPerQEva.apend([lQid[i],EvaRes])
+            lPerQEva.append([lQid[i],EvaRes])
             
         lFullEva = AdhocMeasureC.AddMeanEva(lPerQEva)
         return lFullEva
