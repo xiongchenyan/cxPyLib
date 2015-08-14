@@ -18,14 +18,14 @@ class AdhocQRelC(cxBaseC):
         return
     def SetConf(self, ConfIn):
         cxBaseC.SetConf(self, ConfIn)
-        QRelIn = self.conf.GetConf('qrelin')
+        QRelIn = self.conf.GetConf('qrel')
         self.Load(QRelIn)
         
     @classmethod
     def ShowConf(cls):
         cxBaseC.ShowConf()
         print cls.__name__
-        print 'qrelin'
+        print 'qrel'
     
     def Load(self,InName):
         #key: qid\tdocid
