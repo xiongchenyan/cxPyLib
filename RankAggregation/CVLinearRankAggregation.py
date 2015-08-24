@@ -24,8 +24,6 @@ from AdhocEva.AdhocMeasure import AdhocMeasureC
 
 import logging
 
-from CrossValidation.CVDatapartation import *
-
 class CVLinearRankAggregationC(cxBaseC):
     def Init(self):
         self.Evaluator = AdhocEvaC()
