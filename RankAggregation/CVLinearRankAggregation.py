@@ -29,7 +29,7 @@ class CVLinearRankAggregationC(cxBaseC):
         self.Evaluator = AdhocEvaC()
         self.RankInName = ""
         self.MergeInName = ""
-        self.lLambda = [0.1 * i for i in range(11)]
+        self.lLambda = [0.05 * i for i in range(21)]
         self.OutName = ""
         
         
