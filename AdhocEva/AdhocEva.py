@@ -134,7 +134,7 @@ class AdhocEvaC(cxBaseC):
         if self.AdhocQRel.hQRel == {}:
             for QRelIn in self.lQRelIn:
                 self.AdhocQRel.Load(QRelIn)
-        logging.info("start eva query [%s], doc num [%d]",Qid,len(lDocNo)) 
+        logging.debug("start eva query [%s], doc num [%d]",Qid,len(lDocNo)) 
 #         print json.dumps(lDocNo)
 #         lMeasure.append(["map",self.MAP(Qid, lDocNo)])
 #         lMeasure.append(['ndcg',self.NDCG(Qid,lDocNo)])
@@ -143,7 +143,7 @@ class AdhocEvaC(cxBaseC):
         EvaRes.map = self.MAP(Qid, query,lDocNo)
         EvaRes.ndcg = self.NDCG(Qid,lDocNo)
         EvaRes.err = self.ERR(Qid,lDocNo)
-        logging.info("evares:\n%s", EvaRes.dumps(True))
+        logging.debug("evares:\n%s", EvaRes.dumps(True))
         return EvaRes
     
     def EvaluateMul(self,lQid,lQuery,llDocNo):
