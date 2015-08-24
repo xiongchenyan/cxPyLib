@@ -38,13 +38,13 @@ class CVLinearRankAggregationC(cxBaseC):
         self.Evaluator.SetConf(ConfIn)
         self.RankInName = self.conf.GetConf('in')
         self.MergeInName = self.conf.GetConf('tomergein')
-#         self.Lambda = self.conf.GetConf('lambda', self.Lambda)
         self.OutName = self.conf.GetConf('out')
         
         
     @staticmethod
     def ShowConf():
         cxBaseC.ShowConf()
+        AdhocEvaC.ShowConf()
         print 'in\ntomergein\nout'
         
         
@@ -114,6 +114,7 @@ class CVLinearRankAggregationC(cxBaseC):
         BestLambda = 0
         
         for Lambda in self.lLambda:
+            logging.info('start testing lambd [%f]',Lambda)
             lEvaRes = self.TestLambda(lTrainData, lMergeData, Lambda)[1]
             MeanRes = AdhocMeasureC.AdhocMeasureMean(lEvaRes)
             if MeanRes.err > BestErr:
@@ -187,6 +188,15 @@ if __name__ == '__main__':
         print 'conf'
         CVLinearRankAggregationC.ShowConf()
         sys.exit()
+    
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+    
+    ch = logging.StreamHandler(sys.stdout)
+#     ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+    root.addHandler(ch)
         
     Merger = CVLinearRankAggregationC(sys.argv[1])
     Merger.Process()
