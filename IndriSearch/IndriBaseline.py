@@ -32,7 +32,7 @@ def EvaluatePerQ(qid,query,Searcher,Evaluator):
     lDoc = Searcher.RunQuery(query,qid)
     lDocNo = [Doc.DocNo for Doc in lDoc]
     Measure = Evaluator.EvaluatePerQ(qid,query,lDocNo)
-    return Measure
+    return Measure,lDoc
 
 def ReadAndGenerateQuery(InName,QueryType = 'raw'):
     lLine = open(InName).read().splitlines()
@@ -65,7 +65,10 @@ Evaluator = AdhocEvaC(sys.argv[1])
 
 lQidQuery = ReadAndGenerateQuery(InName, QType)
 
-lMeasure = [EvaluatePerQ(qid, query, Searcher, Evaluator) for qid,query in lQidQuery]
+lMeasureDoc = [EvaluatePerQ(qid, query, Searcher, Evaluator) for qid,query in lQidQuery]
+
+lMeasure = [item[0] for item in lMeasureDoc]
+llDoc = [item[1] for item in lMeasureDoc]
 
 Mean = AdhocMeasureC.AdhocMeasureMean(lMeasure)
 
@@ -78,4 +81,14 @@ print 'mean\t' + Mean.dumps()
 print >>out, 'mean\t' + Mean.dumps()
 
 out.close()
+
+RankOut = open(OutName+'_rank','w')
+for QidQuery,lDoc in zip(lQidQuery,llDoc):
+    qid = QidQuery[0]
+    for i in range(len(lDoc)):
+        print >> RankOut, qid + ' Q0 ' + lDoc[i].DocNo + ' %d %f indri'%(i+1,lDoc[i].score)
+    
+RankOut.close()
+
+
 print "finished"
