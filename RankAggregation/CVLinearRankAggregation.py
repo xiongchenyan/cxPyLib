@@ -60,13 +60,13 @@ class CVLinearRankAggregationC(cxBaseC):
         lQidDocScore = [[item[0],item[1],(item[2] - MinScore )/ (MaxScore - MinScore)] for item in lQidDocScore]
         
         logging.info('ranking res loadded from [%s]',InName)
-        print json.dumps(lQidDocScore,indent = 1)
+        print json.dumps(lQidDocScore)
         return lQidDocScore
     
     
     def MergeTwoRank(self,lQidDocScoreA,lQidDocScoreB,Lambda):
         lKeyB = [item[0] + '\t' + item[1] for item in lQidDocScoreB]
-        lScoreB = [item[2] for item[2] in lQidDocScoreB]
+        lScoreB = [item[2] for item in lQidDocScoreB]
         
         hB = dict(zip(lKeyB,lScoreB))
         
