@@ -23,7 +23,7 @@ from AdhocEva.AdhocEva import AdhocEvaC
 from AdhocEva.AdhocMeasure import AdhocMeasureC
 
 import logging
-
+import json
 class CVLinearRankAggregationC(cxBaseC):
     def Init(self):
         self.Evaluator = AdhocEvaC()
@@ -60,6 +60,7 @@ class CVLinearRankAggregationC(cxBaseC):
         lQidDocScore = [[item[0],item[1],(item[2] - MinScore )/ (MaxScore - MinScore)] for item in lQidDocScore]
         
         logging.info('ranking res loadded from [%s]',InName)
+        print json.dumps(lQidDocScore,indent = 1)
         return lQidDocScore
     
     
