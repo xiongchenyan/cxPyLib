@@ -28,13 +28,12 @@ WORD = re.compile(r'\w+')
 class cxBaseC(object):
     
     def Init(self):
-        return
+        self.conf = cxConfC()
     
     def SetConf(self,ConfIn):
         self.conf = cxConfC(ConfIn)
         self.ConfIn = ConfIn
 
-        return True
     
     def __init__(self,ConfIn = ""):
         self.Init()
