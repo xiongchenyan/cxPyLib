@@ -24,7 +24,7 @@ import numpy as np
 from scipy.stats import pearsonr
 from cxBase.TextBase import TextBaseC
 
-class DocSimEvaluator(cxBaseC):
+class DocSimEvaluatorC(cxBaseC):
     
     def Init(self):
         cxBaseC.Init(self)
@@ -81,7 +81,9 @@ class DocSimEvaluator(cxBaseC):
                 score = SimFunc([self.lDocNo[i],self.lText[i]],[self.lDocNo[j],self.lText[j]])
                 lPreRes.append([i+1,j+1,score])
                 
-        return self.PearsonCorr(lPreRes)
+        score = self.PearsonCorr(lPreRes)
+        logging.info('sim func doc sim pearson: %f',score)
+        return score
         
         
         
