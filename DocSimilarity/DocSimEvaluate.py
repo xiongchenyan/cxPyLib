@@ -38,11 +38,15 @@ class DocSimEvaluatorC(cxBaseC):
         
     def SetConf(self, ConfIn):
         cxBaseC.SetConf(self, ConfIn) 
-        self.TextIn = self.conf.GetConf('textin')
-        self.LabelIn = self.conf.GetConf('labelin')
+        self.TextIn = self.conf.GetConf('docsimtextin')
+        self.LabelIn = self.conf.GetConf('docsimlabelin')
         
         self.LoadDocSimData()
-        
+    
+    @staticmethod
+    def ShowConf():
+        cxBaseC.ShowConf()    
+        print 'docsimtextin\ndocsimlabelin'
         
     def LoadDocSimData(self):
         lLines = open(self.TextIn).read().splitlines()
