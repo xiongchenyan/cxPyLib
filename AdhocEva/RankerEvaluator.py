@@ -37,6 +37,12 @@ class RankerEvaluatorC(cxBaseC):
         self.Searcher.SetConf(ConfIn)
         self.Evaluator.SetConf(ConfIn)
         
+    
+    @staticmethod
+    def ShowConf():
+        cxBaseC.ShowConf()
+        IndriSearchCenterC.ShowConf()
+        AdhocEvaC.ShowConf()
         
         
     def Evaluate(self,QIn,Ranker,EvaOut = ""):
