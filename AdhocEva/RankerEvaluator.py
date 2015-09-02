@@ -55,6 +55,7 @@ class RankerEvaluatorC(cxBaseC):
             lDoc = self.Searcher.RunQuery(query, qid)
             lReRankDocNo = Ranker(qid,query,lDoc)
             EvaRes = self.Evaluator.EvaluatePerQ(qid, query, lReRankDocNo)
+            logging.info('q [%s] res: %s',qid,EvaRes.dumps())
             lQEvaRes.append([qid,EvaRes])
             
         lQEvaRes = AdhocMeasureC.AddMeanEva(lQEvaRes)
