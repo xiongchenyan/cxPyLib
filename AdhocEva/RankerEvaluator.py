@@ -59,7 +59,7 @@ class RankerEvaluatorC(cxBaseC):
             lQEvaRes.append([qid,EvaRes])
             
         lQEvaRes = AdhocMeasureC.AddMeanEva(lQEvaRes)
-        logging.info('mean res: %s',lQEvaRes[-1][1],dumps())
+        logging.info('mean res: %s',lQEvaRes[-1][1].dumps())
         if EvaOut != "":
             out = open(EvaOut,'w')
             for qid,EvaRes in lQEvaRes:
