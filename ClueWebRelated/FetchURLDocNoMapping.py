@@ -27,7 +27,7 @@ def FetchOneDirURL(InDir,OutName):
             except (AssertionError, EOFError) as e:
                 break
             if ('warc-trec-id' in record) & ('warc-target-uri' in record):
-                print >> out, record['warc-target-uri'] + '\t' + record('warc-trec-id')
+                print >> out, record['warc-target-uri'] + '\t' + record['warc-trec-id']
                 
         print '[%s] finished' %(InName)
     out.close()
