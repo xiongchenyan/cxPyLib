@@ -10,6 +10,9 @@ what's my output:
     URL->DocNo mapping of all warc files in the dir
 
 '''
+
+import site
+site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 import warc,sys
 from cxBase.WalkDirectory import WalkDir
 
