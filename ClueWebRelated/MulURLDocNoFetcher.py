@@ -12,6 +12,8 @@ what's my output:
 
 '''
 
+import site
+site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 
 import subprocess
 import sys
