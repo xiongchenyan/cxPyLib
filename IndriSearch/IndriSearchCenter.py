@@ -131,7 +131,10 @@ class IndriSearchCenterC(cxBaseC):
         lMid = []
         if "" != TextResult:
             lMid = json.loads(TextResult)
+        else:
+            logging.info('query [%s] cache not exist, running to index',query)
         if len(lMid) < self.NumOfDoc:
+            logging.info("query [%s] not get [%d] doc, running to index",len(lMid),query)
             TextResult = self.CallExec(query)
             if self.WriteCache:
                 self.DumpCache(query, TextResult)
@@ -295,7 +298,7 @@ class IndriSearchCenterC(cxBaseC):
         print >>out, TextResult
     
     def CallExec(self,query):
-        logging.info("query[%s] cache not find, running to index",query)
+        
         OutStr = subprocess.check_output([self.ExecPath,query,self.IndexPath])
         line = OutStr.split('\n')[-1]
         line = line.replace('\\','')
