@@ -24,7 +24,7 @@ if 3 != len(sys.argv):
     sys.exit()
     
     
-lCmd = ['qsub','FetchURLDocNoMapping.py']
+lCmd = ['qsub','python','FetchURLDocNoMapping.py']
 
 
 lFName = open(sys.argv[1]).read().splitlines()
