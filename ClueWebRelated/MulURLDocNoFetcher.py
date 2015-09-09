@@ -30,6 +30,8 @@ lFName = open(sys.argv[1]).read().splitlines()
 lOutName = [sys.argv[2] + '/' + ntpath.basename(fname.strip('/')) + '_URLDocNo' for fname in lFName]
 
 for InDir,OutName in zip(lFName,lOutName):
-    print subprocess.check_output(lCmd + [InDir,OutName])
+    ThisCmd = lCmd + [InDir,OutName]
+    print '\t'.join(ThisCmd)
+    print subprocess.check_output(ThisCmd)
     
     
