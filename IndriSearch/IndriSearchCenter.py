@@ -134,7 +134,7 @@ class IndriSearchCenterC(cxBaseC):
         else:
             logging.info('query [%s] cache not exist, running to index',query)
         if len(lMid) < self.NumOfDoc:
-            logging.info("query [%s] not get [%d] doc, running to index",len(lMid),query)
+            logging.info("query [%s] not get [%d] doc, running to index",query,len(lMid))
             TextResult = self.CallExec(query)
             if self.WriteCache:
                 self.DumpCache(query, TextResult)
