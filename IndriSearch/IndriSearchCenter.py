@@ -133,7 +133,7 @@ class IndriSearchCenterC(cxBaseC):
             lMid = json.loads(TextResult)
         else:
             logging.info('query [%s] cache not exist, running to index',query)
-        if len(lMid) < self.NumOfDoc:
+        if len(lMid) == 0:
             logging.info("query [%s] not get [%d] doc, running to index",query,len(lMid))
             TextResult = self.CallExec(query)
             if self.WriteCache:
