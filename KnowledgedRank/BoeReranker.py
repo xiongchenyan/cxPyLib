@@ -23,15 +23,16 @@ site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 from cxBase.base import cxBaseC
 from cxBase.Conf import cxConfC
 import logging,json
-
+import math
 
 
 class BoeLmC(object):
-    def __init__(self):
-        self.Init()
+    def __init__(self,Normilize = False):
+        self.Init(Normilize)
         
-    def Init(self):
+    def Init(self,Normilize = False):
         self.MinWeight = -1000
+        self.Normilize = Normilize
         return
     
     
@@ -41,9 +42,17 @@ class BoeLmC(object):
         '''
         
         score = self.MinWeight
+        
+        if self.Normilize:
+            Z = sum([math.exp(item[1]) for item in hDocEntity.items()])
+        
         if ObjId in hDocEntity:
             if hDocEntity[ObjId] != 0:
-                score = hDocEntity[ObjId]
+                score = math.exp(hDocEntity[ObjId])
+                
+        if self.Normilize:
+            score /= Z
+            
         return score
 
 
@@ -59,6 +68,7 @@ class BoeLmRankerC(cxBaseC):
         cxBaseC.SetConf(self, ConfIn)
         DocEntityIn = self.conf.GetConf('dockgin')
         QAnaInName = self.conf.GetConf('qanain')
+        
         self.LoadQObj(QAnaInName)
         self.LoadDocObj(DocEntityIn)
         self.SetInferencer()
@@ -67,11 +77,12 @@ class BoeLmRankerC(cxBaseC):
     @staticmethod
     def ShowConf():
         cxBaseC.ShowConf()
-        print 'dockgin\nqanain'
+        print 'dockgin\nqanain\nnormalize'
         
     
     def SetInferencer(self):
-        self.Inferencer = BoeLmC()
+        Normilize = self.conf.GetConf('normalize', False)
+        self.Inferencer = BoeLmC(Normilize)
         return
             
     
