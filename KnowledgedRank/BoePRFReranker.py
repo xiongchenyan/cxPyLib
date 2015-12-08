@@ -58,6 +58,14 @@ class BoePRFRerankerC(BoeLmRankerC):
         lEntityScore = hEntityScore.items()
         lEntityScore.sort(key=lambda item:item[1])
         lEntityScore = lEntityScore[:self.NumOfExpEntity]
+        Z = sum([item[1] for item in lEntityScore])
+        if Z == 0:
+            lEntityScore = []
+        else:
+            lEntityScore = [[item[0],item[1] / float(Z)] for item in lEntityScore]
+            
+        
+        
         logging.info(
                      '[%s][%s] exp entity: %s',
                      qid,
@@ -68,6 +76,8 @@ class BoePRFRerankerC(BoeLmRankerC):
         return lEntityScore
     
     def RankScoreForDoc(self,lQObjScore,doc):
+        if not doc.DocNo in self.hDocKg:
+            return self.Inferencer.MinWeight
         hDocEntity = self.hDocKg[doc.DocNo]
 
         score = 0
