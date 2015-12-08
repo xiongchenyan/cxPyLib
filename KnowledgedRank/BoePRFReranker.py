@@ -126,7 +126,7 @@ if __name__=='__main__':
     QIn = conf.GetConf('in')
     EvaOut = conf.GetConf('out')
     
-    Ranker = BoeLmRankerC(sys.argv[1])
+    Ranker = BoePRFRerankerC(sys.argv[1])
     Evaluator = RankerEvaluatorC(sys.argv[1])
     Evaluator.Evaluate(QIn, Ranker.Rank, EvaOut)        
             
