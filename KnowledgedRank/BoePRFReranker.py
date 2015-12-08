@@ -56,7 +56,7 @@ class BoePRFRerankerC(BoeLmRankerC):
                 else:
                     hEntityScore[ObjId] += math.exp(score)
         lEntityScore = hEntityScore.items()
-        lEntityScore.sort(key=lambda item:item[1])
+        lEntityScore.sort(key=lambda item:item[1],reverse = True)
         lEntityScore = lEntityScore[:self.NumOfExpEntity]
         Z = sum([item[1] for item in lEntityScore])
         if Z == 0:
