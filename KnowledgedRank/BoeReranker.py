@@ -41,17 +41,17 @@ class BoeLmC(object):
         return the log prob if p(ObjId| DocKg)
         '''
         
-        score = math.exp(self.MinWeight)
+        score = self.MinWeight
         
         if self.Normilize:
-            Z = sum([math.exp(item[1]) for item in hDocEntity.items()])
+            Z = math.log(sum([math.exp(item[1]) for item in hDocEntity.items()]))
         
         if ObjId in hDocEntity:
-            score = math.exp(hDocEntity[ObjId])
+            score = hDocEntity[ObjId]
             if self.Normilize:
-                score /= Z
-            
-        return math.log(score)
+                score -= Z
+                
+        return score
 
 
 class BoeLmRankerC(cxBaseC):
