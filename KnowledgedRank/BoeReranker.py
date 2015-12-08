@@ -31,7 +31,7 @@ class BoeLmC(object):
         self.Init(Normilize)
         
     def Init(self,Normilize = False):
-        self.MinWeight = -1000
+        self.MinWeight = -20
         self.Normilize = Normilize
         return
     
