@@ -33,14 +33,14 @@ class BoePRFRerankerC(BoeLmRankerC):
     
     def SetConf(self, ConfIn):
         BoeLmRankerC.SetConf(self, ConfIn)
-        self.WOrigQ = float(self.conf.GetConf('wrigq', self.WOrigQ))
+        self.WOrigQ = float(self.conf.GetConf('worigq', self.WOrigQ))
         self.NumOfExpEntity = int(self.conf.GetConf('numofexp', self.NumOfExpEntity))
         
         
     @staticmethod
     def ShowConf():
         BoeLmRankerC.ShowConf()
-        print 'wrigq=0.5\nnumofexp=20'
+        print 'worigq 0.5\nnumofexp 20'
         
         
     def QExp(self,qid,query,lDoc):
