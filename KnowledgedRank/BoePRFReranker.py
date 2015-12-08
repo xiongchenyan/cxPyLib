@@ -46,6 +46,8 @@ class BoePRFRerankerC(BoeLmRankerC):
     def QExp(self,qid,query,lDoc):
         hEntityScore = {} #ObjId -> prf score
         for doc in lDoc:
+            if not doc.DocNo in self.hDocKg:
+                continue
             hDocEntity = self.hDocKg[doc.DocNo]
             for ObjId,score in hDocEntity.items():
                 score += doc.score #log(a) + log(b)
