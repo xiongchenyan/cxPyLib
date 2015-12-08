@@ -51,7 +51,7 @@ class BoeLmC(object):
             if self.Normilize:
                 score /= Z
             
-        return score
+        return math.log(score)
 
 
 class BoeLmRankerC(cxBaseC):

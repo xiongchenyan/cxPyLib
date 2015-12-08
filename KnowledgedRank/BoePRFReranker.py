@@ -50,9 +50,9 @@ class BoePRFRerankerC(BoeLmRankerC):
             for ObjId,score in hDocEntity.items():
                 score += doc.score #log(a) + log(b)
                 if not ObjId in hEntityScore:
-                    hEntityScore[ObjId] = score
+                    hEntityScore[ObjId] = math.exp(score)
                 else:
-                    hEntityScore[ObjId] += score
+                    hEntityScore[ObjId] += math.exp(score)
         lEntityScore = hEntityScore.items()
         lEntityScore.sort(key=lambda item:item[1])
         lEntityScore = lEntityScore[:self.NumOfExpEntity]
