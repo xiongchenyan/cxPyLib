@@ -41,14 +41,23 @@ class BoeLmC(object):
         return the log prob if p(ObjId| DocKg)
         '''
         
-        score = self.MinWeight
+#         score = self.MinWeight
         
-        if self.Normilize:
-            Z = sum([math.exp(item[1]) for item in hDocEntity.items()])
-            Z = max(Z, math.exp(self.MinWeight))
-            Z = math.log(Z)
+#         if self.Normilize:
+#             Z = sum([math.exp(item[1]) for item in hDocEntity.items()])
+#             Z = max(Z, math.exp(self.MinWeight))
+#             Z = math.log(Z)
         
-        return sum([math.exp(item[1]) for item in hDocEntity.items()])
+        
+        lDocEntity = hDocEntity
+        if type(hDocEntity) == dict:
+            lDocEntity = hDocEntity.items()
+        score = 0
+        for DocObjId,score in lDocEntity:
+            if DocObjId == ObjId:
+                score += 1
+        
+        return score
         
         if ObjId in hDocEntity:
             score = hDocEntity[ObjId]
