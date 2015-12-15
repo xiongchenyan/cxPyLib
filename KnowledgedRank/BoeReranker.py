@@ -36,22 +36,22 @@ class BoeLmC(object):
         return
     
     
-    def inference(self,ObjId,hDocEntity):
+    def inference(self,ObjId,hDocEntity,doc):
         '''
         return the log prob if p(ObjId| DocKg)
         '''
         
         score = self.MinWeight
         
-        if self.Normilize:
-            Z = sum([math.exp(item[1]) for item in hDocEntity.items()])
-            Z = max(Z, math.exp(self.MinWeight))
-            Z = math.log(Z)
+#         if self.Normilize:
+#             Z = sum([math.exp(item[1]) for item in hDocEntity.items()])
+#             Z = max(Z, math.exp(self.MinWeight))
+#             Z = math.log(Z)
         
         if ObjId in hDocEntity:
             score = hDocEntity[ObjId]
             if self.Normilize:
-                score -= Z
+                score -= math.log(float(len(doc.lPosition)))
                 
         return score
 
@@ -72,6 +72,7 @@ class BoeLmRankerC(cxBaseC):
         self.LoadQObj(QAnaInName)
         self.LoadDocObj(DocEntityIn)
         self.SetInferencer()
+        self.Normalize = False
         
     
     @staticmethod
@@ -81,8 +82,8 @@ class BoeLmRankerC(cxBaseC):
         
     
     def SetInferencer(self):
-        Normilize = bool(self.conf.GetConf('normalize', 0))
-        self.Inferencer = BoeLmC(Normilize)
+        self.Normilize = bool(self.conf.GetConf('normalize', 0))
+        self.Inferencer = BoeLmC(self.Normalize)
         return
             
     
@@ -117,7 +118,7 @@ class BoeLmRankerC(cxBaseC):
 
         score = 0
         for ObjId,weight in lQObj:
-            ObjScore = self.Inferencer.inference(ObjId, hDocEntity)
+            ObjScore = self.Inferencer.inference(ObjId, hDocEntity,doc)
             score += ObjScore * weight
             logging.info('[%s] [%s] - [%s] obj score: %f',qid,doc.DocNo,ObjId,ObjScore)
         
