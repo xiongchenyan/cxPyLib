@@ -82,7 +82,7 @@ class BoePRFRerankerC(BoeLmRankerC):
 
         score = 0
         for ObjId,weight in lQObjScore:
-            ObjScore = self.Inferencer.inference(ObjId, hDocEntity)
+            ObjScore = self.Inferencer.inference(ObjId, hDocEntity,doc)
             score += ObjScore * weight
 #             logging.info('[%s] [%s] - [%s] obj score: %f',qid,doc.DocNo,ObjId,ObjScore)
         
