@@ -58,7 +58,7 @@ class BoeLmC(object):
                 score += 1
         if self.Normilize:
             if len(lDocEntity) != 0:
-                score /= float(len(lDocEntity))
+                score /= float(len(doc.lPosition))
         return score
         
         if ObjId in hDocEntity:
