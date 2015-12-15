@@ -48,6 +48,8 @@ class BoeLmC(object):
             Z = max(Z, math.exp(self.MinWeight))
             Z = math.log(Z)
         
+        return len(hDocEntity)
+        
         if ObjId in hDocEntity:
             score = hDocEntity[ObjId]
 #             score = 1
