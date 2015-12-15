@@ -53,7 +53,7 @@ class BoeLmC(object):
         if type(hDocEntity) == dict:
             lDocEntity = hDocEntity.items()
         score = 0
-        for DocObjId,score in lDocEntity:
+        for DocObjId,weight in lDocEntity:
             if DocObjId == ObjId:
                 score += 1
         if self.Normilize:
