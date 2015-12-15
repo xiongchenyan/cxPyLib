@@ -82,7 +82,7 @@ class BoeLmRankerC(cxBaseC):
         
     
     def SetInferencer(self):
-        self.Normilize = bool(self.conf.GetConf('normalize', 0))
+        self.Normalize = bool(self.conf.GetConf('normalize', 0))
         self.Inferencer = BoeLmC(self.Normalize)
         return
             
