@@ -43,15 +43,16 @@ class BoeLmC(object):
         
         score = self.MinWeight
         
-#         if self.Normilize:
-#             Z = sum([math.exp(item[1]) for item in hDocEntity.items()])
-#             Z = max(Z, math.exp(self.MinWeight))
-#             Z = math.log(Z)
+        if self.Normilize:
+            Z = sum([math.exp(item[1]) for item in hDocEntity.items()])
+            Z = max(Z, math.exp(self.MinWeight))
+            Z = math.log(Z)
         
         if ObjId in hDocEntity:
             score = hDocEntity[ObjId]
             if self.Normilize:
-                score -= math.log(float(len(doc.lPosition)))
+                score += 0.1 * Z
+#                 score -= math.log(float(len(doc.lPosition)))
                 
         return score
 
