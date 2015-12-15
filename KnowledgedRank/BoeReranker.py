@@ -49,8 +49,8 @@ class BoeLmC(object):
             Z = math.log(Z)
         
         if ObjId in hDocEntity:
-#             score = hDocEntity[ObjId]
-            score = 1
+            score = hDocEntity[ObjId]
+#             score = 1
             if self.Normilize:
 #                 score += Z
                 score -= math.log(float(len(doc.lPosition)))
