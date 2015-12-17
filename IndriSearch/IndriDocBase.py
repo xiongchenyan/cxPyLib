@@ -84,7 +84,7 @@ class IndriDocBaseC(object):
         return ' '.join(lTerm).encode('ascii','replace')
     
     def GetContent(self):
-        lTerm = [self.lTerm[pos].lower() for pos in self.lPosition]
+        lTerm = [self.lTerm[pos].lower() for pos in self.lPosition if self.lTerm[pos].lower() != '[oov]']
         return ' '.join(lTerm).encode('ascii','replace')
     
     
