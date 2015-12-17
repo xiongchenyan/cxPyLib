@@ -49,12 +49,11 @@ if 2 != len(sys.argv):
     sys.exit()
 
 root = logging.getLogger()
-root.setLevel(logging.INFO)
-
+root.setLevel(logging.DEBUG)
 ch = logging.StreamHandler(sys.stdout)
-ch.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
+root.addHandler(ch)
     
 conf = cxConfC(sys.argv[1])
 InName = conf.GetConf('in')
