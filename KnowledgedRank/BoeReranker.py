@@ -41,7 +41,7 @@ class BoeLmC(object):
         return the log prob if p(ObjId| DocKg)
         '''
         
-#         score = self.MinWeight
+        score = self.MinWeight
         
 #         if self.Normilize:
 #             Z = sum([math.exp(item[1]) for item in hDocEntity.items()])
@@ -60,10 +60,10 @@ class BoeLmC(object):
 #             if len(lDocEntity) != 0:
 #                 score /= float(len(doc.lPosition))
 #         return score
-        score = 0
+#         score = 0
         if ObjId in hDocEntity:
-#             score = hDocEntity[ObjId]
-            score = 1
+            score = hDocEntity[ObjId]
+#             score = 1
             if self.Normilize:
 #                 score += Z
                 score -= math.log(float(len(doc.lPosition)))
