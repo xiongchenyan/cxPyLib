@@ -90,5 +90,10 @@ for QidQuery,lDoc in zip(lQidQuery,llDoc):
     
 RankOut.close()
 
+DocTextOut = open(OutName + '_text','w')
+for lDoc in llDoc:
+    for doc in lDoc:
+        print >>DocTextOut, doc.DocNo + '\t' + doc.GetContent()
 
+DocTextOut.close()
 print "finished"
