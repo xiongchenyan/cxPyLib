@@ -32,7 +32,7 @@ if __name__=='__main__':
         RankerEvaluatorC.ShowConf()
         print 'rankerconf (with format:)'
         print 'a separate config file with format:'
-        DocAnaRankerC.ShowConf()
+        DocAnaRankerC().ShowConf()
         sys.exit()
     
     root = logging.getLogger()
