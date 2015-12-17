@@ -60,7 +60,7 @@ class BoeLmC(object):
 #             if len(lDocEntity) != 0:
 #                 score /= float(len(doc.lPosition))
 #         return score
-        
+        score = 0
         if ObjId in hDocEntity:
 #             score = hDocEntity[ObjId]
             score = 1
