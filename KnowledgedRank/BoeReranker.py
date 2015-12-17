@@ -49,21 +49,21 @@ class BoeLmC(object):
 #             Z = math.log(Z)
         
         
-        lDocEntity = hDocEntity
-        if type(hDocEntity) == dict:
-            lDocEntity = hDocEntity.items()
-        score = 0
-        for DocObjId,weight in lDocEntity:
-            if DocObjId == ObjId:
-                score += 1
-        if self.Normilize:
-            if len(lDocEntity) != 0:
-                score /= float(len(doc.lPosition))
-        return score
+#         lDocEntity = hDocEntity
+#         if type(hDocEntity) == dict:
+#             lDocEntity = hDocEntity.items()
+#         score = 0
+#         for DocObjId,weight in lDocEntity:
+#             if DocObjId == ObjId:
+#                 score += 1
+#         if self.Normilize:
+#             if len(lDocEntity) != 0:
+#                 score /= float(len(doc.lPosition))
+#         return score
         
         if ObjId in hDocEntity:
-            score = hDocEntity[ObjId]
-#             score = 1
+#             score = hDocEntity[ObjId]
+            score = 1
             if self.Normilize:
 #                 score += Z
                 score -= math.log(float(len(doc.lPosition)))
