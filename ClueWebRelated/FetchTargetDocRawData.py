@@ -40,7 +40,7 @@ def Process(InDir,DocNoIn,OutName):
         if ntpath.basename(FName).replace('.warc.gz','') in sDocPre:
             logging.info('target file [%s]',FName)
             In = warc.open(FName)
-            print 'reading [%s]' %(FName)
+            logging.info('reading [%s]', FName)
             cnt = 0
             try:
                 for r in In:
@@ -74,6 +74,13 @@ if 4 != len(sys.argv):
     print 'ClueWebInDir + TargetDocNo in + output'
     sys.exit()
     
+root = logging.getLogger()
+root.setLevel(logging.INFO)
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+root.addHandler(ch)
     
 Process(sys.argv[1], sys.argv[2], sys.argv[3])                    
                         
