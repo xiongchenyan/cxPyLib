@@ -16,6 +16,11 @@ what's my output:
 
 import sys,warc
 import os
+import ntpath
+from boilerpipe.extract import Extractor
+import logging
+import traceback
+
 
 def WalkDir(InDir):
     lFName = []
@@ -27,18 +32,34 @@ def WalkDir(InDir):
 
 def Process(InDir,DocNoIn,OutName):
     sDocNo = set(open(DocNoIn).read().splitlines())
+    sDocPre = set(['-'.join(DocNo.split('-')[1:3]) for DocNo in sDocNo])
     out = open(OutName,'w')
     lFName  = WalkDir(InDir)
     
     for FName in lFName:
-        In = warc.open(FName)
-        print 'reading [%s]' %(FName)
-        for r in In:
-            if r['warc-trec-id'] in sDocNo:
-                res = ""
-                for line in r.payload:
-                    res += line + ' '
-                print >>out, r['warc-trec-id'] + '\t' + line.strip()
+        if ntpath.basename(FName).replace('.warc.gz','') in sDocPre:
+            logging.info('target file [%s]',FName)
+            In = warc.open(FName)
+            print 'reading [%s]' %(FName)
+            for r in In:
+                if not 'warc-trec-id' in r:
+                    continue
+                DocNo = r['warc-trec-id']
+                if DocNo in sDocNo:
+                    logging.info('get doc [%s]',DocNo)
+                    res = ""
+                    for line in r.payload:
+                        res += line + ' '
+                    try:
+                        extractor = Extractor(extractor='ArticleExtractor',html=res)
+                        text = extractor.getText()
+                        text.replace('\n',' ').replace('\t',' ')
+                        print >>out, DocNo + '\t' + text.encode('ascii','ignore')
+            #             print DocNo + '\t' + text.encode('ascii','ignore')
+                    
+                    except Exception as e:
+                        logging.error(traceback.format_exc())
+                        logging.error(e.message)
 
     out.close()
     print 'finished'
