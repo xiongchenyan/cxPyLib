@@ -25,6 +25,8 @@ def Process(DocIn,OutName):
     In = warc.open(DocIn)
     print 'reading [%s]' %(DocIn)
     for cnt,r in enumerate(In):
+        if not 'warc-trec-id' in r:
+            continue
         DocNo = r['warc-trec-id']
         res = ""
         for line in r.payload:
