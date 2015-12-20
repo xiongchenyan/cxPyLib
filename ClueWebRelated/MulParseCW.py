@@ -15,7 +15,7 @@ what's my output:
 import subprocess
 import os
 import ntpath
-
+import json
 
 def WalkDir(InDir):
     lFName = []
@@ -37,7 +37,7 @@ def Process(InDir,OutDir):
         MidDir = ntpath.dirname(OutName)
         if not os.path.exists(MidDir):
             os.makedirs(MidDir)
-        
+        print 'submitting %s' %(json.dumps(lCmd))
         print subprocess.check_output(lCmd + [fname,OutName])
         
         
