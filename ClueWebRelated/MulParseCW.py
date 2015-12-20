@@ -16,6 +16,13 @@ import subprocess
 import os
 import ntpath
 import json
+import time
+
+def GetRunningJob():
+    OutS = subprocess.check_output(['condor_q','cx'])
+    lLines = OutS.splitlines()
+    lLines = [line for line in lLines if 'cx' in line]
+    return len(lLines)
 
 def WalkDir(InDir):
     lFName = []
@@ -32,13 +39,19 @@ def Process(InDir,OutDir):
     
     
     lCmd = ['qsub','python','ParseClueWebDoc.py']
-    for fname in lFName:
+    for cnt,fname in enumerate(lFName):
         OutName = OutDir + '/' + fname[len(InDir):].replace('.warc.gz','')
         MidDir = ntpath.dirname(OutName)
         if not os.path.exists(MidDir):
             os.makedirs(MidDir)
         print 'submitting %s' %(json.dumps(lCmd))
         print subprocess.check_output(lCmd + [fname,OutName])
+        if 0 == (cnt % 100):
+            while GetRunningJob() > 50:
+                time.sleep(60)
+                print 'wait for 60 s...'
+        
+        
         
         
 import sys
