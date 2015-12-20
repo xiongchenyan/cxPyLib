@@ -43,5 +43,5 @@ if 3 != len(sys.argv):
     sys.exit()
     
     
-Process(sys.argv[1], sys.argv[3])                    
+Process(sys.argv[1], sys.argv[2])                    
                         
