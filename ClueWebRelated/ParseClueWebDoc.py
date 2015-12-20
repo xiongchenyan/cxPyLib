@@ -26,8 +26,10 @@ def Process(DocIn,OutName):
     print 'reading [%s]' %(DocIn)
     for cnt,r in enumerate(In):
         if not 'warc-trec-id' in r:
+            print 'no doc no'
             continue
         DocNo = r['warc-trec-id']
+        print 'get [%s]' %(DocNo)
         res = ""
         for line in r.payload:
             res += line + ' '
