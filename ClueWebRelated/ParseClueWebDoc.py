@@ -17,19 +17,20 @@ what's my output:
 import sys,warc
 from boilerpipe.extract import Extractor
 
-
+import logging
 
 def Process(DocIn,OutName):
     out = open(OutName,'w')
     
     In = warc.open(DocIn)
-    print 'reading [%s]' %(DocIn)
+    logging.info('reading [%s]', DocIn)
     for cnt,r in enumerate(In):
         if not 'warc-trec-id' in r:
-            print 'no doc no'
+            if 0 != cnt:
+                logging.warn('[%d] doc no doc no',cnt)
             continue
         DocNo = r['warc-trec-id']
-        print 'get [%s]' %(DocNo)
+        logging.debug('get [%s]', DocNo)
         res = ""
         for line in r.payload:
             res += line + ' '
@@ -37,11 +38,11 @@ def Process(DocIn,OutName):
         text = extractor.getText()
         try:
             print >>out, DocNo + '\t' + text.encode('ascii','ignore')
-            print DocNo + '\t' + text.encode('ascii','ignore')
+#             print DocNo + '\t' + text.encode('ascii','ignore')
         except (UnicodeDecodeError,UnicodeEncodeError):
-            print '[%s] unicode error' %(DocNo)
-        if 0 == (cnt % 1000):
-            print 'parsed [%d] doc' %(cnt)
+            logging.warn('[%s] unicode error', DocNo)
+        if 0 == (cnt % 100):
+            logging.info('parsed [%d] doc', cnt)
 
     out.close()
     print 'finished'
@@ -51,6 +52,14 @@ if 3 != len(sys.argv):
     print 'ClueWebIn+ output'
     sys.exit()
     
+    
+root = logging.getLogger()
+root.setLevel(logging.INFO)
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+root.addHandler(ch)
     
 Process(sys.argv[1], sys.argv[2])                    
                     
