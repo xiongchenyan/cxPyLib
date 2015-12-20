@@ -10,7 +10,7 @@ what's my input:
     OutPre
 what's my output:
     submit one job for one Dir
-
+Not in use now, parse all B13 is a better idea
 '''
 
 import subprocess,sys

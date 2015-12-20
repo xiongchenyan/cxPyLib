@@ -12,42 +12,38 @@ what's my output:
     DocNo \t raw text (everything)
 
 
+Not in use now, parse all B13 is a better idea
+
 '''
 
 import sys,warc
-import os
-
-def WalkDir(InDir):
-    lFName = []
-    for dirname,dirnames,filenames in os.walk(InDir):
-        for filename in filenames:
-            lFName.append(dirname + "/" + filename)
-    return lFName
+from boilerpipe.extract import Extractor
 
 
-def Process(InDir,DocNoIn,OutName):
-    sDocNo = set(open(DocNoIn).read().splitlines())
+
+def Process(DocIn,OutName):
     out = open(OutName,'w')
-    lFName  = WalkDir(InDir)
     
-    for FName in lFName:
-        In = warc.open(FName)
-        print 'reading [%s]' %(FName)
-        for r in In:
-            if r['warc-trec-id'] in sDocNo:
-                res = ""
-                for line in r.payload:
-                    res += line + ' '
-                print >>out, r['warc-trec-id'] + '\t' + line.strip()
+    In = warc.open(DocIn)
+    print 'reading [%s]' %(DocIn)
+    for cnt,r in enumerate(In):
+        DocNo = r['warc-trec-id']
+        res = ""
+        for line in r.payload:
+            res += line + ' '
+        extractor = Extractor(extractor='ArticleExtractor',html=res)
+        print >>out, DocNo + '\t' + extractor.getText()
+        if 0 == (cnt % 1000):
+            print 'parsed [%d] doc' %(cnt)
 
     out.close()
     print 'finished'
     
-if 4 != len(sys.argv):
-    print 'I get target doc raw data from warc file'
-    print 'ClueWebInDir + TargetDocNo in + output'
+if 3 != len(sys.argv):
+    print 'I get doc text from warc file'
+    print 'ClueWebIn+ output'
     sys.exit()
     
     
-Process(sys.argv[1], sys.argv[2], sys.argv[3])                    
+Process(sys.argv[1], sys.argv[3])                    
                         
