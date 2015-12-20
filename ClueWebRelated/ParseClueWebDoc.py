@@ -37,6 +37,7 @@ def Process(DocIn,OutName):
         text = extractor.getText()
         try:
             print >>out, DocNo + '\t' + text.encode('ascii','ignore')
+            print >>DocNo + '\t' + text.encode('ascii','ignore')
         except (UnicodeDecodeError,UnicodeEncodeError):
             print '[%s] unicode error' %(DocNo)
         if 0 == (cnt % 1000):
