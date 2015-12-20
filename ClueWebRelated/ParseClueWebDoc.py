@@ -18,7 +18,7 @@ import sys,warc
 from boilerpipe.extract import Extractor
 
 import logging
-
+import traceback
 def Process(DocIn,OutName):
     out = open(OutName,'w')
     
@@ -34,13 +34,18 @@ def Process(DocIn,OutName):
         res = ""
         for line in r.payload:
             res += line + ' '
-        extractor = Extractor(extractor='ArticleExtractor',html=res)
-        text = extractor.getText()
+        if len(res) == 0:
+            continue
         try:
+            extractor = Extractor(extractor='ArticleExtractor',html=res)
+            text = extractor.getText()
             print >>out, DocNo + '\t' + text.encode('ascii','ignore')
 #             print DocNo + '\t' + text.encode('ascii','ignore')
-        except (UnicodeDecodeError,UnicodeEncodeError):
-            logging.warn('[%s] unicode error', DocNo)
+        
+        except Exception as e:
+            logging.error(traceback.format_exc())
+            logging.error(e.message)
+            
         if 0 == (cnt % 100):
             logging.info('parsed [%d] doc', cnt)
 

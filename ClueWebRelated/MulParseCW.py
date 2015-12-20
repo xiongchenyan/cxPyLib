@@ -33,7 +33,7 @@ def Process(InDir,OutDir):
     
     lCmd = ['qsub','python','ParseClueWebDoc.py']
     for fname in lFName:
-        OutName = OutDir + '/' + fname[len(InDir):]
+        OutName = OutDir + '/' + fname[len(InDir):].replace('.warc.gz','')
         MidDir = ntpath.dirname(OutName)
         if not os.path.exists(MidDir):
             os.makedirs(MidDir)
