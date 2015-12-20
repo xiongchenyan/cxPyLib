@@ -41,25 +41,30 @@ def Process(InDir,DocNoIn,OutName):
             logging.info('target file [%s]',FName)
             In = warc.open(FName)
             print 'reading [%s]' %(FName)
-            for r in In:
-                if not 'warc-trec-id' in r:
-                    continue
-                DocNo = r['warc-trec-id']
-                if DocNo in sDocNo:
-                    logging.info('get doc [%s]',DocNo)
-                    res = ""
-                    for line in r.payload:
-                        res += line + ' '
-                    try:
-                        extractor = Extractor(extractor='ArticleExtractor',html=res)
-                        text = extractor.getText()
-                        text.replace('\n',' ').replace('\t',' ')
-                        print >>out, DocNo + '\t' + text.encode('ascii','ignore')
-            #             print DocNo + '\t' + text.encode('ascii','ignore')
-                    
-                    except Exception as e:
-                        logging.error(traceback.format_exc())
-                        logging.error(e.message)
+            cnt = 0
+            try:
+                for r in In:
+                    if not 'warc-trec-id' in r:
+                        continue
+                    cnt += 1
+                    DocNo = r['warc-trec-id']
+                    if DocNo in sDocNo:
+                        logging.info('get doc [%s]',DocNo)
+                        res = ""
+                        for line in r.payload:
+                            res += line + ' '
+                        try:
+                            extractor = Extractor(extractor='ArticleExtractor',html=res)
+                            text = extractor.getText()
+                            text.replace('\n',' ').replace('\t',' ')
+                            print >>out, DocNo + '\t' + text.encode('ascii','ignore')
+                #             print DocNo + '\t' + text.encode('ascii','ignore')
+                        
+                        except Exception as e:
+                            logging.error(traceback.format_exc())
+                            logging.error(e.message)
+            except AssertionError:
+                logging.error('[%s] asserction err at [%d] file',FName,cnt)
 
     out.close()
     print 'finished'
