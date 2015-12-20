@@ -32,7 +32,11 @@ def Process(DocIn,OutName):
         for line in r.payload:
             res += line + ' '
         extractor = Extractor(extractor='ArticleExtractor',html=res)
-        print >>out, DocNo + '\t' + extractor.getText()
+        text = extractor.getText()
+        try:
+            print >>out, DocNo + '\t' + text.encode('ascii','ignore')
+        except (UnicodeDecodeError,UnicodeEncodeError):
+            print '[%s] unicode error' %(DocNo)
         if 0 == (cnt % 1000):
             print 'parsed [%d] doc' %(cnt)
 
@@ -46,4 +50,4 @@ if 3 != len(sys.argv):
     
     
 Process(sys.argv[1], sys.argv[2])                    
-                        
+                    
