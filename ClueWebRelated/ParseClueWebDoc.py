@@ -39,6 +39,7 @@ def Process(DocIn,OutName):
         try:
             extractor = Extractor(extractor='ArticleExtractor',html=res)
             text = extractor.getText()
+            text.replace('\n',' ').replace('\t',' ')
             print >>out, DocNo + '\t' + text.encode('ascii','ignore')
 #             print DocNo + '\t' + text.encode('ascii','ignore')
         
