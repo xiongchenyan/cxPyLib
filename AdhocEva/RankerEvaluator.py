@@ -77,7 +77,7 @@ class RankerEvaluatorC(cxBaseC):
                                                             qid,
                                                             lDocNo[i],
                                                             i,
-                                                            len(lDocNo) - i + 1
+                                                            len(lDocNo) - i
                                                             )
                 out.close()
                 logging.info('reranked doc rank outputed to [%s_rank]',EvaOut)
