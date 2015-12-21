@@ -31,6 +31,7 @@ class RankerEvaluatorC(cxBaseC):
         cxBaseC.Init(self)
         self.Searcher = IndriSearchCenterC()
         self.Evaluator = AdhocEvaC()
+        self.OutputRank = True
         
     def SetConf(self, ConfIn):
         cxBaseC.SetConf(self, ConfIn)
@@ -50,13 +51,14 @@ class RankerEvaluatorC(cxBaseC):
         lQidQuery = [line.split('\t') for line in open(QIn).read().splitlines()]
         
         lQEvaRes = []
-        
+        lQRank = []
         for qid,query in lQidQuery:
             lDoc = self.Searcher.RunQuery(query, qid)
             lReRankDocNo = Ranker(qid,query,lDoc)
             EvaRes = self.Evaluator.EvaluatePerQ(qid, query, lReRankDocNo)
             logging.info('q [%s] res: %s',qid,EvaRes.dumps())
             lQEvaRes.append([qid,EvaRes])
+            lQRank.append([qid,lReRankDocNo])
             
         lQEvaRes = AdhocMeasureC.AddMeanEva(lQEvaRes)
         logging.info('mean res: %s',lQEvaRes[-1][1].dumps())
@@ -66,6 +68,20 @@ class RankerEvaluatorC(cxBaseC):
                 print >>out, qid + '\t' + EvaRes.dumps()
             logging.info('evaluated res output to [%s]',EvaOut)
             out.close()
+            
+            if self.OutputRank:
+                out = open(EvaOut + '_rank','w')
+                for qid,lDocNo in lQRank:
+                    for i in range(len(lDocNo)):
+                        print >>out,'%s Q0 %s %d %d rank' %(
+                                                            qid,
+                                                            lDocNo[i],
+                                                            i,
+                                                            len(lDocNo) - i + 1
+                                                            )
+                out.close()
+                logging.info('reranked doc rank outputed to [%s_rank]',EvaOut)
+            
         
         return lQEvaRes
     
