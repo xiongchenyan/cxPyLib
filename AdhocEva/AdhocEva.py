@@ -188,7 +188,8 @@ class AdhocEvaC(cxBaseC):
             out = open(OutName,'w')
             for i in range(len(lQid)):
                 print >> out,"%s\t%s" %(lQid[i],lEvaRes[i].dumps())
-            print >> out,"mean\t%s" %(Mean.dumps())                    
+            print >> out,"mean\t%s" %(Mean.dumps())    
+        print 'Mean:' + Mean.dumps()                
         return lEvaRes
     
     
