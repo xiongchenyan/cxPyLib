@@ -30,7 +30,7 @@ out = open(sys.argv[2],'w')
 sCatBMid = set(lCatBMid)
 for line in open(sys.argv[1]):
     line = line.strip()
-    mid = line.strip('-')[1]
+    mid = line.split('-')[1]
     if mid in sCatBMid:
         print >>out, line
         
