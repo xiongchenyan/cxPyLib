@@ -19,10 +19,10 @@ if 3 != len(sys.argv):
 
 lCatBMid = []
 for i in range(12):
-    lCatBMid.append('en%04d',i)
+    lCatBMid.append('en%04d'%(i))
     
 for i in range(4):
-    lCatBMid.append('enwp%02d',i)
+    lCatBMid.append('enwp%02d'%(i))
     
     
 out = open(sys.argv[2],'w')
