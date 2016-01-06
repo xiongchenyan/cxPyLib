@@ -16,6 +16,7 @@ import sys
 if 3 != len(sys.argv):
     print 'I filter qrel to cat b only'
     print 'in qrel + out'
+    sys.exit()
 
 lCatBMid = []
 for i in range(12):
