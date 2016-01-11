@@ -128,7 +128,7 @@ public class FetchTargetDocHtml {
 	        	  String html = record.getContentUTF8();
 	        	  html = html.replace("\n","\t");
 	        	  out.println(TrecID + '\t' + html);
-	        	  cnt += 1;
+	        	  cnt ++;
 	          }
 	        }  // End warc record
 	        // write out new file
@@ -139,7 +139,7 @@ public class FetchTargetDocHtml {
 	      System.err.println("Caught IOException: " + e.getMessage());        
 	    } 
 
-	    System.out.println(filename + " processed %d doc to " %(cnt) + outputfile); 
+	    System.out.println(filename + " processed " + cnt + " doc to " + outputfile); 
 	    out.close();
 	  } /* end processFile */
   
