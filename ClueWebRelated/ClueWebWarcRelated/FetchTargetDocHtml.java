@@ -116,6 +116,7 @@ public class FetchTargetDocHtml {
 
 	    String current_fullFilePath = outputfile;
 	    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(outputfile, false)));
+	    int cnt = 0;
 	    try {
 	      if (openWarcFileAndGetHeader(filename) ) {      
 	        // new file, start from zero
@@ -127,6 +128,7 @@ public class FetchTargetDocHtml {
 	        	  String html = record.getContentUTF8();
 	        	  html = html.replace("\n","\t");
 	        	  out.println(TrecID + '\t' + html);
+	        	  cnt += 1;
 	          }
 	        }  // End warc record
 	        // write out new file
@@ -137,7 +139,7 @@ public class FetchTargetDocHtml {
 	      System.err.println("Caught IOException: " + e.getMessage());        
 	    } 
 
-	    System.out.println(filename + " processed"); 
+	    System.out.println(filename + " processed %d doc to " %(cnt) + outputfile); 
 	    out.close();
 	  } /* end processFile */
   
