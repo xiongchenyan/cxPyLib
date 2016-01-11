@@ -120,12 +120,11 @@ public class FetchTargetDocHtml {
 	      if (openWarcFileAndGetHeader(filename) ) {      
 	        // new file, start from zero
 	        while ( (record = WarcRecord.readNextWarcRecord(in)) != null) {
-	          recordCounts++;   
 	          RecordURI = record.getHeaderMetadataItem("WARC-Target-URI");
 	          TrecID = record.getHeaderMetadataItem("WARC-TREC-ID");
 
 //	          if (TargetDocNo.contains(TrecID)) {
-	        	  html = record.getContent();
+	        	  String html = record.getContent();
 	        	  html = html.replace("\n","\t");
 	        	  out.println(TrecID + '\t' + html);
 //	          }
@@ -163,10 +162,10 @@ public class FetchTargetDocHtml {
   private void buildTargetDocNoList(String TargetDocNoInName) {
 	  try{
 		  System.out.println("Reading DocNo from:" + TargetDocNoInName);
-		  FileInputStream fstream = new FileInputStream(DuplicateDocIDListFilename);
+		  FileInputStream fstream = new FileInputStream(TargetDocNoInName);
 	      DataInputStream in = new DataInputStream(fstream);
 	      BufferedReader br = new BufferedReader(new InputStreamReader(in));
-	      String StrLine;
+	      String strLine;
 	      TargetDocNo.clear();
 	      while ((strLine = br.readLine()) != null) {
 	    	TargetDocNo.add(strLine);  
@@ -214,7 +213,7 @@ public class FetchTargetDocHtml {
     String OutName         = args[1];
     String TargetDocNoIn = args[2];
     
-    FetchTargetDdocHtml createb13 = new FetchTargetDdocHtml();  
+    FetchTargetDocHtml createb13 = new FetchTargetDocHtml();  
 
 	created13.buildTargetDocNoList(TargetDocNoIn);
 	created13.writeTargetDoc(WarcInName,OutName);
