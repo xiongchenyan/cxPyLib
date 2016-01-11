@@ -5,16 +5,16 @@ Created on Dec 19, 2015 7:41:54 PM
 what I do:
     I fetch target doc's texts
 what's my input:
-    ClueWeb doc (warc)
-    output
+    ClueWeb doc html
+        docno \t html
 what's my output:
-    DocNo \t context
+    DocNo \t content
 
 '''
 
 
 
-import sys,warc
+import sys
 from boilerpipe.extract import Extractor
 
 import logging
@@ -22,22 +22,13 @@ import traceback
 def Process(DocIn,OutName):
     out = open(OutName,'w')
     
-    In = warc.open(DocIn)
     logging.info('reading [%s]', DocIn)
-    for cnt,r in enumerate(In):
-        if not 'warc-trec-id' in r:
-            if 0 != cnt:
-                logging.warn('[%d] doc no doc no',cnt)
-            continue
-        DocNo = r['warc-trec-id']
-        logging.debug('get [%s]', DocNo)
-        res = ""
-        for line in r.payload:
-            res += line + ' '
-        if len(res) == 0:
-            continue
+    for cnt,line in enumerate(open(DocIn)):
+        vCol = line.strip().split('\t')
+        DocNo = vCol[0]
+        RawHtml = ' '.join(vCol[1:])
         try:
-            extractor = Extractor(extractor='ArticleExtractor',html=res)
+            extractor = Extractor(extractor='ArticleExtractor',html=RawHtml)
             text = extractor.getText()
             text.replace('\n',' ').replace('\t',' ')
             print >>out, DocNo + '\t' + text.encode('ascii','ignore')
