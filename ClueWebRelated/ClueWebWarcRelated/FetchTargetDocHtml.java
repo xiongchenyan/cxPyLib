@@ -115,7 +115,7 @@ public class FetchTargetDocHtml {
   public void writeTargetDoc(String filename, String outputfile) throws IOException {
 
 	    String current_fullFilePath = outputfile;
-	    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(outputfile, false)
+	    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(outputfile, false)));
 	    try {
 	      if (openWarcFileAndGetHeader(filename) ) {      
 	        // new file, start from zero
