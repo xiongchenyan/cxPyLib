@@ -55,6 +55,7 @@ def SubmitJavaJobs(InDir,OutDir,TargetDocNoIn):
     cnt = 0
     for fname in lFName:
         key = ntpath.basename(fname).split('.')[0]
+        print '[%s] key [%s]' %(fname,key)
         if not key in sFilePre:
             continue
         OutName = OutDir + '/' + ntpath.basename(fname)
