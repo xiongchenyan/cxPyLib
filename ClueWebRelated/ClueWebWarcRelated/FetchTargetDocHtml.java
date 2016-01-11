@@ -124,7 +124,7 @@ public class FetchTargetDocHtml {
 	          TrecID = record.getHeaderMetadataItem("WARC-TREC-ID");
 
 //	          if (TargetDocNo.contains(TrecID)) {
-	        	  String html = record.getContent();
+	        	  String html = record.getContentUTF8();
 	        	  html = html.replace("\n","\t");
 	        	  out.println(TrecID + '\t' + html);
 //	          }
