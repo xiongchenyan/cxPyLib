@@ -215,7 +215,7 @@ public class FetchTargetDocHtml {
     
     FetchTargetDocHtml createb13 = new FetchTargetDocHtml();  
 
-	created13.buildTargetDocNoList(TargetDocNoIn);
+    createb13.buildTargetDocNoList(TargetDocNoIn);
 	created13.writeTargetDoc(WarcInName,OutName);
 
     System.out.println("");
