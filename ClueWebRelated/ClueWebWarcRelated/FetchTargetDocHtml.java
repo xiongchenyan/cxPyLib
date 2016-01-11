@@ -139,7 +139,7 @@ public class FetchTargetDocHtml {
 	    } 
 
 	    System.out.println(filename + " processed"); 
-	    out.close()
+	    out.close();
 	  } /* end processFile */
   
 
