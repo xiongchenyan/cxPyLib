@@ -123,11 +123,11 @@ public class FetchTargetDocHtml {
 	          RecordURI = record.getHeaderMetadataItem("WARC-Target-URI");
 	          TrecID = record.getHeaderMetadataItem("WARC-TREC-ID");
 
-//	          if (TargetDocNo.contains(TrecID)) {
+	          if (TargetDocNo.contains(TrecID)) {
 	        	  String html = record.getContentUTF8();
 	        	  html = html.replace("\n","\t");
 	        	  out.println(TrecID + '\t' + html);
-//	          }
+	          }
 	        }  // End warc record
 	        // write out new file
 	          closeInWarcFile();
