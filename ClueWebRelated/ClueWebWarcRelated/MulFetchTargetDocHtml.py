@@ -35,7 +35,8 @@ def LoadTargetDocNoAndFormTargetFilePre(TargetDocNoIn):
     lDocNo = open(TargetDocNoIn).read().splitlines()
 #     sDocNo = set(lDocNo)
     
-    lFilePre = ['-'.join(DocNo.split('-')[1:3]) for DocNo in lDocNo]
+    lFilePre = ['-'.join( DocNo.split('-')[1:3] ) for DocNo in lDocNo]
+    print 'target pre: %s' %(json.dumps(lFilePre))
     sFilePre = set(lFilePre)
     
     return sFilePre
@@ -47,7 +48,7 @@ def SubmitJavaJobs(InDir,OutDir,TargetDocNoIn):
     submit jobs for all file in InDir if it has target doc
     '''
     sFilePre = LoadTargetDocNoAndFormTargetFilePre(TargetDocNoIn)
-    print 'Target FilePre: %s' %(json.dumps(sFilePre))
+#     print 'Target FilePre: %s' %(json.dumps(sFilePre))
     lFName = WalkDir(InDir)
     
     lBaseCmd = ['qsub','java','-jar','./FetchTargetDocHtml.jar']
