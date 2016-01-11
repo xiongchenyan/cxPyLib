@@ -187,7 +187,7 @@ public class FetchTargetDocHtml {
    */
   public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-    if  (args.length != 4) {
+    if  (args.length != 3) {
       System.out.println(args.length);
 
       System.out.println("");
