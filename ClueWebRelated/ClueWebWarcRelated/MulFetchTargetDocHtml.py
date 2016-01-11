@@ -51,7 +51,7 @@ def SubmitJavaJobs(InDir,OutDir,TargetDocNoIn):
 #     print 'Target FilePre: %s' %(json.dumps(sFilePre))
     lFName = WalkDir(InDir)
     
-    lBaseCmd = ['qsub','java','-jar','./FetchTargetDocHtml.jar']
+    lBaseCmd = ['qsub','java -jar','./FetchTargetDocHtml.jar']
     cnt = 0
     for fname in lFName:
         key = ntpath.basename(fname).split('.')[0]
