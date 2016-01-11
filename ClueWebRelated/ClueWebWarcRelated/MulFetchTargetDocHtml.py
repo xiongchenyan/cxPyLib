@@ -55,14 +55,14 @@ def SubmitJavaJobs(InDir,OutDir,TargetDocNoIn):
     cnt = 0
     for fname in lFName:
         key = ntpath.basename(fname).split('.')[0]
-        print '[%s] key [%s]' %(fname,key)
+#         print '[%s] key [%s]' %(fname,key)
         if not key in sFilePre:
             continue
         OutName = OutDir + '/' + ntpath.basename(fname)
         lCmd = lBaseCmd + [fname,OutName,TargetDocNoIn]
         print 'submitting %s' %(json.dumps(lCmd))
         print subprocess.check_output(lCmd)
-        cnt += 0
+        cnt += 1
         
     print '[%d] job submited' %(cnt)
     return
