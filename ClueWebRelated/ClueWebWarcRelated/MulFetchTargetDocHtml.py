@@ -33,12 +33,12 @@ from cxBase.WalkDirectory import WalkDir
 
 def LoadTargetDocNoAndFormTargetFilePre(TargetDocNoIn):
     lDocNo = open(TargetDocNoIn).read().splitlines()
-    sDocNo = set(lDocNo)
+#     sDocNo = set(lDocNo)
     
     lFilePre = ['-'.join(DocNo.split('-')[1:3]) for DocNo in lDocNo]
     sFilePre = set(lFilePre)
     
-    return sDocNo,sFilePre
+    return sFilePre
 
 
 
@@ -46,8 +46,8 @@ def SubmitJavaJobs(InDir,OutDir,TargetDocNoIn):
     '''
     submit jobs for all file in InDir if it has target doc
     '''
-    sDocNo,sFilePre = LoadTargetDocNoAndFormTargetFilePre(TargetDocNoIn)
-    
+    sFilePre = LoadTargetDocNoAndFormTargetFilePre(TargetDocNoIn)
+    print 'Target FilePre: %s' %(json.dumps(sFilePre))
     lFName = WalkDir(InDir)
     
     lBaseCmd = ['qsub','java','-jar','./FetchTargetDocHtml.jar']
@@ -56,7 +56,7 @@ def SubmitJavaJobs(InDir,OutDir,TargetDocNoIn):
         key = ntpath.basename(fname).split('.')[0]
         if not key in sFilePre:
             continue
-        OutName = OutDir + ntpath.basename(fname)
+        OutName = OutDir + '/' + ntpath.basename(fname)
         lCmd = lBaseCmd + [fname,OutName,TargetDocNoIn]
         print 'submitting %s' %(json.dumps(lCmd))
         print subprocess.check_output(lCmd)
