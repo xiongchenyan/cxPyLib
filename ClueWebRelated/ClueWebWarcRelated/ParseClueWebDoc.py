@@ -41,7 +41,9 @@ def TextClean(text):
     for i in range(len(lToken)):
         token = filter(lambda x: x.isalnum(), lToken[i])
         lToken[i] = token.lower()
-    return ' '.join(lToken)
+    res = ' '.join(lToken)
+    res = ' '.join(res.split())
+    return res
 
 def Process(DocIn,OutName):
     out = open(OutName,'w')
