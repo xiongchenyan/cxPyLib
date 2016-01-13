@@ -37,10 +37,10 @@ def TextClean(text):
     res = text
     res = filter(lambda x: x in string.printable, res)
     
-    lToken = nltk.word_tokenize(text)
+    lToken = nltk.word_tokenize(res)
     for i in range(len(lToken)):
-        lToken[i] = [s for s in lToken[i] if s.isalnum()]
-        lToken[i] = lToken[i].lower()
+        token = filter(lambda x: x.isalnum(), lToken[i])
+        lToken[i] = token.lower()
     return ' '.join(lToken)
 
 def Process(DocIn,OutName):
