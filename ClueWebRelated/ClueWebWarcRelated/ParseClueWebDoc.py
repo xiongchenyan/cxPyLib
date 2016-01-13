@@ -54,13 +54,16 @@ def Process(DocIn,OutName):
         DocNo = vCol[0]
         RawHtml = ' '.join(vCol[1:])
         RawHtml = DiscardHTMLHeader(RawHtml)
+        if "" == RawHtml:
+            continue
         try:
             extractor = Extractor(extractor='ArticleExtractor',html=RawHtml)
             text = extractor.getText()
             text = text.replace('\n',' ').replace('\t',' ')
             text = text.encode('ascii','ignore')
             text = TextClean(text)
-            print >>out, DocNo + '\t' + text
+            if "" != text:
+                print >>out, DocNo + '\t' + text
 #             print DocNo + '\t' + text.encode('ascii','ignore')
         
         except Exception as e:
