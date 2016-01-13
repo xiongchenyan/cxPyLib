@@ -27,9 +27,9 @@ import string
 import nltk
 
 def DiscardHTMLHeader(RawHtml):
-    p = RawHtml.find('<html')
+    p = RawHtml.lower().find('<html')
     if p == -1:
-        return ""
+        return RawHtml
     res = RawHtml[p:]
     return res
 
@@ -50,13 +50,14 @@ def Process(DocIn,OutName):
     
     logging.info('reading [%s]', DocIn)
     ErrCnt = 0
+    EmptyCnt = 0
     for cnt,line in enumerate(open(DocIn)):
         vCol = line.strip().split('\t')
         DocNo = vCol[0]
         RawHtml = ' '.join(vCol[1:])
         RawHtml = DiscardHTMLHeader(RawHtml)
         if "" == RawHtml:
-            ErrCnt += 1
+            EmptyCnt += 1
             continue
         try:
             extractor = Extractor(extractor='ArticleExtractor',html=RawHtml)
@@ -66,13 +67,15 @@ def Process(DocIn,OutName):
             text = TextClean(text)
             if "" != text:
                 print >>out, DocNo + '\t' + text
+            else:
+                EmptyCnt += 1
 #             print DocNo + '\t' + text.encode('ascii','ignore')
         
         except Exception as e:
             ErrCnt += 1
             
         if 0 == (cnt % 100):
-            logging.info('parsed [%d] doc [%d] Err', cnt,ErrCnt)
+            logging.info('parsed [%d] doc [%d] Err [%d] Empty', cnt,ErrCnt,EmptyCnt)
 
     out.close()
     logging.info('finished [%d] doc [%d] Err', cnt,ErrCnt)
