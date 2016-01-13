@@ -49,12 +49,14 @@ def Process(DocIn,OutName):
     out = open(OutName,'w')
     
     logging.info('reading [%s]', DocIn)
+    ErrCnt = 0
     for cnt,line in enumerate(open(DocIn)):
         vCol = line.strip().split('\t')
         DocNo = vCol[0]
         RawHtml = ' '.join(vCol[1:])
         RawHtml = DiscardHTMLHeader(RawHtml)
         if "" == RawHtml:
+            ErrCnt += 1
             continue
         try:
             extractor = Extractor(extractor='ArticleExtractor',html=RawHtml)
@@ -67,14 +69,13 @@ def Process(DocIn,OutName):
 #             print DocNo + '\t' + text.encode('ascii','ignore')
         
         except Exception as e:
-            logging.error(traceback.format_exc())
-            logging.error(e.message)
+            ErrCnt += 1
             
         if 0 == (cnt % 100):
-            logging.info('parsed [%d] doc', cnt)
+            logging.info('parsed [%d] doc [%d] Err', cnt,ErrCnt)
 
     out.close()
-    print 'finished'
+    logging.info('finished [%d] doc [%d] Err', cnt,ErrCnt)
     
 if 3 != len(sys.argv):
     print 'I get doc text from warc file'
