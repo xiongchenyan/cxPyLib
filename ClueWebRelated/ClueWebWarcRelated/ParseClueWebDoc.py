@@ -3,12 +3,16 @@ Created on Dec 19, 2015 7:41:54 PM
 @author: cx
 
 what I do:
-    I fetch target doc's texts
+    I fetch target doc's contents using boiler pipe
+    1: discard HTML header (those before <html)
+    2: boilerpipe for content
+    3: tokenization, discard non English and not number terms
 what's my input:
     ClueWeb doc html
         docno \t html
 what's my output:
     DocNo \t content
+    
 
 '''
 
@@ -19,6 +23,26 @@ from boilerpipe.extract import Extractor
 
 import logging
 import traceback
+import string
+import nltk
+
+def DiscardHTMLHeader(RawHtml):
+    p = RawHtml.find('<html')
+    if p == -1:
+        return ""
+    res = RawHtml[p:]
+    return res
+
+def TextClean(text):
+    res = text
+    res = filter(lambda x: x in string.printable, res)
+    
+    lToken = nltk.word_tokenize(text)
+    for i in range(len(lToken)):
+        lToken[i] = [s for s in lToken[i] if s.isalnum()]
+        lToken[i] = lToken[i].lower()
+    return ' '.join(lToken)
+
 def Process(DocIn,OutName):
     out = open(OutName,'w')
     
@@ -27,11 +51,14 @@ def Process(DocIn,OutName):
         vCol = line.strip().split('\t')
         DocNo = vCol[0]
         RawHtml = ' '.join(vCol[1:])
+        RawHtml = DiscardHTMLHeader(RawHtml)
         try:
             extractor = Extractor(extractor='ArticleExtractor',html=RawHtml)
             text = extractor.getText()
             text = text.replace('\n',' ').replace('\t',' ')
-            print >>out, DocNo + '\t' + text.encode('ascii','ignore')
+            text = text.encode('ascii','ignore')
+            text = TextClean(text)
+            print >>out, DocNo + '\t' + text
 #             print DocNo + '\t' + text.encode('ascii','ignore')
         
         except Exception as e:
