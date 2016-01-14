@@ -22,6 +22,7 @@ out = open(sys.argv[2],'w')
 ErrCnt  = 0
 for cnt, text in enumerate(open(sys.argv[1])):
     try:
+        text = ''.join([i if ord(i) < 128 else ' ' for i in text.strip()])
         text = text.strip().encode('ascii','ignore')
         text = filter(lambda x: x in string.printable, text)
         print >>out, text
