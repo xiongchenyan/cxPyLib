@@ -23,9 +23,10 @@ ErrCnt  = 0
 for cnt, text in enumerate(open(sys.argv[1])):
     try:
         text = text.strip().encode('ascii','ignore')
-        text = filter(lambda x: x in string.printable, text)
+#         text = filter(lambda x: x in string.printable, text)
         print >>out, text
     except Exception as e:
+        print Exception
         ErrCnt += 1
         
         
